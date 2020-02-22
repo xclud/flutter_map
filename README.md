@@ -2,6 +2,7 @@
 
 A flutter package to view a map widget on mobile apps. Supports Android, iOS, Web and Desktop.
 
+## Getting Started
 
 In your `pubspec.yaml` file add:
 
@@ -15,7 +16,7 @@ Then, in your code import:
 import 'package:map/map.dart';
 ```
 
-### Features
+## Features
 
 Currently these basic features are implemented:
 
@@ -26,6 +27,6 @@ Currently these basic features are implemented:
 More features are yet to come.
 
 
-### Screenshot
+## Screenshot
 
 ![Map Screenshot](https://github.com/xclud/flutter_native_map/raw/master/screenshots/map01.png)
