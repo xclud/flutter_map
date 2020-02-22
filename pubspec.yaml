@@ -1,6 +1,6 @@
 name: map
 description: Map widget for Flutter written in Dart. Supports Android, iOS, Web and Desktop.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/xclud/flutter_map
 
 environment:
