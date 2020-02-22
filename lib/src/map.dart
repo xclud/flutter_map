@@ -7,11 +7,8 @@ import 'provider.dart';
 import 'tile_index.dart';
 
 class Map extends StatefulWidget {
-  final LatLng initialLocation;
-  final double inititialZoom;
-  final Projection projection;
   final MapProvider provider;
-  final int tileSize;
+  final MapController controller;
   final void Function() onTap;
   final void Function(TapDownDetails) onTapDown;
   final void Function(TapUpDetails) onTapUp;
@@ -20,11 +17,8 @@ class Map extends StatefulWidget {
 
   Map(
       {Key key,
-      @required this.initialLocation,
-      this.inititialZoom: 14.0,
-      this.projection: const EPSG4326(),
       this.provider: const GoogleMapProvider(),
-      this.tileSize: 256,
+      @required this.controller,
       this.onTap,
       this.onTapDown,
       this.onTapUp,
@@ -33,28 +27,28 @@ class Map extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new MapState();
+  State<StatefulWidget> createState() => _MapState();
 }
 
-class MapState extends State<Map> {
-  LatLng _location;
-  double _zoom = 14.0;
-
+class _MapState extends State<Map> {
   @override
   void initState() {
-    _location = widget.initialLocation;
-    _zoom = widget.inititialZoom;
     super.initState();
+    widget.controller.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new LayoutBuilder(builder: _build);
+    return LayoutBuilder(builder: _build);
   }
 
   Widget _build(BuildContext context, BoxConstraints constraints) {
-    final tileSize = widget.tileSize;
+    final controller = widget.controller;
+    final tileSize = controller.tileSize;
     final size = constraints.biggest;
+    final projection = controller._projection;
 
     final screenWidth = size.width;
     final screenHeight = size.height;
@@ -62,21 +56,21 @@ class MapState extends State<Map> {
     final centerX = screenWidth / 2.0;
     final centerY = screenHeight / 2.0;
 
-    final scale = pow(2.0, _zoom);
+    final scale = pow(2.0, controller._zoom);
 
-    final norm = widget.projection.fromLngLatToTileIndex(_location);
+    final norm = projection.fromLngLatToTileIndex(controller._location);
     final ttl =
-        new TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
+        TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
 
-    final fixedZoom = (_zoom + 0.0000001).toInt();
+    final fixedZoom = (controller._zoom + 0.0000001).toInt();
     final fixedPowZoom = pow(2, fixedZoom);
 
     final centerTileIndexX = (norm.x * fixedPowZoom).floor();
     final centerTileIndexY = (norm.y * fixedPowZoom).floor();
 
-    final scaleValue = pow(2.0, (_zoom % 1));
+    final scaleValue = pow(2.0, (controller._zoom % 1));
     final tileSizeScaled = tileSize * scaleValue;
-    final numGrids = pow(2.0, _zoom).floor();
+    final numGrids = pow(2.0, controller._zoom).floor();
 
     final numTilesX = (screenWidth / tileSize / 2.0).ceil();
     final numTilesY = (screenHeight / tileSize / 2.0).ceil();
@@ -96,16 +90,17 @@ class MapState extends State<Map> {
         final ox = (i * tileSizeScaled) + centerX - ttl.x;
         final oy = (j * tileSizeScaled) + centerY - ttl.y;
 
-        final tile = widget.provider.getTile(i, j, (_zoom + 0.0000001).floor());
+        final tile = widget.provider
+            .getTile(i, j, (controller._zoom + 0.0000001).floor());
 
-        final child = new Positioned(
-          width: tileSizeScaled,
-          height: tileSizeScaled,
-          left: ox,
-          top: oy,
-          child: new Container(
+        final child = Positioned(
+          width: tileSizeScaled.ceilToDouble(),
+          height: tileSizeScaled.ceilToDouble(),
+          left: ox.floorToDouble(),
+          top: oy.floorToDouble(),
+          child: Container(
             color: Colors.grey,
-            child: new Image(
+            child: Image(
               image: tile,
               fit: BoxFit.fill,
             ),
@@ -116,9 +111,9 @@ class MapState extends State<Map> {
       }
     }
 
-    final stack = new Stack(children: children);
+    final stack = Stack(children: children);
 
-    final gesture = new GestureDetector(
+    final gesture = GestureDetector(
       child: stack,
       onDoubleTap: _onDoubleTap,
       onScaleStart: _onScaleStart,
@@ -134,50 +129,57 @@ class MapState extends State<Map> {
   }
 
   void _onDoubleTap() {
-    setState(() {
-      _zoom += 0.5;
-    });
+    widget.controller.zoom += 0.5;
   }
 
-  Offset dragStart;
-  double scaleStart = 1.0;
+  Offset _dragStart;
+  double _scaleStart = 1.0;
   void _onScaleStart(ScaleStartDetails details) {
-    dragStart = details.focalPoint;
-    scaleStart = 1.0;
+    _dragStart = details.focalPoint;
+    _scaleStart = 1.0;
   }
 
   void _onScaleUpdate(ScaleUpdateDetails details) {
-    final scaleDiff = details.scale - scaleStart;
-    scaleStart = details.scale;
+    final scaleDiff = details.scale - _scaleStart;
+    _scaleStart = details.scale;
 
     if (scaleDiff > 0) {
-      setState(() {
-        _zoom += 0.02;
-      });
+      widget.controller.zoom += 0.02;
     } else if (scaleDiff < 0) {
-      setState(() {
-        _zoom -= 0.02;
-      });
+      widget.controller.zoom -= 0.02;
     } else {
       final now = details.focalPoint;
-      final diff = now - dragStart;
-      dragStart = now;
-      drag(diff.dx, diff.dy);
+      final diff = now - _dragStart;
+      _dragStart = now;
+      widget.controller.drag(diff.dx, diff.dy);
     }
+  }
+}
+
+class MapController extends ChangeNotifier {
+  LatLng _location;
+  double _zoom;
+  double tileSize;
+
+  final _projection = EPSG4326();
+
+  MapController({
+    @required LatLng location,
+    double zoom: 14,
+    this.tileSize: 256,
+  }) {
+    _location = location;
+    _zoom = zoom;
   }
 
   void drag(double dx, double dy) {
-    var tileSize = widget.tileSize;
-
     var scale = pow(2.0, _zoom);
-    final mon = widget.projection.fromLngLatToTileIndex(_location);
+    final mon = _projection.fromLngLatToTileIndex(_location);
 
     mon.x -= (dx / tileSize) / scale;
     mon.y -= (dy / tileSize) / scale;
 
-    setState(() {
-      _location = widget.projection.fromTileIndexToLngLat(mon);
-    });
+    location = _projection.fromTileIndexToLngLat(mon);
   }
 
   LatLng get location {
@@ -185,9 +187,8 @@ class MapState extends State<Map> {
   }
 
   set location(LatLng location) {
-    setState(() {
-      _location = location;
-    });
+    _location = location;
+    notifyListeners();
   }
 
   double get zoom {
@@ -195,9 +196,8 @@ class MapState extends State<Map> {
   }
 
   set zoom(double zoom) {
-    setState(() {
-      _zoom = zoom;
-    });
+    _zoom = zoom;
+    notifyListeners();
   }
 }
 
