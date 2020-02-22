@@ -29,4 +29,4 @@ More features are yet to come.
 
 ## Screenshot
 
-![Map Screenshot](https://github.com/xclud/flutter_native_map/raw/master/screenshots/map01.png)
+![Map Screenshot](screenshots/map01.png)

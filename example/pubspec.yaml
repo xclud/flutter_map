@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  latlong: ^0.6.1
+  latlng: any
   map:
     path: ../
 

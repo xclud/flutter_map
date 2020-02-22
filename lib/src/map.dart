@@ -1,10 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:latlong/latlong.dart';
-import 'projection.dart';
+import 'package:latlng/latlng.dart';
 import 'provider.dart';
-import 'tile_index.dart';
 
 class Map extends StatefulWidget {
   final MapProvider provider;

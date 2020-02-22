@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 void main() => runApp(MyApp());
@@ -7,15 +7,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final controller = MapController(
-      location: LatLng(35.68, 51.41),
-    );
-
-    final map = Map(
-      controller: controller,
-      provider: const CachedGoogleMapProvider(),
-    );
-
     return MaterialApp(
       title: 'Map Demo',
       theme: ThemeData(
@@ -25,7 +16,20 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Map Demo"),
         ),
-        body: map,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+            final controller = MapController(
+              location: LatLng(35.68, 51.41),
+              tileSize: 256 / devicePixelRatio,
+            );
+
+            return Map(
+              controller: controller,
+              provider: const CachedGoogleMapProvider(),
+            );
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.my_location),
           onPressed: () {},
