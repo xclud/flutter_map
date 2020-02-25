@@ -10,3 +10,9 @@
 
 * The package latlong is depricated. Stop using it.
 
+### [0.1.0] - Feb 25, 2020
+
+* Re-write of the example project.
+* Quality of the screenshot has improved.
+* Example project now works in release mode (Needed internet access permission).
+

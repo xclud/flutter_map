@@ -57,8 +57,7 @@ class _MapState extends State<Map> {
     final scale = pow(2.0, controller._zoom);
 
     final norm = projection.fromLngLatToTileIndex(controller._location);
-    final ttl =
-        TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
+    final ttl = TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
 
     final fixedZoom = (controller._zoom + 0.0000001).toInt();
     final fixedPowZoom = pow(2, fixedZoom);
