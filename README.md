@@ -1,4 +1,5 @@
 # map
+[![pub package](https://img.shields.io/pub/v/map.svg)](https://pub.dartlang.org/packages/map)
 
 A flutter package to view a map widget on mobile apps. Supports Android, iOS, Web and Desktop.
 
