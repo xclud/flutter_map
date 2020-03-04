@@ -1,3 +1,7 @@
+### [0.1.0+1] - March 04, 2020
+
+* Fixed the library name.
+
 ### [0.1.0] - Feb 25, 2020
 
 * Re-write of the example project.
