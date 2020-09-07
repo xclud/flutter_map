@@ -75,9 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
           print(
               "Location: ${controller.center.latitude}, ${controller.center.longitude}");
         },
-        child: Map(
-          controller: controller,
-          provider: const CachedGoogleMapProvider(),
+        child: Stack(
+          children: [
+            Map(
+              controller: controller,
+              provider: const CachedGoogleMapProvider(),
+            ),
+            Center(
+              child: Icon(Icons.close, color: Colors.red),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
