@@ -7,22 +7,12 @@ import 'provider.dart';
 class Map extends StatefulWidget {
   final MapProvider provider;
   final MapController controller;
-  final void Function() onTap;
-  final void Function(TapDownDetails) onTapDown;
-  final void Function(TapUpDetails) onTapUp;
-  final void Function() onLongPress;
-  final void Function() onLongPressUp;
 
-  Map(
-      {Key key,
-      this.provider: const GoogleMapProvider(),
-      @required this.controller,
-      this.onTap,
-      this.onTapDown,
-      this.onTapUp,
-      this.onLongPress,
-      this.onLongPressUp})
-      : super(key: key);
+  Map({
+    Key key,
+    this.provider: const GoogleMapProvider(),
+    @required this.controller,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MapState();
@@ -33,7 +23,9 @@ class _MapState extends State<Map> {
   void initState() {
     super.initState();
     widget.controller.addListener(() {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 
@@ -56,7 +48,7 @@ class _MapState extends State<Map> {
 
     final scale = pow(2.0, controller._zoom);
 
-    final norm = projection.fromLngLatToTileIndex(controller._location);
+    final norm = projection.fromLngLatToTileIndex(controller._center);
     final ttl = TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
 
     final fixedZoom = (controller._zoom + 0.0000001).toInt();
@@ -109,52 +101,12 @@ class _MapState extends State<Map> {
     }
 
     final stack = Stack(children: children);
-
-    final gesture = GestureDetector(
-      child: stack,
-      onDoubleTap: _onDoubleTap,
-      onScaleStart: _onScaleStart,
-      onScaleUpdate: _onScaleUpdate,
-      onTap: widget.onTap,
-      onTapDown: widget.onTapDown,
-      onTapUp: widget.onTapUp,
-      onLongPress: widget.onLongPress,
-      onLongPressUp: widget.onLongPressUp,
-    );
-
-    return gesture;
-  }
-
-  void _onDoubleTap() {
-    widget.controller.zoom += 0.5;
-  }
-
-  Offset _dragStart;
-  double _scaleStart = 1.0;
-  void _onScaleStart(ScaleStartDetails details) {
-    _dragStart = details.focalPoint;
-    _scaleStart = 1.0;
-  }
-
-  void _onScaleUpdate(ScaleUpdateDetails details) {
-    final scaleDiff = details.scale - _scaleStart;
-    _scaleStart = details.scale;
-
-    if (scaleDiff > 0) {
-      widget.controller.zoom += 0.02;
-    } else if (scaleDiff < 0) {
-      widget.controller.zoom -= 0.02;
-    } else {
-      final now = details.focalPoint;
-      final diff = now - _dragStart;
-      _dragStart = now;
-      widget.controller.drag(diff.dx, diff.dy);
-    }
+    return stack;
   }
 }
 
 class MapController extends ChangeNotifier {
-  LatLng _location;
+  LatLng _center;
   double _zoom;
   double tileSize;
 
@@ -165,26 +117,37 @@ class MapController extends ChangeNotifier {
     double zoom: 14,
     this.tileSize: 256,
   }) {
-    _location = location;
+    _center = location;
     _zoom = zoom;
   }
 
   void drag(double dx, double dy) {
     var scale = pow(2.0, _zoom);
-    final mon = _projection.fromLngLatToTileIndex(_location);
+    final mon = _projection.fromLngLatToTileIndex(_center);
 
     mon.x -= (dx / tileSize) / scale;
     mon.y -= (dy / tileSize) / scale;
 
-    location = _projection.fromTileIndexToLngLat(mon);
+    center = _projection.fromTileIndexToLngLat(mon);
   }
 
+  @Deprecated('Please use [center].')
   LatLng get location {
-    return _location;
+    return _center;
   }
 
-  set location(LatLng location) {
-    _location = location;
+  @Deprecated('Please use [center].')
+  set location(LatLng center) {
+    _center = center;
+    notifyListeners();
+  }
+
+  LatLng get center {
+    return _center;
+  }
+
+  set center(LatLng center) {
+    _center = center;
     notifyListeners();
   }
 

@@ -27,30 +27,64 @@ class _MyHomePageState extends State<MyHomePage> {
     location: LatLng(35.68, 51.41),
   );
 
-  void _incrementCounter() {
-    controller.location = LatLng(35.68, 51.41);
+  void _gotoDefault() {
+    controller.center = LatLng(35.68, 51.41);
+  }
+
+  void _onDoubleTap() {
+    controller.zoom += 0.5;
+  }
+
+  Offset _dragStart;
+  double _scaleStart = 1.0;
+  void _onScaleStart(ScaleStartDetails details) {
+    _dragStart = details.focalPoint;
+    _scaleStart = 1.0;
+  }
+
+  void _onScaleUpdate(ScaleUpdateDetails details) {
+    final scaleDiff = details.scale - _scaleStart;
+    _scaleStart = details.scale;
+
+    if (scaleDiff > 0) {
+      controller.zoom += 0.02;
+    } else if (scaleDiff < 0) {
+      controller.zoom -= 0.02;
+    } else {
+      final now = details.focalPoint;
+      final diff = now - _dragStart;
+      _dragStart = now;
+      controller.drag(diff.dx, diff.dy);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    controller.tileSize = 256 / devicePixelRatio;
+    //final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    //controller.tileSize = 256 / devicePixelRatio;
 
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text('Map Demo'),
       ),
-      body: Map(
-        controller: controller,
-        provider: const CachedGoogleMapProvider(),
+      body: GestureDetector(
+        onDoubleTap: _onDoubleTap,
+        onScaleStart: _onScaleStart,
+        onScaleUpdate: _onScaleUpdate,
+        onScaleEnd: (details) {
+          print(
+              "Location: ${controller.center.latitude}, ${controller.center.longitude}");
+        },
+        child: Map(
+          controller: controller,
+          provider: const CachedGoogleMapProvider(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _gotoDefault,
         tooltip: 'My Location',
         child: Icon(Icons.my_location),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

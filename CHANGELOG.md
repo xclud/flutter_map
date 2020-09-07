@@ -1,3 +1,7 @@
+### [0.1.1] - September 07, 2020
+
+* Make the widget non-interactive and bring interaction logic to the example project.
+
 ### [0.1.0+1] - March 04, 2020
 
 * Fixed the library name.
