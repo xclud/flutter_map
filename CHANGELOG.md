@@ -1,3 +1,7 @@
+### [0.2.0] - October 23, 2020
+
+* Map widget now tiles `Widget`s instead of `ImageProvider`s [Breaking Change].
+
 ### [0.1.1] - September 07, 2020
 
 * Make the widget non-interactive and bring interaction logic to the example project.
