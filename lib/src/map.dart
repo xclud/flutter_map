@@ -2,15 +2,23 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'provider.dart';
+
+typedef MapTileBuilder = Widget Function(
+    BuildContext context, int x, int y, int z);
 
 class Map extends StatefulWidget {
-  final MapProvider provider;
   final MapController controller;
+  final MapTileBuilder builder;
+  //final Projection projection;
+  //final bool snapToPixels;
+  //final LatLng initialLocation;
 
   Map({
     Key key,
-    this.provider: const GoogleMapProvider(),
+    @required this.builder,
+    // this.projection = const EPSG4326(),
+    // this.snapToPixels = true,
+    // this.initialLocation,
     @required this.controller,
   }) : super(key: key);
 
@@ -79,21 +87,13 @@ class _MapState extends State<Map> {
         final ox = (i * tileSizeScaled) + centerX - ttl.x;
         final oy = (j * tileSizeScaled) + centerY - ttl.y;
 
-        final tile = widget.provider
-            .getTile(i, j, (controller._zoom + 0.0000001).floor());
-
         final child = Positioned(
           width: tileSizeScaled.ceilToDouble(),
           height: tileSizeScaled.ceilToDouble(),
           left: ox.floorToDouble(),
           top: oy.floorToDouble(),
-          child: Container(
-            color: Colors.grey,
-            child: Image(
-              image: tile,
-              fit: BoxFit.fill,
-            ),
-          ),
+          child: widget.builder
+              .call(context, i, j, (controller._zoom + 0.0000001).floor()),
         );
 
         children.add(child);
@@ -131,17 +131,6 @@ class MapController extends ChangeNotifier {
     center = _projection.fromTileIndexToLngLat(mon);
   }
 
-  @Deprecated('Please use [center].')
-  LatLng get location {
-    return _center;
-  }
-
-  @Deprecated('Please use [center].')
-  set location(LatLng center) {
-    _center = center;
-    notifyListeners();
-  }
-
   LatLng get center {
     return _center;
   }
@@ -160,17 +149,3 @@ class MapController extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-// class _MapPainter extends CustomPainter
-// {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     // TODO: implement paint
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) {
-//     // TODO: implement shouldRepaint
-//     throw UnimplementedError();
-//   }
-// }
