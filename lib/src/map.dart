@@ -14,12 +14,12 @@ class Map extends StatefulWidget {
   //final LatLng initialLocation;
 
   Map({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     // this.projection = const EPSG4326(),
     // this.snapToPixels = true,
     // this.initialLocation,
-    @required this.controller,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -113,13 +113,11 @@ class MapController extends ChangeNotifier {
   final _projection = EPSG4326();
 
   MapController({
-    @required LatLng location,
+    required LatLng location,
     double zoom: 14,
     this.tileSize: 256,
-  }) {
-    _center = location;
-    _zoom = zoom;
-  }
+  })  : _center = location,
+        _zoom = zoom;
 
   void drag(double dx, double dy) {
     var scale = pow(2.0, _zoom);

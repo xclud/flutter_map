@@ -1,3 +1,8 @@
+### [0.3.0-nullsafety.0] - December 30, 2020
+
+* Migrate to null-safety.
+
+
 ### [0.2.0] - October 23, 2020
 
 * Map widget now tiles `Widget`s instead of `ImageProvider`s [Breaking Change].
