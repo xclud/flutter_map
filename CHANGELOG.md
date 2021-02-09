@@ -1,3 +1,7 @@
+### [0.3.0] - February 09, 2020
+
+* Migrate to null-safety.
+
 ### [0.3.0-nullsafety.0] - December 30, 2020
 
 * Migrate to null-safety.

@@ -1,16 +1,16 @@
 name: map
 description: Map widget for Flutter written in 100% Dart.
-version: 0.3.0-nullsafety.0
+version: 0.3.0
 homepage: https://pwa.ir
 repository: https://github.com/xclud/flutter_map
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  latlng: ^0.1.0-nullsafety.0
+  latlng: ^0.1.0
 
 dev_dependencies:
   flutter_test:
