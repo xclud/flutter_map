@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     controller.zoom += 0.5;
   }
 
-  Offset _dragStart;
+  Offset? _dragStart;
   double _scaleStart = 1.0;
   void _onScaleStart(ScaleStartDetails details) {
     _dragStart = details.focalPoint;
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       controller.zoom -= 0.02;
     } else {
       final now = details.focalPoint;
-      final diff = now - _dragStart;
+      final diff = now - _dragStart!;
       _dragStart = now;
       controller.drag(diff.dx, diff.dy);
     }
