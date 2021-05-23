@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 
+/// The signature of the [Map] builder function.
 typedef MapTileBuilder = Widget Function(
     BuildContext context, int x, int y, int z);
 
@@ -104,6 +105,7 @@ class _MapState extends State<Map> {
   }
 }
 
+/// A controller to modify the [center] and [zoom] of the [Map].
 class MapController extends ChangeNotifier {
   MapController({
     required LatLng location,
@@ -118,6 +120,7 @@ class MapController extends ChangeNotifier {
   double tileSize;
   final Projection projection;
 
+  /// Drags the map by [dx], [dy] pixels.
   void drag(double dx, double dy) {
     var scale = pow(2.0, _zoom);
     final mon = projection.fromLngLatToTileIndex(_center);
@@ -128,19 +131,23 @@ class MapController extends ChangeNotifier {
     center = projection.fromTileIndexToLngLat(mon);
   }
 
+  /// Gets current center of the [Map].
   LatLng get center {
     return _center;
   }
 
+  /// Sets current center of the [Map].
   set center(LatLng center) {
     _center = center;
     notifyListeners();
   }
 
+  /// Gets current zoom of the [Map].
   double get zoom {
     return _zoom;
   }
 
+  /// Sets current zoom of the [Map].
   set zoom(double zoom) {
     _zoom = zoom;
     notifyListeners();

@@ -4,6 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
+/// Builds a widget tree that can depend on the parent widget's size and
+/// providers a map coordinates transfom helper to its children.
+///
+/// Similar to the [LayoutBuilder] widget.
 class MapLayoutBuilder extends StatelessWidget {
   MapLayoutBuilder({required this.controller, required this.builder});
 
@@ -24,6 +28,7 @@ class MapLayoutBuilder extends StatelessWidget {
   }
 }
 
+/// Helps with converting map coordinates to XY coordinates and vice-versa.
 class MapTransformer {
   MapTransformer._internal({
     required this.controller,
@@ -36,6 +41,7 @@ class MapTransformer {
   final double _width;
   final double _height;
 
+  /// Converts XY coordinates to [LatLng].
   LatLng fromXYCoordsToLatLng(Offset position) {
     final scale = pow(2.0, controller.zoom);
     final centerX = _width / 2.0;
@@ -54,6 +60,7 @@ class MapTransformer {
     return location;
   }
 
+  /// Converts [LatLng] coordinates to XY.
   Offset fromLatLngToXYCoords(LatLng location) {
     final scale = pow(2.0, controller.zoom);
     final centerX = _width / 2.0;
@@ -72,5 +79,6 @@ class MapTransformer {
   }
 }
 
+/// The signature of the [MapLayoutBuilder] builder function.
 typedef MapLayoutWidgetBuilder = Widget Function(
     BuildContext context, MapTransformer transformer);
