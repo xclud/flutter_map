@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
-import 'package:map/src/tap.dart';
 
 typedef MapTileBuilder = Widget Function(
     BuildContext context, int x, int y, int z);
@@ -10,19 +9,11 @@ typedef MapTileBuilder = Widget Function(
 class Map extends StatefulWidget {
   final MapController controller;
   final MapTileBuilder builder;
-  final MapTapCallback? onTap;
-  //final Projection projection;
-  //final bool snapToPixels;
-  //final LatLng initialLocation;
 
   Map({
     Key? key,
     required this.builder,
-    // this.projection = const EPSG4326(),
-    // this.snapToPixels = true,
-    // this.initialLocation,
     required this.controller,
-    this.onTap,
   }) : super(key: key);
 
   @override
@@ -49,7 +40,7 @@ class _MapState extends State<Map> {
     final controller = widget.controller;
     final tileSize = controller.tileSize;
     final size = constraints.biggest;
-    final projection = controller._projection;
+    final projection = controller.projection;
 
     final screenWidth = size.width;
     final screenHeight = size.height;
@@ -74,19 +65,6 @@ class _MapState extends State<Map> {
 
     final numTilesX = (screenWidth / tileSize / 2.0).ceil();
     final numTilesY = (screenHeight / tileSize / 2.0).ceil();
-
-    MapTapDetails ofPoint(TapUpDetails details) {
-      final mon = TileIndex(norm.x, norm.y);
-      final dx = centerX - details.localPosition.dx;
-      final dy = centerY - details.localPosition.dy;
-
-      mon.x -= (dx / tileSize) / scale;
-      mon.y -= (dy / tileSize) / scale;
-
-      final location = projection.fromTileIndexToLngLat(mon);
-
-      return MapTapDetails(details, location);
-    }
 
     final children = <Widget>[];
 
@@ -122,40 +100,32 @@ class _MapState extends State<Map> {
 
     final stack = Stack(children: children);
 
-    return GestureDetector(
-      child: stack,
-      onTapUp: widget.onTap == null
-          ? null
-          : (details) {
-              final args = ofPoint(details);
-              widget.onTap?.call(args);
-            },
-    );
+    return stack;
   }
 }
 
 class MapController extends ChangeNotifier {
-  LatLng _center;
-  double _zoom;
-  double tileSize;
-
-  final _projection = EPSG4326();
-
   MapController({
     required LatLng location,
     double zoom: 14,
+    this.projection: const EPSG4326(),
     this.tileSize: 256,
   })  : _center = location,
         _zoom = zoom;
 
+  LatLng _center;
+  double _zoom;
+  double tileSize;
+  final Projection projection;
+
   void drag(double dx, double dy) {
     var scale = pow(2.0, _zoom);
-    final mon = _projection.fromLngLatToTileIndex(_center);
+    final mon = projection.fromLngLatToTileIndex(_center);
 
     mon.x -= (dx / tileSize) / scale;
     mon.y -= (dy / tileSize) / scale;
 
-    center = _projection.fromTileIndexToLngLat(mon);
+    center = projection.fromTileIndexToLngLat(mon);
   }
 
   LatLng get center {
