@@ -1,3 +1,7 @@
+### [0.4.0] - May 23, 2021
+
+* Implement onTap on Map widget.
+
 ### [0.3.0] - February 09, 2020
 
 * Migrate to null-safety.
