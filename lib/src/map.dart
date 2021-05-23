@@ -76,10 +76,16 @@ class _MapState extends State<Map> {
     final numTilesY = (screenHeight / tileSize / 2.0).ceil();
 
     MapTapDetails ofPoint(TapUpDetails details) {
-      final ti = TileIndex(0, 0);
-      final location = LatLng(0, 0);
+      final mon = TileIndex(norm.x, norm.y);
+      final dx = centerX - details.localPosition.dx;
+      final dy = centerY - details.localPosition.dy;
 
-      return MapTapDetails(details, location, ti);
+      mon.x -= (dx / tileSize) / scale;
+      mon.y -= (dy / tileSize) / scale;
+
+      final location = projection.fromTileIndexToLngLat(mon);
+
+      return MapTapDetails(details, location);
     }
 
     final children = <Widget>[];

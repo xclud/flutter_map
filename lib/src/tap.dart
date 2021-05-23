@@ -9,12 +9,10 @@ import 'package:map/src/map.dart';
 ///  * [Map.onTap], which matches this signature.
 ///  * [TapGestureRecognizer], which uses this signature in one of its callbacks.
 typedef MapTapCallback = void Function(MapTapDetails details);
-typedef MapTapUpCallback = void Function(MapTapDetails details);
 
 class MapTapDetails {
-  MapTapDetails(this.details, this.location, this.tileIndex);
+  MapTapDetails(this.details, this.location);
 
   final TapUpDetails details;
   final LatLng location;
-  final TileIndex tileIndex;
 }

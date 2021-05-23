@@ -89,6 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   fit: BoxFit.cover,
                 );
               },
+              onTap: (details) {
+                print(
+                    '${details.location.longitude}, ${details.location.latitude}');
+              },
             ),
             Center(
               child: Icon(Icons.close, color: Colors.red),
