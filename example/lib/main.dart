@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _gotoDefault() {
     controller.center = LatLng(35.68, 51.41);
+    setState(() {});
   }
 
   void _onDoubleTap() {
@@ -139,9 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       fit: BoxFit.cover,
                     );
                   },
-                ),
-                Positioned(
-                  child: Icon(Icons.close, color: Colors.black),
                 ),
                 homeMarkerWidget,
                 ...markerWidgets,
