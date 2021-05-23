@@ -38,6 +38,7 @@ Currently these basic features are implemented:
 - Drag panning
 - Pinch-zoom
 - Double click zoom
+- OnTap event with geo-location of tapped point.
 
 More features are yet to come.
 
