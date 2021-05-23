@@ -1,3 +1,7 @@
+### [0.9.0] - May 23, 2021
+
+* [Breaking] Adds marker support.
+
 ### [0.4.0] - May 23, 2021
 
 * Implement onTap on Map widget.
