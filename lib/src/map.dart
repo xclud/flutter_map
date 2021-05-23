@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
+import 'package:map/src/tap.dart';
 
 typedef MapTileBuilder = Widget Function(
     BuildContext context, int x, int y, int z);
@@ -9,6 +10,7 @@ typedef MapTileBuilder = Widget Function(
 class Map extends StatefulWidget {
   final MapController controller;
   final MapTileBuilder builder;
+  final MapTapCallback? onTap;
   //final Projection projection;
   //final bool snapToPixels;
   //final LatLng initialLocation;
@@ -20,6 +22,7 @@ class Map extends StatefulWidget {
     // this.snapToPixels = true,
     // this.initialLocation,
     required this.controller,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -72,15 +75,32 @@ class _MapState extends State<Map> {
     final numTilesX = (screenWidth / tileSize / 2.0).ceil();
     final numTilesY = (screenHeight / tileSize / 2.0).ceil();
 
+    MapTapDetails ofPoint(TapUpDetails details) {
+      final mon = TileIndex(norm.x, norm.y);
+      final dx = centerX - details.localPosition.dx;
+      final dy = centerY - details.localPosition.dy;
+
+      mon.x -= (dx / tileSize) / scale;
+      mon.y -= (dy / tileSize) / scale;
+
+      final location = projection.fromTileIndexToLngLat(mon);
+
+      return MapTapDetails(details, location);
+    }
+
     final children = <Widget>[];
 
     for (int i = centerTileIndexX - numTilesX;
         i <= centerTileIndexX + numTilesX;
         i++) {
+      if (i < 0 || i >= numGrids) {
+        continue;
+      }
+
       for (int j = centerTileIndexY - numTilesY;
           j <= centerTileIndexY + numTilesY;
           j++) {
-        if (i < 0 || i >= numGrids || j < 0 || j >= numGrids) {
+        if (j < 0 || j >= numGrids) {
           continue;
         }
 
@@ -101,7 +121,16 @@ class _MapState extends State<Map> {
     }
 
     final stack = Stack(children: children);
-    return stack;
+
+    return GestureDetector(
+      child: stack,
+      onTapUp: widget.onTap == null
+          ? null
+          : (details) {
+              final args = ofPoint(details);
+              widget.onTap?.call(args);
+            },
+    );
   }
 }
 
