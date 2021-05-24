@@ -117,7 +117,11 @@ class MapController extends ChangeNotifier {
 
   LatLng _center;
   double _zoom;
+
+  /// Dimention of the image received/downloaded from the tile source.
   double tileSize;
+
+  /// [Projection] helps with converting [LatLng] to [TileIndex] and vice-versa.
   final Projection projection;
 
   /// Drags the map by [dx], [dy] pixels.
