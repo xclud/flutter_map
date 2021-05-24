@@ -1,5 +1,5 @@
 name: map
-description: Map widget for Flutter written in 100% Dart. Supports Android, iOs, Web and Desktop.
+description: Map widget for Flutter written in 100% Dart. Supports Android, iOS, Web and Desktop.
 version: 0.9.0+1
 homepage: http://pwa.ir
 repository: https://github.com/xclud/flutter_map
