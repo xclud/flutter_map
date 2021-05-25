@@ -1,4 +1,4 @@
-### [0.9.0+1] - May 24, 2021
+### [0.9.0+2] - May 26, 2021
 
 * Improve package score.
 
