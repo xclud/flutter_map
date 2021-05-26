@@ -115,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _buildMarkerWidget(centerLocation, Colors.purple);
 
           return GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onDoubleTap: _onDoubleTap,
             onScaleStart: _onScaleStart,
             onScaleUpdate: _onScaleUpdate,
@@ -129,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
               print('${details.localPosition.dx}, ${details.localPosition.dy}');
             },
             child: Listener(
+              behavior: HitTestBehavior.opaque,
               onPointerSignal: (event) {
                 if (event is PointerScrollEvent) {
                   final delta = event.scrollDelta;
