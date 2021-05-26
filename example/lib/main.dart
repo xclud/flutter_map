@@ -134,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   final delta = event.scrollDelta;
 
                   controller.zoom -= delta.dy / 1000.0;
+                  setState(() {});
                 }
               },
               child: Stack(
