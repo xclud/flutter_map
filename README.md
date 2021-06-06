@@ -3,9 +3,13 @@
 
 A flutter package to view a `Map` widget in Flutter apps.
 
-Map supports variety of raster tile providers including but not limited to Google Maps, Mapbox, OSM Maps and Yandex Maps. In version `0.2.0` of the package i made some changes in the package which opens the possibility of displaying vector tile maps (e.g. MBTiles/MVT/GeoJSON).
+* Map supports variety of tile providers including but not limited to Google Maps, Mapbox, OSM Maps and Yandex Maps and your custom tiles.
 
-> This package supports **caching** out of the box.
+* Rendering of vector tiles (e.g. MBTiles/MVT/GeoJSON) is possible but not officialy supported.
+
+* This package supports **caching** out of the box.
+
+## Demo
 
 [Web Demo](https://xclud.github.io/flutter_map/)
 
@@ -32,8 +36,3 @@ import 'package:map/map.dart';
 ```
 
 Please check out the example project/tab for a working sample.
-
-
-## Screenshot
-
-![Map Screenshot](docs/screenshots/map01.png)

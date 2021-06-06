@@ -1,3 +1,7 @@
+### [1.0.0] - June 06, 2021
+
+* First production ready release.
+
 ### [0.9.0+2] - May 26, 2021
 
 * Improve package score.
