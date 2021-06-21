@@ -44,12 +44,12 @@ Layer _decodeLayer(raw.Layer layer) {
   }).toList();
   List<Feature> features = layer.features.map((feature) {
     final type = _convertGeomType(feature.type);
-    final geometry = _decodeGeometry(feature.geometry, type);
+    final geometry =
+        _decodeGeometry(feature.geometry, type, layer.extent.toDouble());
     final properties = _decodeProperties(layer.keys, values, feature.tags);
 
     return Feature(
       id: feature.id.toInt(),
-      extent: layer.extent,
       geometry: geometry!,
       properties: properties,
     );
@@ -78,19 +78,20 @@ GeometryType _convertGeomType(raw.GeomType rawGeomType) {
   }
 }
 
-Geometry? _decodeGeometry(List<int> geometries, GeometryType type) {
+Geometry? _decodeGeometry(
+    List<int> geometries, GeometryType type, double extent) {
   switch (type) {
     case GeometryType.point:
       List<List<int>> coords = _decodePoint(geometries);
 
       if (coords.length == 1) {
         return Geometry.point(
-            coordinates: coords[0].map((intVal) => intVal.toDouble()).toList());
+            coordinates: coords[0].map((intVal) => intVal / extent).toList());
       }
 
       return Geometry.multiPoint(
           coordinates:
-              coords.map((coord) => coord.map((intVal) => intVal.toDouble()))
+              coords.map((coord) => coord.map((intVal) => intVal / extent))
                   as List<List<double>>);
 
     case GeometryType.lineString:
@@ -100,7 +101,7 @@ Geometry? _decodeGeometry(List<int> geometries, GeometryType type) {
         return Geometry.lineString(
             coordinates: coords[0]
                 .map(
-                  (point) => point.map((intVal) => intVal.toDouble()).toList(),
+                  (point) => point.map((intVal) => intVal / extent).toList(),
                 )
                 .toList());
       }
@@ -109,8 +110,7 @@ Geometry? _decodeGeometry(List<int> geometries, GeometryType type) {
           coordinates: coords
               .map((line) => line
                   .map(
-                    (point) =>
-                        point.map((intVal) => intVal.toDouble()).toList(),
+                    (point) => point.map((intVal) => intVal / extent).toList(),
                   )
                   .toList())
               .toList());
@@ -124,7 +124,7 @@ Geometry? _decodeGeometry(List<int> geometries, GeometryType type) {
                 .map((ring) => ring
                     .map(
                       (point) =>
-                          point.map((intVal) => intVal.toDouble()).toList(),
+                          point.map((intVal) => intVal / extent).toList(),
                     )
                     .toList())
                 .toList());
@@ -136,7 +136,7 @@ Geometry? _decodeGeometry(List<int> geometries, GeometryType type) {
                   .map((ring) => ring
                       .map(
                         (point) =>
-                            point.map((intVal) => intVal.toDouble()).toList(),
+                            point.map((intVal) => intVal / extent).toList(),
                       )
                       .toList())
                   .toList())
@@ -274,19 +274,19 @@ List<List<List<List<int>>>> _decodePolygon(List<int> geometries) {
 }
 
 /// Gets properties from feature tags and key/value pairs got from parent layer
-List<Map<String, Value>> _decodeProperties(
+Map<String, Value> _decodeProperties(
     List<String> keys, List<Value> values, List<int> tags) {
   int length = tags.length;
-  List<Map<String, Value>> properties = [];
+  Map<String, Value> properties = {};
 
-  for (int i = 0; i < length;) {
-    int keyIndex = tags[i];
-    int valueIndex = tags[i + 1];
+  for (int i = 0; i < length; i = i + 2) {
+    final keyIndex = tags[i];
+    final valueIndex = tags[i + 1];
 
-    properties.add({
-      keys[keyIndex]: values[valueIndex],
-    });
-    i = i + 2;
+    final key = keys[keyIndex];
+    final value = values[valueIndex];
+
+    properties[key] = value;
   }
 
   return properties;
