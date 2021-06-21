@@ -18,4 +18,17 @@ class Value {
     this.sintValue,
     this.boolValue,
   });
+
+  @override
+  String toString() {
+    if (floatValue != null) return floatValue!.toString();
+    if (doubleValue != null) return doubleValue!.toString();
+    if (intValue != null) return intValue!.toString();
+    if (uintValue != null) return uintValue!.toString();
+    if (sintValue != null) return sintValue!.toString();
+    if (boolValue != null) return boolValue!.toString();
+    if (stringValue != null) return stringValue!;
+
+    return '';
+  }
 }
