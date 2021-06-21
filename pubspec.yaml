@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   latlng: ^0.1.0
+  protobuf: ^2.0.0
 
 dev_dependencies:
   flutter_test:
