@@ -9,7 +9,11 @@ import 'package:map/map.dart';
 ///
 /// Similar to the [LayoutBuilder] widget.
 class MapLayoutBuilder extends StatelessWidget {
-  MapLayoutBuilder({required this.controller, required this.builder});
+  const MapLayoutBuilder({
+    Key? key,
+    required this.controller,
+    required this.builder,
+  }) : super(key: key);
 
   final MapController controller;
   final MapLayoutWidgetBuilder builder;

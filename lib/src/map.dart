@@ -11,7 +11,7 @@ class Map extends StatefulWidget {
   final MapController controller;
   final MapTileBuilder builder;
 
-  Map({
+  const Map({
     Key? key,
     required this.builder,
     required this.controller,
@@ -109,9 +109,9 @@ class _MapState extends State<Map> {
 class MapController extends ChangeNotifier {
   MapController({
     required LatLng location,
-    double zoom: 14,
-    this.projection: const EPSG4326(),
-    this.tileSize: 256,
+    double zoom = 14,
+    this.projection = const EPSG4326(),
+    this.tileSize = 256,
   })  : _center = location,
         _zoom = zoom;
 

@@ -158,7 +158,7 @@ List<List<int>> _decodePoint(List<int> geometries) {
   List<List<int>> coords = [];
   List<int> point = [];
 
-  geometries.forEach((commandInt) {
+  for (var commandInt in geometries) {
     if (length <= 0) {
       _Command command = _Command.fromInt(commandInt);
 
@@ -181,7 +181,7 @@ List<List<int>> _decodePoint(List<int> geometries) {
       coords.add(point);
       point = [];
     }
-  });
+  }
 
   return coords;
 }
@@ -198,7 +198,7 @@ List<List<List<int>>> _decodeLineString(List<int> geometries) {
   List<List<List<int>>> coords = [];
   List<List<int>> ring = [];
 
-  geometries.forEach((commandInt) {
+  for (var commandInt in geometries) {
     if (length <= 0) {
       _Command command = _Command.fromInt(commandInt);
 
@@ -220,7 +220,7 @@ List<List<List<int>>> _decodeLineString(List<int> geometries) {
       coords.add(ring);
       ring = [];
     }
-  });
+  }
 
   return coords;
 }
@@ -238,7 +238,7 @@ List<List<List<List<int>>>> _decodePolygon(List<int> geometries) {
   List<List<List<int>>> coords = [];
   List<List<int>> ring = [];
 
-  geometries.forEach((commandInt) {
+  for (var commandInt in geometries) {
     if (length <= 0 || commandId == _closePath) {
       _Command command = _Command.fromInt(commandInt);
 
@@ -267,7 +267,7 @@ List<List<List<List<int>>>> _decodePolygon(List<int> geometries) {
         coords = [];
       }
     }
-  });
+  }
 
   polygons.add(coords);
   return polygons;
