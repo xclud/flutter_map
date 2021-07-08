@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ListTile(
             title: Text('Custom Projection'),
-            subtitle: Text('Low we convert LatLng to XY. Useful for games.'),
+            subtitle: Text('How we convert LatLng to XY. Useful for games.'),
             trailing: Icon(Icons.chevron_right_sharp),
             onTap: _showNotImplemented,
             enabled: false,
