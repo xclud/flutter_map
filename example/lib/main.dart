@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ListTile(
             title: Text('Metro Lines'),
-            subtitle: Text('Draw metro line overlays.'),
+            subtitle: Text('Draw polyline overlays.'),
             trailing: Icon(Icons.chevron_right_sharp),
             onTap: _showNotImplemented,
             enabled: false,
