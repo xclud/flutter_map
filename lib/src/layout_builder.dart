@@ -9,13 +9,19 @@ import 'package:map/map.dart';
 ///
 /// Similar to the [LayoutBuilder] widget.
 class MapLayoutBuilder extends StatelessWidget {
+  /// The default constructor.
   const MapLayoutBuilder({
     Key? key,
     required this.controller,
     required this.builder,
   }) : super(key: key);
 
+  /// Map controller which is used in [Map].
   final MapController controller;
+
+  /// Called at layout time to construct the widget tree.
+  ///
+  /// The builder must not return null.
   final MapLayoutWidgetBuilder builder;
 
   @override
@@ -40,7 +46,10 @@ class MapTransformer {
   })  : _width = constraints.biggest.width,
         _height = constraints.biggest.height;
 
+  /// Map controller which is used in [Map].
   final MapController controller;
+
+  /// Constraints of the current widget.
   final BoxConstraints constraints;
   final double _width;
   final double _height;
