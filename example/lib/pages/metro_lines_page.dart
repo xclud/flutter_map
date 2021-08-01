@@ -171,7 +171,25 @@ class PolylinePainter extends CustomPainter {
         var p2 =
             transformer.fromLatLngToXYCoords(line.stations[i + 1].position);
 
-        canvas.drawLine(p1, p2, paint);
+        var dash = line.stations[i].underConstruction ||
+            line.stations[i + 1].underConstruction;
+
+        if (dash) {
+          var dir = (p2 - p1);
+
+          var dist = dir.distance;
+          var dirn = dir / dist;
+
+          var count = (dist / 16).ceil();
+          var step = dist / count;
+
+          for (int i = 0; i < count; i++) {
+            var c = p1 + dirn * (step * i.toDouble());
+            canvas.drawCircle(c, 3, paint);
+          }
+        } else {
+          canvas.drawLine(p1, p2, paint);
+        }
       }
     }
   }
@@ -420,6 +438,7 @@ final _golshahr = MetroStation(
 final _hashtgerd = MetroStation(
   name: 'Hashtgerd',
   position: LatLng(35.961747, 50.684678),
+  underConstruction: true,
 );
 
 final _ghaem = MetroStation(
@@ -528,10 +547,12 @@ final _line5 =
 final _suleqan = MetroStation(
   name: 'Suleqan',
   position: LatLng(35.780236, 51.264058),
+  underConstruction: true,
 );
 final _abshenasan = MetroStation(
   name: 'Ab Shenasan',
   position: LatLng(35.76258472722211, 51.28957651612672),
+  underConstruction: true,
 );
 
 final _shahran = MetroStation(
@@ -581,6 +602,7 @@ final _kargar = MetroStation(
 final _lalehPark = MetroStation(
   name: 'Laleh Park',
   position: LatLng(35.71333682376672, 51.395465331203326),
+  underConstruction: true,
 );
 final _nejatollahi = MetroStation(
   name: 'Nejatollahi',
@@ -600,6 +622,7 @@ final _baharShiraz = MetroStation(
 final _sarbaz = MetroStation(
   name: 'Sarbaz',
   position: LatLng(35.71081625291094, 51.44421054165743),
+  underConstruction: true,
 );
 
 final _shohada = MetroStation(
