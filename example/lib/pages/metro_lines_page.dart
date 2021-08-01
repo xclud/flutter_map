@@ -249,6 +249,22 @@ final _farhangsara = MetroStation(
   name: 'Farhang Sara',
   position: LatLng(35.72971980408225, 51.54679410705018),
 );
+final _eastTerminal = MetroStation(
+  name: 'East Terminal',
+  position: LatLng(35.722140812136395, 51.59488314170198),
+);
+
+final _pardis8 = MetroStation(
+  name: 'Pardis 8',
+  position: LatLng(35.71944722507747, 51.76299576172402),
+  underConstruction: true,
+);
+
+final _pardis3 = MetroStation(
+  name: 'Pardis 3',
+  position: LatLng(35.743169432210856, 51.83866319852903),
+  underConstruction: true,
+);
 
 final _tajrish = MetroStation(
   name: 'Tajrish',
@@ -320,7 +336,10 @@ final _line2 = MetroLine(name: 'Line 2', color: Colors.indigo, stations: [
   _scienceIndustryUniversity,
   _bagheri,
   _tehranPars,
-  _farhangsara
+  _farhangsara,
+  _eastTerminal,
+  _pardis8,
+  _pardis3,
 ]);
 
 final _eramSabz = MetroStation(
@@ -531,8 +550,10 @@ class MetroStation {
   MetroStation({
     required this.name,
     required this.position,
+    this.underConstruction = false,
   });
 
   final String name;
   final LatLng position;
+  final bool underConstruction;
 }
