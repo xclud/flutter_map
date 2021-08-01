@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:latlng/latlng.dart';
 
 class DayNightCalculator {
-  static List<LatLng> calculate(DateTime time, [int resolution = 2]) {
+  static DayNightBorder calculate(DateTime time, [int resolution = 2]) {
     var julianDay = _julian(time.millisecondsSinceEpoch);
     var gst = _gmst(julianDay);
     var latLng = <LatLng>[];
@@ -11,19 +11,13 @@ class DayNightCalculator {
     var sunEclPos = _sunEclipticPosition(julianDay);
     var eclObliq = _eclipticObliquity(julianDay);
     var sunEqPos = _sunEquatorialPosition(sunEclPos.lambda, eclObliq);
-    for (var i = 0; i <= 720 * resolution; i++) {
-      var lng = -360 + i / resolution;
+    for (var i = 0; i <= 360 * resolution; i++) {
+      var lng = -180 + i / resolution;
       var ha = _hourAngle(lng, sunEqPos, gst);
       latLng.add(LatLng(_latitude(ha, sunEqPos), lng));
     }
-    if (sunEqPos.delta < 0) {
-      latLng.insert(0, LatLng(90, -360));
-      latLng.add(LatLng(90, 360));
-    } else {
-      latLng.insert(0, LatLng(-90, -360));
-      latLng.add(LatLng(-90, 360));
-    }
-    return latLng;
+
+    return DayNightBorder._(latLng, sunEqPos.delta);
   }
 }
 
@@ -125,5 +119,11 @@ class _AlphaDelta {
   _AlphaDelta({required this.alpha, required this.delta});
 
   final double alpha;
+  final double delta;
+}
+
+class DayNightBorder {
+  DayNightBorder._(this.polyline, this.delta);
+  final List<LatLng> polyline;
   final double delta;
 }

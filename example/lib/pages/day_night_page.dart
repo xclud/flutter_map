@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/utils/day_night_calculator.dart';
 import 'package:flutter/gestures.dart';
@@ -15,6 +17,17 @@ class _DayNightPageState extends State<DayNightPage> {
     location: LatLng(35.68, 51.41),
     zoom: 4,
   );
+
+  @override
+  void initState() {
+    Timer.periodic(Duration(seconds: 1), (t) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+
+    super.initState();
+  }
 
   void _gotoDefault() {
     controller.center = LatLng(35.68, 51.41);
@@ -54,6 +67,8 @@ class _DayNightPageState extends State<DayNightPage> {
 
   @override
   Widget build(BuildContext context) {
+    var border = DayNightCalculator.calculate(DateTime.now().toUtc());
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Day & Night Map'),
@@ -61,6 +76,33 @@ class _DayNightPageState extends State<DayNightPage> {
       body: MapLayoutBuilder(
         controller: controller,
         builder: (context, transformer) {
+          var big = transformer.constraints.biggest;
+
+          var points = border.polyline
+              .map((e) => transformer.fromLatLngToXYCoords(e))
+              .toList();
+
+          if (border.delta < 0) {
+            var p1 = transformer.fromLatLngToXYCoords(LatLng(90, -180));
+            var p2 = transformer.fromLatLngToXYCoords(LatLng(90, 180));
+
+            points.insert(0, p1);
+            points.add(p2);
+          } else {
+            var p1 = transformer.fromLatLngToXYCoords(LatLng(-90, -180));
+            var p2 = transformer.fromLatLngToXYCoords(LatLng(-90, 180));
+
+            if (p1.dy > big.height) {
+              p1 = Offset(p1.dx, big.height);
+            }
+            if (p2.dy > big.height) {
+              p2 = Offset(p2.dx, big.height);
+            }
+
+            points.insert(0, p1);
+            points.add(p2);
+          }
+
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onDoubleTap: _onDoubleTap,
@@ -91,7 +133,7 @@ class _DayNightPageState extends State<DayNightPage> {
                       );
                     },
                   ),
-                  CustomPaint(painter: DayNightPainter(transformer)),
+                  CustomPaint(painter: DayNightPainter(points)),
                 ],
               ),
             ),
@@ -108,24 +150,34 @@ class _DayNightPageState extends State<DayNightPage> {
 }
 
 class DayNightPainter extends CustomPainter {
-  DayNightPainter(this.transformer);
-
-  final MapTransformer transformer;
+  DayNightPainter(this.points);
+  List<Offset> points;
 
   @override
   void paint(Canvas canvas, Size size) {
-    var latlngs = DayNightCalculator.calculate(DateTime.now());
-    var points =
-        latlngs.map((e) => transformer.fromLatLngToXYCoords(e)).toList();
+    final paint = Paint()
+      ..color = Colors.purple
+      ..strokeWidth = 1;
 
-    points.forEach((element) {
-      canvas.drawCircle(
-          element,
-          3,
-          Paint()
-            ..color = Colors.purple
-            ..strokeWidth = 1);
-    });
+    for (int i = 0; i < points.length - 1; i++) {
+      var p1 = points[i];
+      var p2 = points[i + 1];
+
+      canvas.drawLine(p1, p2, paint);
+    }
+
+    final path = Path();
+
+    path.moveTo(points[0].dx, points[0].dy);
+
+    for (int i = 1; i < points.length; i++) {
+      var p1 = points[i];
+
+      path.lineTo(p1.dx, p1.dy);
+    }
+
+    paint.color = Colors.black26;
+    canvas.drawPath(path, paint);
   }
 
   @override
