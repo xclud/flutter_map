@@ -1,6 +1,7 @@
 import 'package:example/pages/custom_tile_page.dart';
 import 'package:example/pages/interactive_page.dart';
 import 'package:example/pages/markers_page.dart';
+import 'package:example/pages/metro_lines_page.dart';
 import 'package:example/pages/raster_map_page.dart';
 import 'package:example/pages/vector_map_page.dart';
 import 'package:flutter/material.dart';
@@ -67,11 +68,10 @@ class _HomePageState extends State<HomePage> {
             onTap: () => _push(CustomTilePage()),
           ),
           ListTile(
-            title: Text('Metro Lines'),
-            subtitle: Text('Draw polyline overlays.'),
+            title: Text('Metro Lines (Work in Progress)'),
+            subtitle: Text('Draw polyline overlays (Tehran Metro).'),
             trailing: Icon(Icons.chevron_right_sharp),
-            onTap: _showNotImplemented,
-            enabled: false,
+            onTap: () => _push(MetroLinesPage()),
           ),
           ListTile(
             title: Text('Custom Projection'),
