@@ -15,6 +15,15 @@ class _MetroLinesPageState extends State<MetroLinesPage> {
     zoom: 11,
   );
 
+  final stations = <MetroStation>[];
+
+  @override
+  void initState() {
+    var all = _lines.expand((element) => element.stations).toSet();
+    stations.addAll(all);
+    super.initState();
+  }
+
   void _gotoDefault() {
     controller.center = LatLng(35.68, 51.41);
     setState(() {});
@@ -93,6 +102,12 @@ class _MetroLinesPageState extends State<MetroLinesPage> {
                   CustomPaint(
                     painter: PolylinePainter(transformer),
                   ),
+                  ...stations
+                      .map(
+                        (e) =>
+                            _buildStationMarker(e, Colors.black, transformer),
+                      )
+                      .toList(),
                 ],
               ),
             ),
@@ -103,6 +118,37 @@ class _MetroLinesPageState extends State<MetroLinesPage> {
         onPressed: _gotoDefault,
         tooltip: 'My Location',
         child: Icon(Icons.my_location),
+      ),
+    );
+  }
+
+  Widget _buildStationMarker(
+    MetroStation station,
+    Color color,
+    MapTransformer transformer, {
+    IconData icon = Icons.home,
+  }) {
+    var pos = transformer.fromLatLngToXYCoords(station.position);
+
+    return Positioned(
+      left: pos.dx - 12,
+      top: pos.dy - 12,
+      width: 24,
+      height: 24,
+      child: GestureDetector(
+        child: Icon(
+          icon,
+          color: color,
+          size: 24,
+        ),
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text('Station: ${station.name}'),
+            ),
+          );
+        },
       ),
     );
   }
@@ -293,6 +339,18 @@ final _beheshti = MetroStation(
   name: 'Beheshti',
   position: LatLng(35.731010038875134, 51.42708577388299),
 );
+final _mirzaShirazi = MetroStation(
+  name: 'Mirza Shirazi',
+  position: LatLng(35.7281496587392, 51.41725741970027),
+);
+final _jahad = MetroStation(
+  name: 'Jahad',
+  position: LatLng(35.720576180728536, 51.40823450435068),
+);
+final _valiasr = MetroStation(
+  name: 'Valiasr Sq.',
+  position: LatLng(35.712031856801616, 51.407856246768034),
+);
 
 final _kahrizak = MetroStation(
   name: 'Kahrizak',
@@ -308,8 +366,10 @@ final _line1 = MetroLine(name: 'Line 1', color: Colors.red, stations: [
   _tajrish,
   _mirdamad,
   _beheshti,
+  _haftTir,
   _darvazehDowlat,
   _toopkhaneh,
+  _mohamadieh,
   _kahrizak,
   _ika,
 ]);
@@ -404,6 +464,9 @@ final _line3 = MetroLine(name: 'Line 3', color: Colors.blue, stations: [
   _ghodousi,
   _sohrevardi,
   _beheshti,
+  _mirzaShirazi,
+  _jahad,
+  _valiasr,
   _theatre,
   _mahdieh,
   _azadegan,
@@ -413,7 +476,6 @@ final _enghelab = MetroStation(
   name: 'Enghelab',
   position: LatLng(35.70122975656138, 51.389943847765274),
 );
-
 final _theatre = MetroStation(
   name: 'Theatre',
   position: LatLng(35.700975031749934, 51.40537467899397),
@@ -463,6 +525,82 @@ final _line5 =
   _golshahr,
   _hashtgerd,
 ]);
+final _suleqan = MetroStation(
+  name: 'Suleqan',
+  position: LatLng(35.780236, 51.264058),
+);
+final _abshenasan = MetroStation(
+  name: 'Ab Shenasan',
+  position: LatLng(35.76258472722211, 51.28957651612672),
+);
+
+final _shahran = MetroStation(
+  name: 'Shahran',
+  position: LatLng(35.752417, 51.288610),
+);
+final _shahrZiba = MetroStation(
+  name: 'Shahr Ziba',
+  position: LatLng(35.74570658113588, 51.29470367520848),
+);
+final _kashani = MetroStation(
+  name: 'Kashani',
+  position: LatLng(35.74105432499717, 51.30252291344615),
+);
+final _sattari = MetroStation(
+  name: 'Sattari',
+  position: LatLng(35.73689729029617, 51.319949826510474),
+);
+
+final _ashrafi = MetroStation(
+  name: 'Ashrafi',
+  position: LatLng(35.73646907308664, 51.33018449519758),
+);
+final _yadegar = MetroStation(
+  name: 'Yadegar',
+  position: LatLng(35.735010085689325, 51.346161782586876),
+);
+final _marzdaran = MetroStation(
+  name: 'Marzdaran',
+  position: LatLng(35.73458463070642, 51.35946179268246),
+);
+final _azmayesh = MetroStation(
+  name: 'Azmayesh',
+  position: LatLng(35.73157074370065, 51.37143732702147),
+);
+
+final _tarbiatModaresUniversity = MetroStation(
+  name: 'Tarbiat Modares University',
+  position: LatLng(35.72424349366254, 51.38126984903476),
+);
+
+final _kargar = MetroStation(
+  name: 'Kargar',
+  position: LatLng(35.71471307905838, 51.38952461610402),
+);
+
+final _lalehPark = MetroStation(
+  name: 'Laleh Park',
+  position: LatLng(35.71333682376672, 51.395465331203326),
+);
+final _nejatollahi = MetroStation(
+  name: 'Nejatollahi',
+  position: LatLng(35.715388315039576, 51.41461470239434),
+);
+
+final _haftTir = MetroStation(
+  name: 'Haft Tir',
+  position: LatLng(35.71524379966379, 51.426299231471965),
+);
+
+final _baharShiraz = MetroStation(
+  name: 'Bahar Shiraz',
+  position: LatLng(35.71530115570266, 51.43897237567691),
+);
+
+final _sarbaz = MetroStation(
+  name: 'Sarbaz',
+  position: LatLng(35.71081625291094, 51.44421054165743),
+);
 
 final _shohada = MetroStation(
   name: 'Shohada',
@@ -481,10 +619,33 @@ final _dowlatAbad = MetroStation(
 
 final _line6 =
     MetroLine(name: 'Line 6', color: Colors.pink.shade300, stations: [
+  _suleqan,
+  _abshenasan,
+  _shahran,
+  _shahrZiba,
+  _kashani,
+  _sattari,
+  _ashrafi,
+  _yadegar,
+  _marzdaran,
+  _azmayesh,
+  _tarbiatModaresUniversity,
+  _kargar,
+  _lalehPark,
+  _valiasr,
+  _nejatollahi,
+  _haftTir,
+  _baharShiraz,
+  _sarbaz,
+  _emamHossein,
   _shohada,
   _besat,
   _dowlatAbad,
 ]);
+final _mohamadieh = MetroStation(
+  name: 'Mohamadieh',
+  position: LatLng(35.66814530509415, 51.41598286133743),
+);
 
 final _mahdieh = MetroStation(
   name: 'Mahdieh',
@@ -522,6 +683,7 @@ final _sanat = MetroStation(
 );
 
 final _line7 = MetroLine(name: 'Line 7', color: Colors.deepPurple, stations: [
+  _mohamadieh,
   _mahdieh,
   _helalAhmar,
   _beryanak,
@@ -529,6 +691,7 @@ final _line7 = MetroLine(name: 'Line 7', color: Colors.deepPurple, stations: [
   _roodaki,
   _navab,
   _tohid,
+  _tarbiatModaresUniversity,
   _sanat,
 ]);
 
