@@ -1,4 +1,3 @@
-# map
 [![pub package](https://img.shields.io/pub/v/map.svg)](https://pub.dartlang.org/packages/map)
 
 A flutter package to view a `Map` widget in Flutter apps.
@@ -15,11 +14,13 @@ A flutter package to view a `Map` widget in Flutter apps.
 
 ## Supported platforms
 
-* [x] Flutter Android
-* [x] Flutter iOS
-* [x] Flutter Web
-* [x] Flutter Desktop
-
+* [x] Android
+* [x] iOS
+* [x] Web
+* [x] Windows
+* [x] Linux
+* [x] macOS
+* [x] Flutter 3 is supported.
 
 ## Getting Started
 
@@ -29,6 +30,7 @@ In your `pubspec.yaml` file add:
 dependencies:
   map: any
 ```
+
 Then, in your code import:
 
 ```dart
