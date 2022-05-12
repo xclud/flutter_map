@@ -1,3 +1,7 @@
+### [1.0.1] - May 12, 2022
+
+* Added support for Flutter 3.
+
 ### [1.0.0] - June 06, 2021
 
 * First production ready release.

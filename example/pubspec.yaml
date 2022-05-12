@@ -21,7 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   latlng: any
-  cached_network_image: ^3.0.0
+  cached_network_image: ^3.2.0
   map:
     path: ../
 
