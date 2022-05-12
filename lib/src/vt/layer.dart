@@ -1,14 +1,7 @@
-import 'feature.dart';
-import 'value.dart';
+import 'package:map/src/vt/feature.dart';
+import 'package:map/src/vt/value.dart';
 
 class Layer {
-  final String name;
-  final int extent;
-  final int version;
-  final List<String> keys;
-  final List<Value> values;
-  final List<Feature> features;
-
   const Layer({
     required this.name,
     required this.extent,
@@ -17,4 +10,10 @@ class Layer {
     required this.values,
     required this.features,
   });
+  final String name;
+  final int extent;
+  final int version;
+  final List<String> keys;
+  final List<Value> values;
+  final List<Feature> features;
 }

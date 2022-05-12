@@ -5,17 +5,25 @@ import 'package:latlng/latlng.dart';
 
 /// The signature of the [Map] builder function.
 typedef MapTileBuilder = Widget Function(
-    BuildContext context, int x, int y, int z);
+  BuildContext context,
+  int x,
+  int y,
+  int z,
+);
 
 class Map extends StatefulWidget {
-  final MapController controller;
-  final MapTileBuilder builder;
-
+  /// Main constructor.
   const Map({
     Key? key,
     required this.builder,
     required this.controller,
   }) : super(key: key);
+
+  /// Map controller.
+  final MapController controller;
+
+  /// Map tile widget builder.
+  final MapTileBuilder builder;
 
   @override
   State<StatefulWidget> createState() => _MapState();

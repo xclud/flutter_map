@@ -22,7 +22,8 @@ const GeomType$json = const {
 
 /// Descriptor for `GeomType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List geomTypeDescriptor = $convert.base64Decode(
-    'CghHZW9tVHlwZRILCgdVTktOT1dOEAASCQoFUE9JTlQQARIOCgpMSU5FU1RSSU5HEAISCwoHUE9MWUdPThAD');
+  'CghHZW9tVHlwZRILCgdVTktOT1dOEAASCQoFUE9JTlQQARIOCgpMSU5FU1RSSU5HEAISCwoHUE9MWUdPThAD',
+);
 @$core.Deprecated('Use valueDescriptor instead')
 const Value$json = const {
   '1': 'Value',
@@ -104,7 +105,8 @@ const Value$json = const {
 
 /// Descriptor for `Value`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List valueDescriptor = $convert.base64Decode(
-    'CgVWYWx1ZRImCgxzdHJpbmdfdmFsdWUYASABKAlIAFILc3RyaW5nVmFsdWWIAQESJAoLZmxvYXRfdmFsdWUYAiABKAJIAVIKZmxvYXRWYWx1ZYgBARImCgxkb3VibGVfdmFsdWUYAyABKAFIAlILZG91YmxlVmFsdWWIAQESIAoJaW50X3ZhbHVlGAQgASgDSANSCGludFZhbHVliAEBEiIKCnVpbnRfdmFsdWUYBSABKARIBFIJdWludFZhbHVliAEBEiIKCnNpbnRfdmFsdWUYBiABKBJIBVIJc2ludFZhbHVliAEBEiIKCmJvb2xfdmFsdWUYByABKAhIBlIJYm9vbFZhbHVliAEBQg8KDV9zdHJpbmdfdmFsdWVCDgoMX2Zsb2F0X3ZhbHVlQg8KDV9kb3VibGVfdmFsdWVCDAoKX2ludF92YWx1ZUINCgtfdWludF92YWx1ZUINCgtfc2ludF92YWx1ZUINCgtfYm9vbF92YWx1ZQ==');
+  'CgVWYWx1ZRImCgxzdHJpbmdfdmFsdWUYASABKAlIAFILc3RyaW5nVmFsdWWIAQESJAoLZmxvYXRfdmFsdWUYAiABKAJIAVIKZmxvYXRWYWx1ZYgBARImCgxkb3VibGVfdmFsdWUYAyABKAFIAlILZG91YmxlVmFsdWWIAQESIAoJaW50X3ZhbHVlGAQgASgDSANSCGludFZhbHVliAEBEiIKCnVpbnRfdmFsdWUYBSABKARIBFIJdWludFZhbHVliAEBEiIKCnNpbnRfdmFsdWUYBiABKBJIBVIJc2ludFZhbHVliAEBEiIKCmJvb2xfdmFsdWUYByABKAhIBlIJYm9vbFZhbHVliAEBQg8KDV9zdHJpbmdfdmFsdWVCDgoMX2Zsb2F0X3ZhbHVlQg8KDV9kb3VibGVfdmFsdWVCDAoKX2ludF92YWx1ZUINCgtfdWludF92YWx1ZUINCgtfc2ludF92YWx1ZUINCgtfYm9vbF92YWx1ZQ==',
+);
 @$core.Deprecated('Use featureDescriptor instead')
 const Feature$json = const {
   '1': 'Feature',
@@ -145,7 +147,8 @@ const Feature$json = const {
 
 /// Descriptor for `Feature`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List featureDescriptor = $convert.base64Decode(
-    'CgdGZWF0dXJlEhMKAmlkGAEgASgESABSAmlkiAEBEhYKBHRhZ3MYAiADKA1CAhABUgR0YWdzEiYKBHR5cGUYAyABKA4yDS5tYXAuR2VvbVR5cGVIAVIEdHlwZYgBARIeCghnZW9tZXRyeRgEIAMoDUICEAFSCGdlb21ldHJ5QgUKA19pZEIHCgVfdHlwZQ==');
+  'CgdGZWF0dXJlEhMKAmlkGAEgASgESABSAmlkiAEBEhYKBHRhZ3MYAiADKA1CAhABUgR0YWdzEiYKBHR5cGUYAyABKA4yDS5tYXAuR2VvbVR5cGVIAVIEdHlwZYgBARIeCghnZW9tZXRyeRgEIAMoDUICEAFSCGdlb21ldHJ5QgUKA19pZEIHCgVfdHlwZQ==',
+);
 @$core.Deprecated('Use layerDescriptor instead')
 const Layer$json = const {
   '1': 'Layer',
@@ -186,7 +189,8 @@ const Layer$json = const {
 
 /// Descriptor for `Layer`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List layerDescriptor = $convert.base64Decode(
-    'CgVMYXllchIYCgd2ZXJzaW9uGA8gASgNUgd2ZXJzaW9uEhIKBG5hbWUYASABKAlSBG5hbWUSKAoIZmVhdHVyZXMYAiADKAsyDC5tYXAuRmVhdHVyZVIIZmVhdHVyZXMSEgoEa2V5cxgDIAMoCVIEa2V5cxIiCgZ2YWx1ZXMYBCADKAsyCi5tYXAuVmFsdWVSBnZhbHVlcxIbCgZleHRlbnQYBSABKA1IAFIGZXh0ZW50iAEBQgkKB19leHRlbnQ=');
+  'CgVMYXllchIYCgd2ZXJzaW9uGA8gASgNUgd2ZXJzaW9uEhIKBG5hbWUYASABKAlSBG5hbWUSKAoIZmVhdHVyZXMYAiADKAsyDC5tYXAuRmVhdHVyZVIIZmVhdHVyZXMSEgoEa2V5cxgDIAMoCVIEa2V5cxIiCgZ2YWx1ZXMYBCADKAsyCi5tYXAuVmFsdWVSBnZhbHVlcxIbCgZleHRlbnQYBSABKA1IAFIGZXh0ZW50iAEBQgkKB19leHRlbnQ=',
+);
 @$core.Deprecated('Use vectorTileDescriptor instead')
 const VectorTile$json = const {
   '1': 'VectorTile',
@@ -204,4 +208,5 @@ const VectorTile$json = const {
 
 /// Descriptor for `VectorTile`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List vectorTileDescriptor = $convert.base64Decode(
-    'CgpWZWN0b3JUaWxlEiIKBmxheWVycxgDIAMoCzIKLm1hcC5MYXllclIGbGF5ZXJz');
+  'CgpWZWN0b3JUaWxlEiIKBmxheWVycxgDIAMoCzIKLm1hcC5MYXllclIGbGF5ZXJz',
+);

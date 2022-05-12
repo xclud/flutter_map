@@ -10,44 +10,11 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'vector_tile.pbenum.dart';
+import 'package:map/src/vt/generated/vector_tile.pbenum.dart';
 
 export 'vector_tile.pbenum.dart';
 
 class Value extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'Value',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names')
-              ? ''
-              : 'map'),
-      createEmptyInstance: create)
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'stringValue')
-    ..a<$core.double>(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'floatValue',
-        $pb.PbFieldType.OF)
-    ..a<$core.double>(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'doubleValue',
-        $pb.PbFieldType.OD)
-    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'intValue')
-    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uintValue', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sintValue', $pb.PbFieldType.OS6, defaultOrMaker: $fixnum.Int64.ZERO)
-    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'boolValue')
-    ..hasRequiredFields = false;
-
-  Value._() : super();
   factory Value({
     $core.String? stringValue,
     $core.double? floatValue,
@@ -81,12 +48,78 @@ class Value extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Value.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory Value.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Value.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
+  factory Value.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
+      create()..mergeFromBuffer(i, r);
+
+  Value._() : super();
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'Value',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'map',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOS(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'stringValue',
+    )
+    ..a<$core.double>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'floatValue',
+      $pb.PbFieldType.OF,
+    )
+    ..a<$core.double>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'doubleValue',
+      $pb.PbFieldType.OD,
+    )
+    ..aInt64(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'intValue',
+    )
+    ..a<$fixnum.Int64>(
+      5,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'uintValue',
+      $pb.PbFieldType.OU6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
+    ..a<$fixnum.Int64>(
+      6,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'sintValue',
+      $pb.PbFieldType.OS6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
+    ..aOB(
+      7,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'boolValue',
+    )
+    ..hasRequiredFields = false;
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
@@ -193,32 +226,6 @@ class Value extends $pb.GeneratedMessage {
 }
 
 class Feature extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Feature',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names')
-              ? ''
-              : 'map'),
-      createEmptyInstance: create)
-    ..a<$fixnum.Int64>(
-        1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.OU6,
-        defaultOrMaker: $fixnum.Int64.ZERO)
-    ..p<$core.int>(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'tags',
-        $pb.PbFieldType.KU3)
-    ..e<GeomType>(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type',
-        $pb.PbFieldType.OE,
-        defaultOrMaker: GeomType.UNKNOWN,
-        valueOf: GeomType.valueOf,
-        enumValues: GeomType.values)
-    ..p<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'geometry', $pb.PbFieldType.KU3)
-    ..hasRequiredFields = false;
-
-  Feature._() : super();
   factory Feature({
     $fixnum.Int64? id,
     $core.Iterable<$core.int>? tags,
@@ -240,12 +247,60 @@ class Feature extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Feature.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory Feature.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Feature.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
+  factory Feature.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
+      create()..mergeFromBuffer(i, r);
+
+  Feature._() : super();
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'Feature',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'map',
+    ),
+    createEmptyInstance: create,
+  )
+    ..a<$fixnum.Int64>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id',
+      $pb.PbFieldType.OU6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
+    ..p<$core.int>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'tags',
+      $pb.PbFieldType.KU3,
+    )
+    ..e<GeomType>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'type',
+      $pb.PbFieldType.OE,
+      defaultOrMaker: GeomType.UNKNOWN,
+      valueOf: GeomType.valueOf,
+      enumValues: GeomType.values,
+    )
+    ..p<$core.int>(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'geometry',
+      $pb.PbFieldType.KU3,
+    )
+    ..hasRequiredFields = false;
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
@@ -298,35 +353,6 @@ class Feature extends $pb.GeneratedMessage {
 }
 
 class Layer extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'Layer',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names')
-              ? ''
-              : 'map'),
-      createEmptyInstance: create)
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'name')
-    ..pc<Feature>(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'features',
-        $pb.PbFieldType.PM,
-        subBuilder: Feature.create)
-    ..pPS(
-        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'keys')
-    ..pc<Value>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'values', $pb.PbFieldType.PM, subBuilder: Value.create)
-    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'extent', $pb.PbFieldType.OU3)
-    ..a<$core.int>(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version', $pb.PbFieldType.OU3)
-    ..hasRequiredFields = false;
-
-  Layer._() : super();
   factory Layer({
     $core.String? name,
     $core.Iterable<Feature>? features,
@@ -356,12 +382,72 @@ class Layer extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Layer.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory Layer.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Layer.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
+  factory Layer.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
+      create()..mergeFromBuffer(i, r);
+
+  Layer._() : super();
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'Layer',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'map',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOS(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'name',
+    )
+    ..pc<Feature>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'features',
+      $pb.PbFieldType.PM,
+      subBuilder: Feature.create,
+    )
+    ..pPS(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'keys',
+    )
+    ..pc<Value>(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'values',
+      $pb.PbFieldType.PM,
+      subBuilder: Value.create,
+    )
+    ..a<$core.int>(
+      5,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'extent',
+      $pb.PbFieldType.OU3,
+    )
+    ..a<$core.int>(
+      15,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'version',
+      $pb.PbFieldType.OU3,
+    )
+    ..hasRequiredFields = false;
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
@@ -429,25 +515,6 @@ class Layer extends $pb.GeneratedMessage {
 }
 
 class VectorTile extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'VectorTile',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names')
-              ? ''
-              : 'map'),
-      createEmptyInstance: create)
-    ..pc<Layer>(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'layers',
-        $pb.PbFieldType.PM,
-        subBuilder: Layer.create)
-    ..hasRequiredFields = false;
-
-  VectorTile._() : super();
   factory VectorTile({
     $core.Iterable<Layer>? layers,
   }) {
@@ -457,12 +524,38 @@ class VectorTile extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory VectorTile.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(i, r);
-  factory VectorTile.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory VectorTile.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
+  factory VectorTile.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
+      create()..mergeFromBuffer(i, r);
+
+  VectorTile._() : super();
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'VectorTile',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'map',
+    ),
+    createEmptyInstance: create,
+  )
+    ..pc<Layer>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'layers',
+      $pb.PbFieldType.PM,
+      subBuilder: Layer.create,
+    )
+    ..hasRequiredFields = false;
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')

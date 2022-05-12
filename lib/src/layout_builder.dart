@@ -94,4 +94,6 @@ class MapTransformer {
 
 /// The signature of the [MapLayoutBuilder] builder function.
 typedef MapLayoutWidgetBuilder = Widget Function(
-    BuildContext context, MapTransformer transformer);
+  BuildContext context,
+  MapTransformer transformer,
+);

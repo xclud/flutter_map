@@ -14,63 +14,57 @@ abstract class Geometry {
       MultiPointGeometry;
   factory Geometry.lineString({required List<List<double>> coordinates}) =
       LineStringGeometry;
-  factory Geometry.multiLineString(
-          {required List<List<List<double>>> coordinates}) =
-      MultiLineStringGeometry;
+  factory Geometry.multiLineString({
+    required List<List<List<double>>> coordinates,
+  }) = MultiLineStringGeometry;
   factory Geometry.polygon({required List<List<List<double>>> coordinates}) =
       PolygonGeometry;
-  factory Geometry.multiPolygon(
-          {required List<List<List<List<double>>>> coordinates}) =
-      MultiPolygonGeometry;
+  factory Geometry.multiPolygon({
+    required List<List<List<List<double>>>> coordinates,
+  }) = MultiPolygonGeometry;
 
   Geometry._();
 }
 
 /// Point Geometry.
 class PointGeometry extends Geometry {
-  List<double> coordinates;
-
   PointGeometry({
     required this.coordinates,
   }) : super._();
+  List<double> coordinates;
 }
 
 class MultiPointGeometry extends Geometry {
-  List<List<double>> coordinates;
-
   MultiPointGeometry({
     required this.coordinates,
   }) : super._();
+  List<List<double>> coordinates;
 }
 
 class LineStringGeometry extends Geometry {
-  List<List<double>> coordinates;
-
   LineStringGeometry({
     required this.coordinates,
   }) : super._();
+  List<List<double>> coordinates;
 }
 
 class MultiLineStringGeometry extends Geometry {
-  List<List<List<double>>> coordinates;
-
   MultiLineStringGeometry({
     required this.coordinates,
   }) : super._();
+  List<List<List<double>>> coordinates;
 }
 
 class PolygonGeometry extends Geometry {
-  List<List<List<double>>> coordinates;
-
   PolygonGeometry({
     required this.coordinates,
   }) : super._();
+  List<List<List<double>>> coordinates;
 }
 
 class MultiPolygonGeometry extends Geometry {
-  List<List<List<List<double>>>>? coordinates;
-
   MultiPolygonGeometry({
     required this.coordinates,
   }) : super._();
+  List<List<List<List<double>>>>? coordinates;
 }

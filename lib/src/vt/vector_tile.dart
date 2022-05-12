@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'generated/vector_tile.pb.dart' as raw;
-import 'feature.dart';
-import 'geometry.dart';
-import 'layer.dart';
-import 'value.dart';
+import 'package:map/src/vt/generated/vector_tile.pb.dart' as raw;
+import 'package:map/src/vt/feature.dart';
+import 'package:map/src/vt/geometry.dart';
+import 'package:map/src/vt/layer.dart';
+import 'package:map/src/vt/value.dart';
 
 export 'feature.dart';
 export 'geometry.dart';
@@ -16,8 +16,6 @@ const int _lineTo = 2;
 const int _closePath = 7;
 
 class VectorTile {
-  final List<Layer> layers;
-
   const VectorTile({
     required this.layers,
   });
@@ -28,6 +26,8 @@ class VectorTile {
     List<Layer> layers = tile.layers.map(_decodeLayer).toList();
     return VectorTile(layers: layers);
   }
+
+  final List<Layer> layers;
 }
 
 Layer _decodeLayer(raw.Layer layer) {
@@ -79,68 +79,85 @@ GeometryType _convertGeomType(raw.GeomType rawGeomType) {
 }
 
 Geometry? _decodeGeometry(
-    List<int> geometries, GeometryType type, double extent) {
+  List<int> geometries,
+  GeometryType type,
+  double extent,
+) {
   switch (type) {
     case GeometryType.point:
       List<List<int>> coords = _decodePoint(geometries);
 
       if (coords.length == 1) {
         return Geometry.point(
-            coordinates: coords[0].map((intVal) => intVal / extent).toList());
+          coordinates: coords[0].map((intVal) => intVal / extent).toList(),
+        );
       }
 
       return Geometry.multiPoint(
-          coordinates:
-              coords.map((coord) => coord.map((intVal) => intVal / extent))
-                  as List<List<double>>);
+        coordinates:
+            coords.map((coord) => coord.map((intVal) => intVal / extent))
+                as List<List<double>>,
+      );
 
     case GeometryType.lineString:
       List<List<List<int>>> coords = _decodeLineString(geometries);
 
       if (coords.length == 1) {
         return Geometry.lineString(
-            coordinates: coords[0]
-                .map(
-                  (point) => point.map((intVal) => intVal / extent).toList(),
-                )
-                .toList());
+          coordinates: coords[0]
+              .map(
+                (point) => point.map((intVal) => intVal / extent).toList(),
+              )
+              .toList(),
+        );
       }
 
       return Geometry.multiLineString(
-          coordinates: coords
-              .map((line) => line
+        coordinates: coords
+            .map(
+              (line) => line
                   .map(
                     (point) => point.map((intVal) => intVal / extent).toList(),
                   )
-                  .toList())
-              .toList());
+                  .toList(),
+            )
+            .toList(),
+      );
 
     case GeometryType.polygon:
       List<List<List<List<int>>>> coords = _decodePolygon(geometries);
 
       if (coords.length == 1) {
         return Geometry.polygon(
-            coordinates: coords[0]
-                .map((ring) => ring
+          coordinates: coords[0]
+              .map(
+                (ring) => ring
                     .map(
                       (point) =>
                           point.map((intVal) => intVal / extent).toList(),
                     )
-                    .toList())
-                .toList());
+                    .toList(),
+              )
+              .toList(),
+        );
       }
 
       return Geometry.multiPolygon(
-          coordinates: coords
-              .map((polygon) => polygon
-                  .map((ring) => ring
-                      .map(
-                        (point) =>
-                            point.map((intVal) => intVal / extent).toList(),
-                      )
-                      .toList())
-                  .toList())
-              .toList());
+        coordinates: coords
+            .map(
+              (polygon) => polygon
+                  .map(
+                    (ring) => ring
+                        .map(
+                          (point) =>
+                              point.map((intVal) => intVal / extent).toList(),
+                        )
+                        .toList(),
+                  )
+                  .toList(),
+            )
+            .toList(),
+      );
     default:
       return null;
   }
@@ -275,7 +292,10 @@ List<List<List<List<int>>>> _decodePolygon(List<int> geometries) {
 
 /// Gets properties from feature tags and key/value pairs got from parent layer
 Map<String, Value> _decodeProperties(
-    List<String> keys, List<Value> values, List<int> tags) {
+  List<String> keys,
+  List<Value> values,
+  List<int> tags,
+) {
   int length = tags.length;
   Map<String, Value> properties = {};
 
@@ -294,9 +314,6 @@ Map<String, Value> _decodeProperties(
 
 /// Command and its utils
 class _Command {
-  final int id;
-  final int count;
-
   const _Command({required this.id, required this.count});
 
   const _Command.fromInt(int command)
@@ -304,6 +321,9 @@ class _Command {
           id: command & 0x7,
           count: command >> 3,
         );
+
+  final int id;
+  final int count;
 
   // static int zigZagEncode(int val) {
   //   return (val << 1) ^ (val >> 31);
