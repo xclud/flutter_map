@@ -1,6 +1,6 @@
 name: map
 description: Map widget for Flutter written in 100% Dart. Supports Android, iOS, Web and Desktop.
-version: 1.0.1
+version: 1.1.0
 homepage: https://pwa.ir
 repository: https://github.com/xclud/flutter_map
 
@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   latlng: ^0.1.0
-  protobuf: ^2.0.0
-  fixnum: ^1.0.0
+  protobuf: ^2.1.0
+  fixnum: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1

@@ -1,3 +1,8 @@
+### [1.1.0] - June 19, 2022
+
+* Render map in the negative space.
+* Fixes many lint warnings.
+
 ### [1.0.1] - May 12, 2022
 
 * Added support for Flutter 3.
