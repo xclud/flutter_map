@@ -6,16 +6,21 @@ const RESOURCES = {
   "assets/AssetManifest.json": "99914b932bd37a50b983c5e7c90ae93b",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
-"assets/NOTICES": "faac7c4249c0da9c2e4d52362f0cc813",
-"assets/shaders/ink_sparkle.frag": "0c1abbc863e423d4c669c1d2ecd2d31e",
+"assets/NOTICES": "815bbe1dcf94342de588636e340591b1",
+"assets/shaders/ink_sparkle.frag": "03ebde3b2a4853a6adf5e3dffcf8fcab",
+"canvaskit/canvaskit.js": "9d49083c3442cfc15366562eb578b5f3",
+"canvaskit/canvaskit.wasm": "e58017ff67dd1419dbd7b720458fb1af",
+"canvaskit/profiling/canvaskit.js": "dfb57a8542220c772374503baaf2632c",
+"canvaskit/profiling/canvaskit.wasm": "2c16ab2af3d4fbad52da379264e260e8",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
+"flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "8ca718b39b4cb35fe1c7d7ea875d0eee",
-"/": "8ca718b39b4cb35fe1c7d7ea875d0eee",
-"main.dart.js": "5b46d2031ed752d806ea9e86533b97f1",
+"index.html": "9742911aa5b94dd6098c44d8348058fc",
+"/": "9742911aa5b94dd6098c44d8348058fc",
+"main.dart.js": "171fb2222c0fd24d1ce440959053222c",
 "manifest.json": "b4b71688935e404b7550cbedfb32136a",
 "version.json": "ff966ab969ba381b900e61629bfb9789"
 };
@@ -123,9 +128,11 @@ self.addEventListener("fetch", (event) => {
     .then((cache) =>  {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
-        // lazily populate the cache.
+        // lazily populate the cache only if the resource was successfully fetched.
         return response || fetch(event.request).then((response) => {
-          cache.put(event.request, response.clone());
+          if (response && Boolean(response.ok)) {
+            cache.put(event.request, response.clone());
+          }
           return response;
         });
       })
