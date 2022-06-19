@@ -5,11 +5,13 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class MarkersPage extends StatefulWidget {
+  const MarkersPage({Key? key}) : super(key: key);
+
   @override
-  _MarkersPageState createState() => _MarkersPageState();
+  MarkersPageState createState() => MarkersPageState();
 }
 
-class _MarkersPageState extends State<MarkersPage> {
+class MarkersPageState extends State<MarkersPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
   );
@@ -73,7 +75,7 @@ class _MarkersPageState extends State<MarkersPage> {
         onTap: () {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
+            builder: (context) => const AlertDialog(
               content: Text('You have clicked a marker!'),
             ),
           );
@@ -86,7 +88,7 @@ class _MarkersPageState extends State<MarkersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Markers'),
+        title: const Text('Markers'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
@@ -153,7 +155,7 @@ class _MarkersPageState extends State<MarkersPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }

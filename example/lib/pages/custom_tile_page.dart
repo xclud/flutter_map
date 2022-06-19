@@ -4,11 +4,13 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class CustomTilePage extends StatefulWidget {
+  const CustomTilePage({Key? key}) : super(key: key);
+
   @override
-  _CustomTilePageState createState() => _CustomTilePageState();
+  CustomTilePageState createState() => CustomTilePageState();
 }
 
-class _CustomTilePageState extends State<CustomTilePage> {
+class CustomTilePageState extends State<CustomTilePage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
   );
@@ -53,7 +55,7 @@ class _CustomTilePageState extends State<CustomTilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Custom Tiles'),
+        title: const Text('Custom Tiles'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
@@ -100,7 +102,7 @@ class _CustomTilePageState extends State<CustomTilePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }

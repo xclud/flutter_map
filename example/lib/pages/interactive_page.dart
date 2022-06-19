@@ -5,11 +5,13 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class InteractiveMapPage extends StatefulWidget {
+  const InteractiveMapPage({Key? key}) : super(key: key);
+
   @override
-  _InteractiveMapPageState createState() => _InteractiveMapPageState();
+  InteractiveMapPageState createState() => InteractiveMapPageState();
 }
 
-class _InteractiveMapPageState extends State<InteractiveMapPage> {
+class InteractiveMapPageState extends State<InteractiveMapPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
   );
@@ -54,7 +56,7 @@ class _InteractiveMapPageState extends State<InteractiveMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Interactive Map'),
+        title: const Text('Interactive Map'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
@@ -116,7 +118,7 @@ class _InteractiveMapPageState extends State<InteractiveMapPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }

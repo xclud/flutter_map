@@ -7,9 +7,11 @@ import 'package:example/pages/raster_map_page.dart';
 import 'package:example/pages/vector_map_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MapApp());
+void main() => runApp(const MapApp());
 
 class MapApp extends StatelessWidget {
+  const MapApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,12 +19,14 @@ class MapApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
@@ -32,60 +36,61 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map Examples'),
+        title: const Text('Map Examples'),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text('Raster Map'),
-            subtitle: Text('Raster tiles from Google, OSM and etc.'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(RasterMapPage()),
+            title: const Text('Raster Map'),
+            subtitle: const Text('Raster tiles from Google, OSM and etc.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const RasterMapPage()),
           ),
           ListTile(
-            title: Text('Vector Map'),
-            subtitle: Text('OSM light-themed vector maps.'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(VectorMapPage()),
+            title: const Text('Vector Map'),
+            subtitle: const Text('OSM light-themed vector maps.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const VectorMapPage()),
             enabled: false,
           ),
           ListTile(
-            title: Text('Markers'),
+            title: const Text('Markers'),
+            subtitle: const Text(
+                'Drop multiple fixed and centered markers on the map.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const MarkersPage()),
+          ),
+          ListTile(
+            title: const Text('Interactive'),
+            subtitle: const Text('Say where on the earth user has clicked.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const InteractiveMapPage()),
+          ),
+          ListTile(
+            title: const Text('Custom Tiles'),
+            subtitle: const Text('Use any Widget as map tiles.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const CustomTilePage()),
+          ),
+          ListTile(
+            title: const Text('Metro Lines (Work in Progress)'),
+            subtitle: const Text('Draw polyline overlays (Tehran Metro).'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const MetroLinesPage()),
+          ),
+          ListTile(
+            title: const Text('Custom Projection'),
             subtitle:
-                Text('Drop multiple fixed and centered markers on the map.'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(MarkersPage()),
-          ),
-          ListTile(
-            title: Text('Interactive'),
-            subtitle: Text('Say where on the earth user has clicked.'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(InteractiveMapPage()),
-          ),
-          ListTile(
-            title: Text('Custom Tiles'),
-            subtitle: Text('Use any Widget as map tiles.'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(CustomTilePage()),
-          ),
-          ListTile(
-            title: Text('Metro Lines (Work in Progress)'),
-            subtitle: Text('Draw polyline overlays (Tehran Metro).'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(MetroLinesPage()),
-          ),
-          ListTile(
-            title: Text('Custom Projection'),
-            subtitle: Text('How we convert LatLng to XY. Useful for games.'),
-            trailing: Icon(Icons.chevron_right_sharp),
+                const Text('How we convert LatLng to XY. Useful for games.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
             onTap: _showNotImplemented,
             enabled: false,
           ),
           ListTile(
-            title: Text('Day & Night Map'),
-            subtitle: Text('Shows a map for day and night.'),
-            trailing: Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(DayNightPage()),
+            title: const Text('Day & Night Map'),
+            subtitle: const Text('Shows a map for day and night.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const DayNightPage()),
           ),
         ],
       ),
@@ -93,7 +98,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showNotImplemented() {
-    final snackBar =
+    const snackBar =
         SnackBar(content: Text('This demo is not implemented yet.'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

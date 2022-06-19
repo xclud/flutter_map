@@ -5,11 +5,13 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class MetroLinesPage extends StatefulWidget {
+  const MetroLinesPage({Key? key}) : super(key: key);
+
   @override
-  _MetroLinesPageState createState() => _MetroLinesPageState();
+  MetroLinesPageState createState() => MetroLinesPageState();
 }
 
-class _MetroLinesPageState extends State<MetroLinesPage> {
+class MetroLinesPageState extends State<MetroLinesPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
     zoom: 11,
@@ -64,7 +66,7 @@ class _MetroLinesPageState extends State<MetroLinesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tehran Metro'),
+        title: const Text('Tehran Metro'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
@@ -117,7 +119,7 @@ class _MetroLinesPageState extends State<MetroLinesPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }

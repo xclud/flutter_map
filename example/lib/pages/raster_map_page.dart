@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,19 +7,23 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class RasterMapPage extends StatefulWidget {
+  const RasterMapPage({Key? key}) : super(key: key);
+
   @override
-  _RasterMapPageState createState() => _RasterMapPageState();
+  RasterMapPageState createState() => RasterMapPageState();
 }
 
-class _RasterMapPageState extends State<RasterMapPage> {
+class RasterMapPageState extends State<RasterMapPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
+    zoom: 6,
   );
 
   bool _darkMode = false;
 
   void _gotoDefault() {
     controller.center = LatLng(35.68, 51.41);
+    controller.zoom = 14;
     setState(() {});
   }
 
@@ -39,9 +45,13 @@ class _RasterMapPageState extends State<RasterMapPage> {
 
     if (scaleDiff > 0) {
       controller.zoom += 0.02;
+
       setState(() {});
     } else if (scaleDiff < 0) {
       controller.zoom -= 0.02;
+      if (controller.zoom < 1) {
+        controller.zoom = 1;
+      }
       setState(() {});
     } else {
       final now = details.focalPoint;
@@ -56,7 +66,7 @@ class _RasterMapPageState extends State<RasterMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Raster Map'),
+        title: const Text('Raster Map'),
         actions: [
           IconButton(
             tooltip: 'Toggle Dark Mode',
@@ -65,7 +75,7 @@ class _RasterMapPageState extends State<RasterMapPage> {
                 _darkMode = !_darkMode;
               });
             },
-            icon: Icon(Icons.wb_sunny),
+            icon: const Icon(Icons.wb_sunny),
           ),
         ],
       ),
@@ -84,6 +94,10 @@ class _RasterMapPageState extends State<RasterMapPage> {
                   final delta = event.scrollDelta;
 
                   controller.zoom -= delta.dy / 1000.0;
+
+                  if (controller.zoom < 1) {
+                    controller.zoom = 1;
+                  }
                   setState(() {});
                 }
               },
@@ -92,6 +106,18 @@ class _RasterMapPageState extends State<RasterMapPage> {
                   Map(
                     controller: controller,
                     builder: (context, x, y, z) {
+                      final tilesInZoom = pow(2.0, z).floor();
+
+                      while (x < 0) {
+                        x += tilesInZoom;
+                      }
+                      while (y < 0) {
+                        y += tilesInZoom;
+                      }
+
+                      x %= tilesInZoom;
+                      y %= tilesInZoom;
+
                       //Legal notice: This url is only used for demo and educational purposes. You need a license key for production use.
 
                       //Google Maps
@@ -119,7 +145,7 @@ class _RasterMapPageState extends State<RasterMapPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }

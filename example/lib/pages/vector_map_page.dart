@@ -4,11 +4,13 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class VectorMapPage extends StatefulWidget {
+  const VectorMapPage({Key? key}) : super(key: key);
+
   @override
-  _VectorMapPageState createState() => _VectorMapPageState();
+  VectorMapPageState createState() => VectorMapPageState();
 }
 
-class _VectorMapPageState extends State<VectorMapPage> {
+class VectorMapPageState extends State<VectorMapPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
   );
@@ -53,7 +55,7 @@ class _VectorMapPageState extends State<VectorMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vector Map'),
+        title: const Text('Vector Map'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
@@ -100,7 +102,7 @@ class _VectorMapPageState extends State<VectorMapPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }

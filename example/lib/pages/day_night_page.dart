@@ -8,11 +8,13 @@ import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
 class DayNightPage extends StatefulWidget {
+  const DayNightPage({Key? key}) : super(key: key);
+
   @override
-  _DayNightPageState createState() => _DayNightPageState();
+  DayNightPageState createState() => DayNightPageState();
 }
 
-class _DayNightPageState extends State<DayNightPage> {
+class DayNightPageState extends State<DayNightPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
     zoom: 4,
@@ -20,7 +22,7 @@ class _DayNightPageState extends State<DayNightPage> {
 
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 1), (t) {
+    Timer.periodic(const Duration(seconds: 1), (t) {
       if (mounted) {
         setState(() {});
       }
@@ -68,15 +70,17 @@ class _DayNightPageState extends State<DayNightPage> {
   @override
   Widget build(BuildContext context) {
     var border = DayNightCalculator.calculate(DateTime.now().toUtc());
+    var sun = DayNightCalculator.calculateSunPosition(DateTime.now().toUtc());
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Day & Night Map'),
+        title: const Text('Day & Night Map'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
         builder: (context, transformer) {
           var big = transformer.constraints.biggest;
+          final sunPosition = transformer.fromLatLngToXYCoords(sun);
 
           var points = border.polyline
               .map((e) => transformer.fromLatLngToXYCoords(e))
@@ -134,6 +138,15 @@ class _DayNightPageState extends State<DayNightPage> {
                     },
                   ),
                   CustomPaint(painter: DayNightPainter(points)),
+                  Positioned(
+                    left: sunPosition.dx,
+                    top: sunPosition.dy,
+                    child: Container(
+                      color: Colors.yellow,
+                      width: 48,
+                      height: 48,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -143,7 +156,7 @@ class _DayNightPageState extends State<DayNightPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _gotoDefault,
         tooltip: 'My Location',
-        child: Icon(Icons.my_location),
+        child: const Icon(Icons.my_location),
       ),
     );
   }
