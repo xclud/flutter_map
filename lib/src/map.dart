@@ -70,7 +70,7 @@ class _MapState extends State<Map> {
 
     final scaleValue = pow(2.0, (controller._zoom % 1));
     final tileSizeScaled = tileSize * scaleValue;
-    final numGrids = pow(2.0, controller._zoom).floor();
+    //final numGrids = pow(2.0, controller._zoom).floor();
 
     final numTilesX = (screenWidth / tileSize / 2.0).ceil();
     final numTilesY = (screenHeight / tileSize / 2.0).ceil();
@@ -80,17 +80,9 @@ class _MapState extends State<Map> {
     for (int i = centerTileIndexX - numTilesX;
         i <= centerTileIndexX + numTilesX;
         i++) {
-      if (i < 0 || i >= numGrids) {
-        continue;
-      }
-
       for (int j = centerTileIndexY - numTilesY;
           j <= centerTileIndexY + numTilesY;
           j++) {
-        if (j < 0 || j >= numGrids) {
-          continue;
-        }
-
         final ox = (i * tileSizeScaled) + centerX - ttl.x;
         final oy = (j * tileSizeScaled) + centerY - ttl.y;
 
