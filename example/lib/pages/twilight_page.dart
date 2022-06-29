@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
-class DayNightPage extends StatefulWidget {
-  const DayNightPage({Key? key}) : super(key: key);
+class TwilightPage extends StatefulWidget {
+  const TwilightPage({Key? key}) : super(key: key);
 
   @override
-  DayNightPageState createState() => DayNightPageState();
+  TwilightPageState createState() => TwilightPageState();
 }
 
-class DayNightPageState extends State<DayNightPage> {
+class TwilightPageState extends State<TwilightPage> {
   final controller = MapController(
     location: LatLng(35.68, 51.41),
     zoom: 4,

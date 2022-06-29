@@ -1,5 +1,5 @@
 import 'package:example/pages/custom_tile_page.dart';
-import 'package:example/pages/day_night_page.dart';
+import 'package:example/pages/twilight_page.dart';
 import 'package:example/pages/interactive_page.dart';
 import 'package:example/pages/markers_page.dart';
 import 'package:example/pages/metro_lines_page.dart';
@@ -87,10 +87,10 @@ class _HomePageState extends State<HomePage> {
             enabled: false,
           ),
           ListTile(
-            title: const Text('Day & Night Map'),
+            title: const Text('Twilight'),
             subtitle: const Text('Shows a map for day and night.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const DayNightPage()),
+            onTap: () => _push(const TwilightPage()),
           ),
         ],
       ),
