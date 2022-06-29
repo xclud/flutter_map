@@ -93,15 +93,13 @@ class MarkersPageState extends State<MarkersPage> {
       body: MapLayoutBuilder(
         controller: controller,
         builder: (context, transformer) {
-          final markerPositions =
-              markers.map(transformer.fromLatLngToXYCoords).toList();
+          final markerPositions = markers.map(transformer.toOffset).toList();
 
           final markerWidgets = markerPositions.map(
             (pos) => _buildMarkerWidget(pos, Colors.red),
           );
 
-          final homeLocation =
-              transformer.fromLatLngToXYCoords(LatLng(35.68, 51.42));
+          final homeLocation = transformer.toOffset(LatLng(35.68, 51.42));
 
           final homeMarkerWidget =
               _buildMarkerWidget(homeLocation, Colors.black, Icons.home);

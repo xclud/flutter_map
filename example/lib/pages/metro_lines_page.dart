@@ -130,7 +130,7 @@ class MetroLinesPageState extends State<MetroLinesPage> {
     MapTransformer transformer, {
     IconData icon = Icons.home,
   }) {
-    var pos = transformer.fromLatLngToXYCoords(station.position);
+    var pos = transformer.toOffset(station.position);
 
     return Positioned(
       left: pos.dx - 12,
@@ -169,9 +169,8 @@ class PolylinePainter extends CustomPainter {
       paint.color = line.color;
 
       for (int i = 0; i < line.stations.length - 1; i++) {
-        var p1 = transformer.fromLatLngToXYCoords(line.stations[i].position);
-        var p2 =
-            transformer.fromLatLngToXYCoords(line.stations[i + 1].position);
+        var p1 = transformer.toOffset(line.stations[i].position);
+        var p2 = transformer.toOffset(line.stations[i + 1].position);
 
         var dash = line.stations[i].underConstruction ||
             line.stations[i + 1].underConstruction;

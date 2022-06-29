@@ -93,11 +93,20 @@ class RasterMapPageState extends State<RasterMapPage> {
                 if (event is PointerScrollEvent) {
                   final delta = event.scrollDelta;
 
+                  final before = transformer.toLatLng(event.position);
+
                   controller.zoom -= delta.dy / 1000.0;
 
                   if (controller.zoom < 1) {
                     controller.zoom = 1;
                   }
+
+                  final after = transformer.toOffset(before);
+
+                  final diffx = after.dx - event.position.dx;
+                  final diffy = after.dy - event.position.dy;
+
+                  controller.drag(-diffx, -diffy);
                   setState(() {});
                 }
               },

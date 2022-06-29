@@ -59,7 +59,7 @@ class _MapState extends State<Map> {
 
     final scale = pow(2.0, controller._zoom);
 
-    final norm = projection.fromLngLatToTileIndex(controller._center);
+    final norm = projection.toTileIndex(controller._center);
     final ttl = TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
 
     final fixedZoom = (controller._zoom + 0.0000001).toInt();
@@ -127,12 +127,12 @@ class MapController extends ChangeNotifier {
   /// Drags the map by [dx], [dy] pixels.
   void drag(double dx, double dy) {
     var scale = pow(2.0, _zoom);
-    final mon = projection.fromLngLatToTileIndex(_center);
+    final mon = projection.toTileIndex(_center);
 
     mon.x -= (dx / tileSize) / scale;
     mon.y -= (dy / tileSize) / scale;
 
-    center = projection.fromTileIndexToLngLat(mon);
+    center = projection.toLatLng(mon);
   }
 
   /// Gets current center of the [Map].

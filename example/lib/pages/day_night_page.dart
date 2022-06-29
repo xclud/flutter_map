@@ -80,21 +80,20 @@ class DayNightPageState extends State<DayNightPage> {
         controller: controller,
         builder: (context, transformer) {
           var big = transformer.constraints.biggest;
-          final sunPosition = transformer.fromLatLngToXYCoords(sun);
+          final sunPosition = transformer.toOffset(sun);
 
-          var points = border.polyline
-              .map((e) => transformer.fromLatLngToXYCoords(e))
-              .toList();
+          var points =
+              border.polyline.map((e) => transformer.toOffset(e)).toList();
 
           if (border.delta < 0) {
-            var p1 = transformer.fromLatLngToXYCoords(LatLng(90, -180));
-            var p2 = transformer.fromLatLngToXYCoords(LatLng(90, 180));
+            var p1 = transformer.toOffset(LatLng(90, -180));
+            var p2 = transformer.toOffset(LatLng(90, 180));
 
             points.insert(0, p1);
             points.add(p2);
           } else {
-            var p1 = transformer.fromLatLngToXYCoords(LatLng(-90, -180));
-            var p2 = transformer.fromLatLngToXYCoords(LatLng(-90, 180));
+            var p1 = transformer.toOffset(LatLng(-90, -180));
+            var p2 = transformer.toOffset(LatLng(-90, 180));
 
             if (p1.dy > big.height) {
               p1 = Offset(p1.dx, big.height);

@@ -55,11 +55,11 @@ class MapTransformer {
   final double _height;
 
   /// Converts XY coordinates to [LatLng].
-  LatLng fromXYCoordsToLatLng(Offset position) {
+  LatLng toLatLng(Offset position) {
     final scale = pow(2.0, controller.zoom);
     final centerX = _width / 2.0;
     final centerY = _height / 2.0;
-    final norm = controller.projection.fromLngLatToTileIndex(controller.center);
+    final norm = controller.projection.toTileIndex(controller.center);
     final mon = TileIndex(norm.x, norm.y);
 
     final dx = centerX - position.dx;
@@ -68,20 +68,20 @@ class MapTransformer {
     mon.x -= (dx / controller.tileSize) / scale;
     mon.y -= (dy / controller.tileSize) / scale;
 
-    final location = controller.projection.fromTileIndexToLngLat(mon);
+    final location = controller.projection.toLatLng(mon);
 
     return location;
   }
 
   /// Converts [LatLng] coordinates to XY.
-  Offset fromLatLngToXYCoords(LatLng location) {
+  Offset toOffset(LatLng location) {
     final scale = pow(2.0, controller.zoom);
     final centerX = _width / 2.0;
     final centerY = _height / 2.0;
-    final norm = controller.projection.fromLngLatToTileIndex(controller.center);
+    final norm = controller.projection.toTileIndex(controller.center);
     final mon = TileIndex(norm.x, norm.y);
 
-    final l = controller.projection.fromLngLatToTileIndex(location);
+    final l = controller.projection.toTileIndex(location);
 
     final dx = l.x - mon.x;
     final dy = l.y - mon.y;
@@ -89,6 +89,19 @@ class MapTransformer {
     final s = controller.tileSize * scale;
 
     return Offset(centerX + dx * s, centerY + dy * s);
+  }
+
+  void setZoomInPlace(double zoom, Offset position) {
+    final before = toLatLng(position);
+
+    controller.zoom = zoom;
+
+    final after = toOffset(before);
+
+    final diffx = position.dx - after.dx;
+    final diffy = position.dy - after.dy;
+
+    controller.drag(diffx, diffy);
   }
 }
 

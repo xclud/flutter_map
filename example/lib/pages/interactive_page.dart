@@ -67,8 +67,7 @@ class InteractiveMapPageState extends State<InteractiveMapPage> {
             onScaleStart: _onScaleStart,
             onScaleUpdate: _onScaleUpdate,
             onTapUp: (details) {
-              final location =
-                  transformer.fromXYCoordsToLatLng(details.localPosition);
+              final location = transformer.toLatLng(details.localPosition);
 
               //final clicked = transformer.fromLatLngToXYCoords(location);
               //print('${location.longitude}, ${location.latitude}');

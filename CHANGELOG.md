@@ -1,3 +1,8 @@
+### [1.2.0] - June 29, 2022
+
+* Update dependencies.
+* setZoomInPlace function added.
+
 ### [1.1.0] - June 19, 2022
 
 * Render map in the negative space.
