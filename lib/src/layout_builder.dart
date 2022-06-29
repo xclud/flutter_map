@@ -14,7 +14,10 @@ class MapLayoutBuilder extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.builder,
+    this.tileSize = 256,
   }) : super(key: key);
+
+  final double tileSize;
 
   /// Map controller which is used in [Map].
   final MapController controller;
@@ -22,7 +25,10 @@ class MapLayoutBuilder extends StatelessWidget {
   /// Called at layout time to construct the widget tree.
   ///
   /// The builder must not return null.
-  final MapLayoutWidgetBuilder builder;
+  final Widget Function(
+    BuildContext context,
+    MapTransformer transformer,
+  ) builder;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +39,7 @@ class MapLayoutBuilder extends StatelessWidget {
     final transformer = MapTransformer._internal(
       controller: controller,
       constraints: constraints,
+      tileSize: tileSize,
     );
     return builder.call(context, transformer);
   }
@@ -43,41 +50,43 @@ class MapTransformer {
   MapTransformer._internal({
     required this.controller,
     required this.constraints,
-  })  : _width = constraints.biggest.width,
-        _height = constraints.biggest.height;
+    required this.tileSize,
+  })  : _centerX = constraints.biggest.width / 2.0,
+        _centerY = constraints.biggest.height / 2.0;
 
   /// Map controller which is used in [Map].
   final MapController controller;
 
+  final double tileSize;
+
   /// Constraints of the current widget.
   final BoxConstraints constraints;
-  final double _width;
-  final double _height;
+
+  final double _centerX;
+  final double _centerY;
 
   /// Converts XY coordinates to [LatLng].
   LatLng toLatLng(Offset position) {
     final scale = pow(2.0, controller.zoom);
-    final centerX = _width / 2.0;
-    final centerY = _height / 2.0;
+
     final norm = controller.projection.toTileIndex(controller.center);
     final mon = TileIndex(norm.x, norm.y);
 
-    final dx = centerX - position.dx;
-    final dy = centerY - position.dy;
+    final dx = _centerX - position.dx;
+    final dy = _centerY - position.dy;
 
-    mon.x -= (dx / controller.tileSize) / scale;
-    mon.y -= (dy / controller.tileSize) / scale;
+    mon.x -= (dx / tileSize) / scale;
+    mon.y -= (dy / tileSize) / scale;
 
     final location = controller.projection.toLatLng(mon);
 
     return location;
   }
 
-  /// Converts [LatLng] coordinates to XY.
+  /// Converts [LatLng] coordinates to XY [Offset].
   Offset toOffset(LatLng location) {
     final scale = pow(2.0, controller.zoom);
-    final centerX = _width / 2.0;
-    final centerY = _height / 2.0;
+
     final norm = controller.projection.toTileIndex(controller.center);
     final mon = TileIndex(norm.x, norm.y);
 
@@ -86,11 +95,20 @@ class MapTransformer {
     final dx = l.x - mon.x;
     final dy = l.y - mon.y;
 
-    final s = controller.tileSize * scale;
+    final s = tileSize * scale;
 
-    return Offset(centerX + dx * s, centerY + dy * s);
+    return Offset(_centerX + dx * s, _centerY + dy * s);
   }
 
+  Iterable<LatLng> toLatLngMany(Iterable<Offset> positions) {
+    return positions.map((e) => toLatLng(e));
+  }
+
+  Iterable<Offset> toOffsetMany(Iterable<LatLng> locations) {
+    return locations.map((e) => toOffset(e));
+  }
+
+  /// In-place zoom.
   void setZoomInPlace(double zoom, Offset position) {
     final before = toLatLng(position);
 
@@ -101,12 +119,17 @@ class MapTransformer {
     final diffx = position.dx - after.dx;
     final diffy = position.dy - after.dy;
 
-    controller.drag(diffx, diffy);
+    drag(diffx, diffy);
+  }
+
+  /// Drags the map by [dx], [dy] pixels.
+  void drag(double dx, double dy) {
+    var scale = pow(2.0, controller.zoom);
+    final mon = controller.projection.toTileIndex(controller.center);
+
+    mon.x -= (dx / tileSize) / scale;
+    mon.y -= (dy / tileSize) / scale;
+
+    controller.center = controller.projection.toLatLng(mon);
   }
 }
-
-/// The signature of the [MapLayoutBuilder] builder function.
-typedef MapLayoutWidgetBuilder = Widget Function(
-  BuildContext context,
-  MapTransformer transformer,
-);

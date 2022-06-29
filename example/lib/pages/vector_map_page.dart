@@ -36,7 +36,7 @@ class VectorMapPageState extends State<VectorMapPage> {
     _scaleStart = 1.0;
   }
 
-  void _onScaleUpdate(ScaleUpdateDetails details) {
+  void _onScaleUpdate(ScaleUpdateDetails details, MapTransformer transformer) {
     final scaleDiff = details.scale - _scaleStart;
     _scaleStart = details.scale;
 
@@ -50,7 +50,7 @@ class VectorMapPageState extends State<VectorMapPage> {
       final now = details.focalPoint;
       final diff = now - _dragStart!;
       _dragStart = now;
-      controller.drag(diff.dx, diff.dy);
+      transformer.drag(diff.dx, diff.dy);
       setState(() {});
     }
   }
@@ -71,7 +71,7 @@ class VectorMapPageState extends State<VectorMapPage> {
               details.localPosition,
             ),
             onScaleStart: _onScaleStart,
-            onScaleUpdate: _onScaleUpdate,
+            onScaleUpdate: (details) => _onScaleUpdate(details, transformer),
             child: Listener(
               behavior: HitTestBehavior.opaque,
               onPointerSignal: (event) {

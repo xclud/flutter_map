@@ -3,27 +3,22 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 
-/// The signature of the [Map] builder function.
-typedef MapTileBuilder = Widget Function(
-  BuildContext context,
-  int x,
-  int y,
-  int z,
-);
-
 class Map extends StatefulWidget {
   /// Main constructor.
   const Map({
     Key? key,
     required this.builder,
     required this.controller,
+    this.tileSize = 256,
   }) : super(key: key);
 
   /// Map controller.
   final MapController controller;
 
   /// Map tile widget builder.
-  final MapTileBuilder builder;
+  final Widget Function(BuildContext context, int x, int y, int z) builder;
+
+  final double tileSize;
 
   @override
   State<StatefulWidget> createState() => _MapState();
@@ -47,7 +42,7 @@ class _MapState extends State<Map> {
 
   Widget _build(BuildContext context, BoxConstraints constraints) {
     final controller = widget.controller;
-    final tileSize = controller.tileSize;
+    final tileSize = widget.tileSize;
     final size = constraints.biggest;
     final projection = controller.projection;
 
@@ -111,29 +106,14 @@ class MapController extends ChangeNotifier {
     required LatLng location,
     double zoom = 14,
     this.projection = const EPSG4326(),
-    this.tileSize = 256,
   })  : _center = location,
         _zoom = zoom;
 
   LatLng _center;
   double _zoom;
 
-  /// Dimention of the image received/downloaded from the tile source.
-  double tileSize;
-
   /// [Projection] helps with converting [LatLng] to [TileIndex] and vice-versa.
   final Projection projection;
-
-  /// Drags the map by [dx], [dy] pixels.
-  void drag(double dx, double dy) {
-    var scale = pow(2.0, _zoom);
-    final mon = projection.toTileIndex(_center);
-
-    mon.x -= (dx / tileSize) / scale;
-    mon.y -= (dy / tileSize) / scale;
-
-    center = projection.toLatLng(mon);
-  }
 
   /// Gets current center of the [Map].
   LatLng get center {
