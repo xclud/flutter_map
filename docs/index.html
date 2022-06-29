@@ -34,13 +34,16 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '2677351467';
+    var serviceWorkerVersion = '3214930679';
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
   <script>
+    window.flutterConfiguration = {
+      canvasKitBaseUrl: "/canvaskit/"
+    };
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
