@@ -2,79 +2,6 @@ import 'dart:math';
 
 import 'package:latlng/latlng.dart';
 
-class DayNightCalculator {
-  static DayNightBorder calculate(DateTime time, [int resolution = 2]) {
-    var julianDay = _julian(time.millisecondsSinceEpoch);
-    var gst = _gmst(julianDay);
-    var latLng = <LatLng>[];
-
-    var sunEclPos = _sunEclipticPosition(julianDay);
-    var eclObliq = _eclipticObliquity(julianDay);
-    var sunEqPos = _sunEquatorialPosition(sunEclPos.lambda, eclObliq);
-    for (var i = 0; i <= 360 * resolution; i++) {
-      var lng = -180 + i / resolution;
-      var ha = _hourAngle(lng, sunEqPos, gst);
-      latLng.add(LatLng(_latitude(ha, sunEqPos), lng));
-    }
-
-    return DayNightBorder._(latLng, sunEqPos.delta);
-  }
-
-  static LatLng calculateSunPosition(DateTime time) {
-    var julianDay = _julian(time.millisecondsSinceEpoch);
-    var gst = _gmst(julianDay);
-    double num1 = gst * 2.7378507871321E-05;
-    double num2 = num1 * num1;
-    double num3 = pi /
-        180.0 *
-        ((280.466457 + 36000.7698278 * num1 + 0.00030322 * num2) % 360.0);
-    double num4 = pi /
-        180.0 *
-        ((282.937348 + 1.7195366 * num1 + 0.00045688 * num2) % 360.0);
-    double num5 = 0.01670843 - 4.2037E-05 * num1 - 1.267E-07 * num2;
-    double num6 = num3 - num4;
-    double d = num6;
-    double num7;
-    do {
-      num7 = d;
-      d = num7 + (num6 + num5 * sin(num7) - num7) / (1.0 - num5 * cos(num7));
-    } while ((d - num7).abs() > 1E-09);
-    double num8 = 2.0 * atan(sqrt((1.0 + num5) / (1.0 - num5)) * tan(0.5 * d));
-    double num9 = num4 + num8;
-    final distanceUA = 1.000001018 * (1.0 - num5 * cos(d));
-    double num10 = distanceUA * 149597870.0;
-    double num11 = pi /
-        180.0 *
-        (84381.448 - 46.815 * num1 - 0.00059 * num2 + 0.001813 * num1 * num2) *
-        0.000277777777777778;
-    double num12 = num10 * sin(num9);
-    final sunX = num10 * cos(num9);
-    final sunY = num12 * cos(num11);
-    final sunZ = num12 * sin(num11);
-
-    var sunLong = 180.0 / pi * ((atan2(sunY, sunX) - gst) % (2.0 * pi));
-    if (sunLong > 180.0) sunLong -= 360.0;
-    if (sunLong < -180.0) sunLong += 360.0;
-
-    double x = sqrt(sunX * sunX + sunY * sunY);
-    double num14 = atan2(sunZ, x);
-    var sunLat = 0.0;
-    do {
-      sunLat = num14;
-      double num15 = sin(sunLat);
-      num14 = atan((sunZ +
-              6378.136658 *
-                  (1.0 / sqrt(1.0 - 0.00669431777826672 * num15 * num15)) *
-                  0.00669431777826672 *
-                  num15) /
-          x);
-    } while ((num14 - sunLat).abs() > 1E-07);
-    sunLat = 180.0 / pi * sunLat;
-
-    return LatLng(sunLat, sunLong);
-  }
-}
-
 const double _r2d = 180 / pi;
 const double d2r = pi / 180;
 
@@ -171,8 +98,25 @@ class _AlphaDelta {
   final double delta;
 }
 
-class DayNightBorder {
-  DayNightBorder._(this.polyline, this.delta);
+class Twilight {
+  factory Twilight.civil(DateTime time, [int resolution = 2]) {
+    var julianDay = _julian(time.millisecondsSinceEpoch);
+    var gst = _gmst(julianDay);
+    var latLng = <LatLng>[];
+
+    var sunEclPos = _sunEclipticPosition(julianDay);
+    var eclObliq = _eclipticObliquity(julianDay);
+    var sunEqPos = _sunEquatorialPosition(sunEclPos.lambda, eclObliq);
+    for (var i = 0; i <= 360 * resolution; i++) {
+      var lng = -180 + i / resolution;
+      var ha = _hourAngle(lng, sunEqPos, gst);
+      latLng.add(LatLng(_latitude(ha, sunEqPos), lng));
+    }
+
+    return Twilight._(latLng, sunEqPos.delta);
+  }
+
+  Twilight._(this.polyline, this.delta);
   final List<LatLng> polyline;
   final double delta;
 }

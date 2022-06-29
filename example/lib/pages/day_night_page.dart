@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:example/utils/day_night_calculator.dart';
+import 'package:example/utils/celestial.dart';
+import 'package:example/utils/twilight.dart';
+import 'package:example/utils/twilight_painter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
@@ -69,8 +71,8 @@ class DayNightPageState extends State<DayNightPage> {
 
   @override
   Widget build(BuildContext context) {
-    var border = DayNightCalculator.calculate(DateTime.now().toUtc());
-    var sun = DayNightCalculator.calculateSunPosition(DateTime.now().toUtc());
+    var civil = Twilight.civil(DateTime.now().toUtc());
+    var sun = getSunLocation(DateTime.now().toUtc());
 
     return Scaffold(
       appBar: AppBar(
@@ -82,15 +84,15 @@ class DayNightPageState extends State<DayNightPage> {
           var big = transformer.constraints.biggest;
           final sunPosition = transformer.toOffset(sun);
 
-          var points =
-              border.polyline.map((e) => transformer.toOffset(e)).toList();
+          var polyline =
+              civil.polyline.map((e) => transformer.toOffset(e)).toList();
 
-          if (border.delta < 0) {
+          if (civil.delta < 0) {
             var p1 = transformer.toOffset(LatLng(90, -180));
             var p2 = transformer.toOffset(LatLng(90, 180));
 
-            points.insert(0, p1);
-            points.add(p2);
+            polyline.insert(0, p1);
+            polyline.add(p2);
           } else {
             var p1 = transformer.toOffset(LatLng(-90, -180));
             var p2 = transformer.toOffset(LatLng(-90, 180));
@@ -102,8 +104,8 @@ class DayNightPageState extends State<DayNightPage> {
               p2 = Offset(p2.dx, big.height);
             }
 
-            points.insert(0, p1);
-            points.add(p2);
+            polyline.insert(0, p1);
+            polyline.add(p2);
           }
 
           return GestureDetector(
@@ -136,14 +138,16 @@ class DayNightPageState extends State<DayNightPage> {
                       );
                     },
                   ),
-                  CustomPaint(painter: DayNightPainter(points)),
+                  CustomPaint(painter: TwilightPainter(polyline)),
                   Positioned(
-                    left: sunPosition.dx,
-                    top: sunPosition.dy,
-                    child: Container(
-                      color: Colors.yellow,
-                      width: 48,
-                      height: 48,
+                    left: sunPosition.dx - 24,
+                    top: sunPosition.dy - 24,
+                    width: 48,
+                    height: 48,
+                    child: const Icon(
+                      Icons.sunny,
+                      color: Colors.amber,
+                      size: 48,
                     ),
                   ),
                 ],
@@ -159,39 +163,4 @@ class DayNightPageState extends State<DayNightPage> {
       ),
     );
   }
-}
-
-class DayNightPainter extends CustomPainter {
-  DayNightPainter(this.points);
-  List<Offset> points;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.purple
-      ..strokeWidth = 1;
-
-    for (int i = 0; i < points.length - 1; i++) {
-      var p1 = points[i];
-      var p2 = points[i + 1];
-
-      canvas.drawLine(p1, p2, paint);
-    }
-
-    final path = Path();
-
-    path.moveTo(points[0].dx, points[0].dy);
-
-    for (int i = 1; i < points.length; i++) {
-      var p1 = points[i];
-
-      path.lineTo(p1.dx, p1.dy);
-    }
-
-    paint.color = Colors.black26;
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
