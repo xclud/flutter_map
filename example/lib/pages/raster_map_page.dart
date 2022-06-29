@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/utils/clamp.dart';
+import 'package:example/utils/viewport_painter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
@@ -16,14 +17,14 @@ class RasterMapPage extends StatefulWidget {
 
 class RasterMapPageState extends State<RasterMapPage> {
   final controller = MapController(
-    location: LatLng(35.68, 51.41),
+    location: const LatLng(35.68, 51.41),
     zoom: 6,
   );
 
   bool _darkMode = false;
 
   void _gotoDefault() {
-    controller.center = LatLng(35.68, 51.41);
+    controller.center = const LatLng(35.68, 51.41);
     controller.zoom = 14;
     setState(() {});
   }
@@ -139,6 +140,11 @@ class RasterMapPageState extends State<RasterMapPage> {
                         fit: BoxFit.cover,
                       );
                     },
+                  ),
+                  CustomPaint(
+                    painter: ViewportPainter(
+                      transformer.getViewport(),
+                    ),
                   ),
                 ],
               ),

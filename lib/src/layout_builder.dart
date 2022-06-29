@@ -68,16 +68,15 @@ class MapTransformer {
   /// Converts XY coordinates to [LatLng].
   LatLng toLatLng(Offset position) {
     final scale = pow(2.0, controller.zoom);
-
     final norm = controller.projection.toTileIndex(controller.center);
-    final mon = TileIndex(norm.x, norm.y);
 
     final dx = _centerX - position.dx;
     final dy = _centerY - position.dy;
 
-    mon.x -= (dx / tileSize) / scale;
-    mon.y -= (dy / tileSize) / scale;
+    final x = norm.x - (dx / tileSize) / scale;
+    final y = norm.y - (dy / tileSize) / scale;
 
+    final mon = TileIndex(x, y);
     final location = controller.projection.toLatLng(mon);
 
     return location;
@@ -88,12 +87,11 @@ class MapTransformer {
     final scale = pow(2.0, controller.zoom);
 
     final norm = controller.projection.toTileIndex(controller.center);
-    final mon = TileIndex(norm.x, norm.y);
 
     final l = controller.projection.toTileIndex(location);
 
-    final dx = l.x - mon.x;
-    final dy = l.y - mon.y;
+    final dx = l.x - norm.x;
+    final dy = l.y - norm.y;
 
     final s = tileSize * scale;
 
@@ -125,11 +123,22 @@ class MapTransformer {
   /// Drags the map by [dx], [dy] pixels.
   void drag(double dx, double dy) {
     var scale = pow(2.0, controller.zoom);
-    final mon = controller.projection.toTileIndex(controller.center);
+    final norm = controller.projection.toTileIndex(controller.center);
 
-    mon.x -= (dx / tileSize) / scale;
-    mon.y -= (dy / tileSize) / scale;
+    final x = norm.x - (dx / tileSize) / scale;
+    final y = norm.y - (dy / tileSize) / scale;
+
+    final mon = TileIndex(x, y);
 
     controller.center = controller.projection.toLatLng(mon);
+  }
+
+  /// Gets the current viewport in pixels.
+  Rect getViewport() {
+    final scale = pow(2.0, controller.zoom).toDouble();
+    final size = scale * tileSize;
+    final centerPixels = toOffset(const LatLng(0, 0));
+
+    return Rect.fromCenter(center: centerPixels, width: size, height: size);
   }
 }

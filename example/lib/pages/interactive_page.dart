@@ -16,11 +16,11 @@ class InteractiveMapPage extends StatefulWidget {
 
 class InteractiveMapPageState extends State<InteractiveMapPage> {
   final controller = MapController(
-    location: LatLng(35.68, 51.41),
+    location: const LatLng(35.68, 51.41),
   );
 
   void _gotoDefault() {
-    controller.center = LatLng(35.68, 51.41);
+    controller.center = const LatLng(35.68, 51.41);
     setState(() {});
   }
 

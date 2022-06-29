@@ -1,7 +1,12 @@
+### [1.3.0] - June 30, 2022
+
+* Update dependencies.
+* MapTransformer.getViewport function added.
+
 ### [1.2.0] - June 29, 2022
 
 * Update dependencies.
-* setZoomInPlace function added.
+* MapTransformer.setZoomInPlace function added.
 
 ### [1.1.0] - June 19, 2022
 
