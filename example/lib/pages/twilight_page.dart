@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/utils/celestial.dart';
+import 'package:example/utils/clamp.dart';
 import 'package:example/utils/twilight.dart';
 import 'package:example/utils/twilight_painter.dart';
 import 'package:flutter/gestures.dart';
@@ -38,8 +40,11 @@ class TwilightPageState extends State<TwilightPage> {
     setState(() {});
   }
 
-  void _onDoubleTap() {
-    controller.zoom += 0.5;
+  void _onDoubleTap(MapTransformer transformer, Offset position) {
+    const delta = 0.5;
+    final zoom = clamp(controller.zoom + delta, 2, 18);
+
+    transformer.setZoomInPlace(zoom, position);
     setState(() {});
   }
 
@@ -76,7 +81,7 @@ class TwilightPageState extends State<TwilightPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Day & Night Map'),
+        title: const Text('Twilight'),
       ),
       body: MapLayoutBuilder(
         controller: controller,
@@ -110,16 +115,20 @@ class TwilightPageState extends State<TwilightPage> {
 
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onDoubleTap: _onDoubleTap,
+            onDoubleTapDown: (details) => _onDoubleTap(
+              transformer,
+              details.localPosition,
+            ),
             onScaleStart: _onScaleStart,
             onScaleUpdate: _onScaleUpdate,
             child: Listener(
               behavior: HitTestBehavior.opaque,
               onPointerSignal: (event) {
                 if (event is PointerScrollEvent) {
-                  final delta = event.scrollDelta;
+                  final delta = event.scrollDelta.dy / -1000.0;
+                  final zoom = clamp(controller.zoom + delta, 2, 18);
 
-                  controller.zoom -= delta.dy / 1000.0;
+                  transformer.setZoomInPlace(zoom, event.localPosition);
                   setState(() {});
                 }
               },
@@ -128,6 +137,18 @@ class TwilightPageState extends State<TwilightPage> {
                   Map(
                     controller: controller,
                     builder: (context, x, y, z) {
+                      final tilesInZoom = pow(2.0, z).floor();
+
+                      while (x < 0) {
+                        x += tilesInZoom;
+                      }
+                      while (y < 0) {
+                        y += tilesInZoom;
+                      }
+
+                      x %= tilesInZoom;
+                      y %= tilesInZoom;
+
                       //Legal notice: This url is only used for demo and educational purposes. You need a license key for production use.
                       //Google Maps
                       final url =

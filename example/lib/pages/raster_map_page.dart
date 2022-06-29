@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:example/utils/clamp.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
@@ -27,8 +28,11 @@ class RasterMapPageState extends State<RasterMapPage> {
     setState(() {});
   }
 
-  void _onDoubleTap() {
-    controller.zoom += 0.5;
+  void _onDoubleTap(MapTransformer transformer, Offset position) {
+    const delta = 0.5;
+    final zoom = clamp(controller.zoom + delta, 2, 18);
+
+    transformer.setZoomInPlace(zoom, position);
     setState(() {});
   }
 
@@ -84,29 +88,20 @@ class RasterMapPageState extends State<RasterMapPage> {
         builder: (context, transformer) {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onDoubleTap: _onDoubleTap,
+            onDoubleTapDown: (details) => _onDoubleTap(
+              transformer,
+              details.localPosition,
+            ),
             onScaleStart: _onScaleStart,
             onScaleUpdate: _onScaleUpdate,
             child: Listener(
               behavior: HitTestBehavior.opaque,
               onPointerSignal: (event) {
                 if (event is PointerScrollEvent) {
-                  final delta = event.scrollDelta;
+                  final delta = event.scrollDelta.dy / -1000.0;
+                  final zoom = clamp(controller.zoom + delta, 2, 18);
 
-                  final before = transformer.toLatLng(event.position);
-
-                  controller.zoom -= delta.dy / 1000.0;
-
-                  if (controller.zoom < 1) {
-                    controller.zoom = 1;
-                  }
-
-                  final after = transformer.toOffset(before);
-
-                  final diffx = after.dx - event.position.dx;
-                  final diffy = after.dy - event.position.dy;
-
-                  controller.drag(-diffx, -diffy);
+                  transformer.setZoomInPlace(zoom, event.localPosition);
                   setState(() {});
                 }
               },

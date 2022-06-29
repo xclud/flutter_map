@@ -1,3 +1,4 @@
+import 'package:example/utils/clamp.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
@@ -20,8 +21,11 @@ class VectorMapPageState extends State<VectorMapPage> {
     setState(() {});
   }
 
-  void _onDoubleTap() {
-    controller.zoom += 0.5;
+  void _onDoubleTap(MapTransformer transformer, Offset position) {
+    const delta = 0.5;
+    final zoom = clamp(controller.zoom + delta, 2, 18);
+
+    transformer.setZoomInPlace(zoom, position);
     setState(() {});
   }
 
@@ -62,16 +66,20 @@ class VectorMapPageState extends State<VectorMapPage> {
         builder: (context, transformer) {
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onDoubleTap: _onDoubleTap,
+            onDoubleTapDown: (details) => _onDoubleTap(
+              transformer,
+              details.localPosition,
+            ),
             onScaleStart: _onScaleStart,
             onScaleUpdate: _onScaleUpdate,
             child: Listener(
               behavior: HitTestBehavior.opaque,
               onPointerSignal: (event) {
                 if (event is PointerScrollEvent) {
-                  final delta = event.scrollDelta;
+                  final delta = event.scrollDelta.dy / -1000.0;
+                  final zoom = clamp(controller.zoom + delta, 2, 18);
 
-                  controller.zoom -= delta.dy / 1000.0;
+                  transformer.setZoomInPlace(zoom, event.localPosition);
                   setState(() {});
                 }
               },
