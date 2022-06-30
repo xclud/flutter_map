@@ -2,6 +2,7 @@
 
 * Update dependencies.
 * MapTransformer.getViewport function added.
+* Deprecated Vector Tiles in favor of `vt` and `cartography` packages.
 
 ### [1.2.0] - June 29, 2022
 
