@@ -60,8 +60,19 @@ class RasterMapPageState extends State<RasterMapPage> {
       setState(() {});
     } else {
       final now = details.focalPoint;
-      final diff = now - _dragStart!;
+      var diff = now - _dragStart!;
       _dragStart = now;
+      final h = transformer.constraints.maxHeight;
+
+      final vp = transformer.getViewport();
+      if (diff.dy < 0 && vp.bottom - diff.dy < h) {
+        diff = Offset(diff.dx, 0);
+      }
+
+      if (diff.dy > 0 && vp.top - diff.dy > 0) {
+        diff = Offset(diff.dx, 0);
+      }
+
       transformer.drag(diff.dx, diff.dy);
       setState(() {});
     }
