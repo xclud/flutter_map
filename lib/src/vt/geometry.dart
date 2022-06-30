@@ -1,3 +1,5 @@
+@Deprecated(
+    'Please visit https://pub.dev/packages/vt and https://pub.dev/packages/cartography')
 enum GeometryType {
   point,
   lineString,
@@ -7,6 +9,8 @@ enum GeometryType {
   multiPolygon,
   unknown,
 }
+@Deprecated(
+    'Please visit https://pub.dev/packages/vt and https://pub.dev/packages/cartography')
 
 abstract class Geometry {
   factory Geometry.point({required List<double> coordinates}) = PointGeometry;
@@ -27,6 +31,8 @@ abstract class Geometry {
 }
 
 /// Point Geometry.
+@Deprecated(
+    'Please visit https://pub.dev/packages/vt and https://pub.dev/packages/cartography')
 class PointGeometry extends Geometry {
   PointGeometry({
     required this.coordinates,

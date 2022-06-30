@@ -15,6 +15,8 @@ export 'value.dart';
 const int _lineTo = 2;
 const int _closePath = 7;
 
+@Deprecated(
+    'Please visit https://pub.dev/packages/vt and https://pub.dev/packages/cartography')
 class VectorTile {
   const VectorTile({
     required this.layers,

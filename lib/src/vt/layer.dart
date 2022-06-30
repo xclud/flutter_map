@@ -1,5 +1,7 @@
 import 'package:map/src/vt/feature.dart';
 import 'package:map/src/vt/value.dart';
+@Deprecated(
+    'Please visit https://pub.dev/packages/vt and https://pub.dev/packages/cartography')
 
 class Layer {
   const Layer({

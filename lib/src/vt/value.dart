@@ -1,4 +1,6 @@
 import 'package:fixnum/fixnum.dart';
+@Deprecated(
+    'Please visit https://pub.dev/packages/vt and https://pub.dev/packages/cartography')
 
 class Value {
   const Value({
