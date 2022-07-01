@@ -20,8 +20,8 @@ class TwilightPage extends StatefulWidget {
 
 class TwilightPageState extends State<TwilightPage> {
   final controller = MapController(
-    location: const LatLng(35.68, 51.41),
-    zoom: 4,
+    location: const LatLng(0, 0),
+    zoom: 2,
   );
 
   @override
@@ -33,11 +33,6 @@ class TwilightPageState extends State<TwilightPage> {
     });
 
     super.initState();
-  }
-
-  void _gotoDefault() {
-    controller.center = const LatLng(35.68, 51.41);
-    setState(() {});
   }
 
   void _onDoubleTap(MapTransformer transformer, Offset position) {
@@ -76,8 +71,9 @@ class TwilightPageState extends State<TwilightPage> {
 
   @override
   Widget build(BuildContext context) {
-    var civil = Twilight.civil(DateTime.now().toUtc());
-    var sun = getSunLocation(DateTime.now().toUtc());
+    final now = DateTime.now().toUtc();
+    final civil = Twilight.civil(now);
+    final sun = getSunLocation(now);
 
     return Scaffold(
       appBar: AppBar(
@@ -86,31 +82,16 @@ class TwilightPageState extends State<TwilightPage> {
       body: MapLayoutBuilder(
         controller: controller,
         builder: (context, transformer) {
-          var big = transformer.constraints.biggest;
           final sunPosition = transformer.toOffset(sun);
-
-          var polyline =
-              civil.polyline.map((e) => transformer.toOffset(e)).toList();
+          final polyline = transformer.toOffsetMany(civil.polyline).toList();
+          final viewport = transformer.getViewport();
 
           if (civil.delta < 0) {
-            var p1 = transformer.toOffset(const LatLng(90, -180));
-            var p2 = transformer.toOffset(const LatLng(90, 180));
-
-            polyline.insert(0, p1);
-            polyline.add(p2);
+            polyline.insert(0, viewport.topLeft);
+            polyline.add(viewport.topRight);
           } else {
-            var p1 = transformer.toOffset(const LatLng(-90, -180));
-            var p2 = transformer.toOffset(const LatLng(-90, 180));
-
-            if (p1.dy > big.height) {
-              p1 = Offset(p1.dx, big.height);
-            }
-            if (p2.dy > big.height) {
-              p2 = Offset(p2.dx, big.height);
-            }
-
-            polyline.insert(0, p1);
-            polyline.add(p2);
+            polyline.insert(0, viewport.bottomLeft);
+            polyline.add(viewport.bottomRight);
           }
 
           return GestureDetector(
@@ -176,11 +157,6 @@ class TwilightPageState extends State<TwilightPage> {
             ),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _gotoDefault,
-        tooltip: 'My Location',
-        child: const Icon(Icons.my_location),
       ),
     );
   }

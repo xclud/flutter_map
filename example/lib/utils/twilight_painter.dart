@@ -7,10 +7,10 @@ class TwilightPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.purple
+      ..color = Colors.black87
       ..strokeWidth = 1;
 
-    for (int i = 0; i < border.length - 1; i++) {
+    for (int i = 1; i < border.length - 2; i++) {
       var p1 = border[i];
       var p2 = border[i + 1];
 
