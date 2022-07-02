@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ListTile(
             title: const Text('Twilight'),
-            subtitle: const Text('Shows a map for day and night.'),
+            subtitle: const Text('Day and night map, sun and moon position.'),
             trailing: const Icon(Icons.chevron_right_sharp),
             onTap: () => _push(const TwilightPage()),
           ),

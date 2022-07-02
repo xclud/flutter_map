@@ -74,6 +74,7 @@ class TwilightPageState extends State<TwilightPage> {
     final now = DateTime.now().toUtc();
     final civil = Twilight.civil(now);
     final sun = getSunLocation(now);
+    final moon = getMoonLocation(now);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,6 +84,7 @@ class TwilightPageState extends State<TwilightPage> {
         controller: controller,
         builder: (context, transformer) {
           final sunPosition = transformer.toOffset(sun);
+          final moonPosition = transformer.toOffset(moon);
           final polyline = transformer.toOffsetMany(civil.polyline).toList();
           final viewport = transformer.getViewport();
 
@@ -146,10 +148,27 @@ class TwilightPageState extends State<TwilightPage> {
                     top: sunPosition.dy - 24,
                     width: 48,
                     height: 48,
-                    child: const Icon(
-                      Icons.sunny,
-                      color: Colors.amber,
-                      size: 48,
+                    child: const Tooltip(
+                      message: 'Sun',
+                      child: Icon(
+                        Icons.sunny,
+                        color: Colors.amber,
+                        size: 48,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: moonPosition.dx - 32,
+                    top: moonPosition.dy - 32,
+                    width: 64,
+                    height: 64,
+                    child: Tooltip(
+                      message: 'Moon',
+                      child: Icon(
+                        Icons.circle,
+                        color: Colors.blueGrey.withOpacity(0.8),
+                        size: 64,
+                      ),
                     ),
                   ),
                 ],
