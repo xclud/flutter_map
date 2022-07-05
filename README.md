@@ -1,12 +1,12 @@
 [![pub package](https://img.shields.io/pub/v/map.svg)](https://pub.dartlang.org/packages/map)
 
-A flutter package to view a `Map` widget in Flutter apps.
+Lightweight `Map` widget for flutter supporting different projections including EPSG4326/Mercator/WGS1984.
 
 * Map supports variety of tile providers including but not limited to Google Maps, Mapbox, OSM Maps and Yandex Maps and your custom tiles.
 
-* Rendering of vector tiles (e.g. MBTiles/MVT/GeoJSON) is possible but not officialy supported.
+* Support for vector tiles is under development in [vt](https://pub.dev/packages/vt) and [cartography](https://pub.dev/packages/cartography) packages.
 
-* This package supports **caching** out of the box.
+* This package supports **caching** out of the box through [cached_network_image](https://pub.dev/packages/cached_network_image) and [flutter_cache_manager](https://pub.dev/packages/flutter_cache_manager) packages.
 
 ## Demo
 
@@ -35,6 +35,46 @@ Then, in your code import:
 
 ```dart
 import 'package:map/map.dart';
+```
+
+```dart
+final controller = MapController(
+  location: const LatLng(0, 0),
+  zoom: 2,
+);
+```
+
+```dart
+MapLayoutBuilder(
+  controller: controller,
+  builder: (context, transformer) {
+    return Map(
+      controller: controller,
+      builder: (context, x, y, z) {
+        final tilesInZoom = pow(2.0, z).floor();
+
+        while (x < 0) {
+          x += tilesInZoom;
+        }
+        while (y < 0) {
+          y += tilesInZoom;
+        }
+
+        x %= tilesInZoom;
+        y %= tilesInZoom;
+
+        //Google Maps
+        final url =
+            'https://www.google.com/maps/vt/pb=!1m4!1m3!1i$z!2i$x!3i$y!2m3!1e0!2sm!3i420120488!3m7!2sen!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0!5m1!1e0!23i4111425';
+
+        return CachedNetworkImage(
+          imageUrl: url,
+          fit: BoxFit.cover,
+        );
+      },
+    );
+  },
+);
 ```
 
 Please check out the example project/tab for a working sample.
