@@ -1,4 +1,4 @@
-import 'package:example/utils/clamp.dart';
+import 'package:example/utils/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
@@ -85,8 +85,7 @@ class VectorMapPageState extends State<VectorMapPage> {
               },
               child: Stack(
                 children: [
-                  Map(
-                    controller: controller,
+                  TileLayer(
                     builder: (context, x, y, z) {
                       return Padding(
                         padding: const EdgeInsets.all(2.0),

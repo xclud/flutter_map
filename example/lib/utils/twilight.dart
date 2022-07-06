@@ -99,7 +99,7 @@ class _AlphaDelta {
 }
 
 class Twilight {
-  factory Twilight.civil(DateTime time, [int resolution = 2]) {
+  factory Twilight.civil(DateTime time, [double resolution = 0.1]) {
     var julianDay = _julian(time.millisecondsSinceEpoch);
     var gst = _gmst(julianDay);
     var latLng = <LatLng>[];
