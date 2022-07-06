@@ -48,8 +48,7 @@ final controller = MapController(
 MapLayoutBuilder(
   controller: controller,
   builder: (context, transformer) {
-    return Map(
-      controller: controller,
+    return TileLayer(
       builder: (context, x, y, z) {
         final tilesInZoom = pow(2.0, z).floor();
 
