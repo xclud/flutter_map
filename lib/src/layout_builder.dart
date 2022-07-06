@@ -8,18 +8,34 @@ import 'package:map/map.dart';
 /// providers a map coordinates transfom helper to its children.
 ///
 /// Similar to the [LayoutBuilder] widget.
-class MapLayoutBuilder extends StatelessWidget {
+class MapLayoutBuilder extends InheritedWidget {
   /// The default constructor.
-  const MapLayoutBuilder({
+  MapLayoutBuilder({
     Key? key,
     required this.controller,
     required this.builder,
     this.tileSize = 256,
-  }) : super(key: key);
+  }) : super(
+            key: key,
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              final transformer = MapTransformer._internal(
+                controller: controller,
+                constraints: constraints,
+                tileSize: tileSize,
+              );
+              return builder.call(context, transformer);
+            }));
 
+  /// The data from the closest [MapLayoutBuilder] instance that encloses the given context.
+  static MapLayoutBuilder? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<MapLayoutBuilder>();
+  }
+
+  /// Size of each tile in pixels. Most tile servers provide tiles of 256 pixels.
   final double tileSize;
 
-  /// Map controller which is used in [Map].
+  /// Map controller which is used in [MapLayoutBuilder].
   final MapController controller;
 
   /// Called at layout time to construct the widget tree.
@@ -31,17 +47,10 @@ class MapLayoutBuilder extends StatelessWidget {
   ) builder;
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: _build);
-  }
-
-  Widget _build(BuildContext context, BoxConstraints constraints) {
-    final transformer = MapTransformer._internal(
-      controller: controller,
-      constraints: constraints,
-      tileSize: tileSize,
-    );
-    return builder.call(context, transformer);
+  bool updateShouldNotify(covariant MapLayoutBuilder oldWidget) {
+    return oldWidget.tileSize != tileSize ||
+        oldWidget.controller != controller ||
+        oldWidget.builder != builder;
   }
 }
 
@@ -54,7 +63,7 @@ class MapTransformer {
   })  : _centerX = constraints.biggest.width / 2.0,
         _centerY = constraints.biggest.height / 2.0;
 
-  /// Map controller which is used in [Map].
+  /// Map controller which is used in [MapLayoutBuilder].
   final MapController controller;
 
   final double tileSize;

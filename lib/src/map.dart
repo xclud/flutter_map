@@ -3,6 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 
+import 'package:map/src/layout_builder.dart';
+
+@Deprecated('Please use [TileLayer] instead')
 class Map extends StatefulWidget {
   /// Main constructor.
   const Map({
@@ -24,15 +27,24 @@ class Map extends StatefulWidget {
   State<StatefulWidget> createState() => _MapState();
 }
 
+@Deprecated('Please use [TileLayer] instead')
 class _MapState extends State<Map> {
   @override
   void initState() {
     super.initState();
+
     widget.controller.addListener(() {
       if (mounted) {
         setState(() {});
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    final x = context.findAncestorWidgetOfExactType<MapLayoutBuilder>();
+    print(x);
+    super.didChangeDependencies();
   }
 
   @override
@@ -100,7 +112,7 @@ class _MapState extends State<Map> {
   }
 }
 
-/// A controller to modify the [center] and [zoom] of the [Map].
+/// A controller to modify the [center] and [zoom] of the [MapLayoutBuilder].
 class MapController extends ChangeNotifier {
   MapController({
     required LatLng location,
@@ -115,23 +127,23 @@ class MapController extends ChangeNotifier {
   /// [Projection] helps with converting [LatLng] to [TileIndex] and vice-versa.
   final Projection projection;
 
-  /// Gets current center of the [Map].
+  /// Gets current center of the [MapLayoutBuilder].
   LatLng get center {
     return _center;
   }
 
-  /// Sets current center of the [Map].
+  /// Sets current center of the [MapLayoutBuilder].
   set center(LatLng center) {
     _center = center;
     notifyListeners();
   }
 
-  /// Gets current zoom of the [Map].
+  /// Gets current zoom of the [MapLayoutBuilder].
   double get zoom {
     return _zoom;
   }
 
-  /// Sets current zoom of the [Map].
+  /// Sets current zoom of the [MMapLayoutBuilderap].
   set zoom(double zoom) {
     _zoom = zoom;
     notifyListeners();

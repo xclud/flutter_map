@@ -7,3 +7,4 @@ library map;
 
 export 'src/map.dart';
 export 'src/layout_builder.dart';
+export 'src/layers/tile_layer.dart';
