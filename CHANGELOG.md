@@ -1,3 +1,7 @@
+## [1.3.1]
+
+* Deprecate `Map` widget and introduces the `TileLayer`.
+
 ## [1.3.0]
 
 * Update dependencies.
