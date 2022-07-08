@@ -21,6 +21,10 @@ Lightweight `Map` widget for flutter supporting different projections including 
 
 [Web Demo](https://xclud.github.io/flutter_map/)
 
+## Contributing
+
+I welcome contributions in all forms. One lightweight way you can contribute is to [tell me that you're using Map](https://github.com/xclud/flutter_map/discussions/41), which will give me warm fuzzy feelings 🤩.
+
 ## Supported platforms
 
 * [x] Android
