@@ -1,4 +1,11 @@
-[![pub package](https://img.shields.io/pub/v/map.svg)](https://pub.dartlang.org/packages/map)
+[![pub package](https://img.shields.io/pub/v/map)](https://pub.dartlang.org/packages/map)
+[![likes](https://img.shields.io/pub/likes/map)](https://pub.dartlang.org/packages/map/score)
+[![points](https://img.shields.io/pub/points/map)](https://pub.dartlang.org/packages/map/score)
+[![popularity](https://img.shields.io/pub/popularity/map)](https://pub.dartlang.org/packages/map/score)
+[![license](https://img.shields.io/github/license/xclud/flutter_map)](https://pub.dartlang.org/packages/map)
+[![stars](https://img.shields.io/github/stars/xclud/flutter_map)](https://github.com/xclud/flutter_map/stargazers)
+[![sdk version](https://badgen.net/pub/sdk-version/map)](https://pub.dartlang.org/packages/map)
+
 
 Lightweight `Map` widget for flutter supporting different projections including EPSG4326/Mercator/WGS1984.
 
