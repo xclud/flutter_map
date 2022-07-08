@@ -4,7 +4,7 @@ Lightweight `Map` widget for flutter supporting different projections including 
 
 * Written entirely in Dart. No plugins, No platform code, No native code.
 
-* Supports variety of tile providers including but not limited to Google Maps, Mapbox, OSM Maps and Yandex Maps and your custom tiles.
+* Map is vendor-free. Meaning that you can choose any tile provider of your choice. Google Maps, Mapbox, OSM Maps and Yandex Maps are a few to name. You can also use this package with your own custom tiles.
 
 * Support for vector tiles is under development in [vt](https://pub.dev/packages/vt) and [cartography](https://pub.dev/packages/cartography) packages.
 
