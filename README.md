@@ -4,6 +4,7 @@
 [![popularity](https://img.shields.io/pub/popularity/map)](https://pub.dartlang.org/packages/map/score)
 [![license](https://img.shields.io/github/license/xclud/flutter_map)](https://pub.dartlang.org/packages/map)
 [![stars](https://img.shields.io/github/stars/xclud/flutter_map)](https://github.com/xclud/flutter_map/stargazers)
+[![forks](https://img.shields.io/github/forks/xclud/flutter_map)](https://github.com/xclud/flutter_map/network/members)
 [![sdk version](https://badgen.net/pub/sdk-version/map)](https://pub.dartlang.org/packages/map)
 
 
