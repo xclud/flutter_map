@@ -14,7 +14,7 @@ Lightweight `Map` widget for flutter supporting different projections including 
 
 * Map is vendor-free. Meaning that you can choose any tile provider of your choice. Google Maps, Mapbox, OSM Maps and Yandex Maps are a few to name. You can also use this package with your own custom tiles, your own server, your own [sub]domain.
 
-* Support for vector tiles is under development in [vt](https://pub.dev/packages/vt) and [cartography](https://pub.dev/packages/cartography) packages.
+* Support for vector tiles is under development in [vt](https://pub.dev/packages/vt) and [cartography](https://pub.dev/packages/cartography) packages. Please checkout these packages to know more about the progress and open issues/tasks.
 
 * This package supports **caching** out of the box through [cached_network_image](https://pub.dev/packages/cached_network_image) and [flutter_cache_manager](https://pub.dev/packages/flutter_cache_manager) packages.
 
