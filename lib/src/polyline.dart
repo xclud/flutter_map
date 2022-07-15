@@ -6,6 +6,7 @@ class Polyline {
   const Polyline({
     required this.data,
     required this.paint,
+    this.offset,
     this.onPaint,
   });
 
@@ -15,5 +16,12 @@ class Polyline {
   /// Style of the polyline.
   final Paint paint;
 
-  final Function(Canvas canvas, Polyline polyline, List<Offset> points)? onPaint;
+  /// Offset of the polyline in pixels when rendered on screen.
+  final double? offset;
+
+  final Function(
+    Canvas canvas,
+    Polyline polyline,
+    List<Offset> points,
+  )? onPaint;
 }

@@ -21,22 +21,17 @@ class ShapesPageState extends State<ShapesPage> {
     zoom: 3,
   );
 
-  final polylines = <Polyline>[
-    Polyline(
-      data: const [
-        LatLng(40, -60),
-        LatLng(20, -20),
-        LatLng(0, -10),
-        LatLng(10, 0),
-        LatLng(0, 10),
-        LatLng(20, 20),
-        LatLng(0, 60),
-      ],
-      paint: Paint()
-        ..strokeWidth = 4
-        ..color = Colors.red,
-    ),
+  static const polyCoords = [
+    LatLng(40, -60),
+    LatLng(20, -20),
+    LatLng(0, -10),
+    LatLng(10, 0),
+    LatLng(0, 10),
+    LatLng(20, 20),
+    LatLng(0, 60),
   ];
+
+  double _polylineOffset = 5;
 
   void _onDoubleTap(MapTransformer transformer, Offset position) {
     const delta = 0.5;
@@ -89,6 +84,22 @@ class ShapesPageState extends State<ShapesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final polylines = <Polyline>[
+      Polyline(
+        data: polyCoords,
+        paint: Paint()
+          ..strokeWidth = 4
+          ..color = Colors.red,
+      ),
+      Polyline(
+        data: polyCoords,
+        offset: _polylineOffset,
+        paint: Paint()
+          ..strokeWidth = 4
+          ..color = Colors.blue,
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shapes'),
@@ -140,6 +151,26 @@ class ShapesPageState extends State<ShapesPage> {
                   PolylineLayer(
                     transformer: transformer,
                     polylines: polylines,
+                  ),
+                  PositionedDirectional(
+                    top: 24,
+                    start: 24,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                      child: Slider(
+                        value: _polylineOffset,
+                        min: -32,
+                        max: 32,
+                        onChanged: (v) {
+                          setState(() {
+                            _polylineOffset = v;
+                          });
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
