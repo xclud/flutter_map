@@ -28,13 +28,13 @@ I welcome contributions in all forms. One lightweight way you can contribute is 
 
 ## Supported platforms
 
-* [x] Android
-* [x] iOS
-* [x] Web
-* [x] Windows
-* [x] Linux
-* [x] macOS
-* [x] Flutter 3 is supported.
+* [✓] Android
+* [✓] iOS
+* [✓] Web
+* [✓] Windows
+* [✓] Linux
+* [✓] macOS
+* [✓] Flutter 3 is supported.
 
 ## Getting Started
 
@@ -59,7 +59,7 @@ final controller = MapController(
 ```
 
 ```dart
-MapLayoutBuilder(
+MapLayout(
   controller: controller,
   builder: (context, transformer) {
     return TileLayer(

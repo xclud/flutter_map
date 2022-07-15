@@ -1,6 +1,10 @@
+## [1.3.2]
+
+* Deprecates `MapLayoutBuilder` widget and introduces the `MapLayout`.
+
 ## [1.3.1]
 
-* Deprecate `Map` widget and introduces the `TileLayer`.
+* Deprecates `Map` widget and introduces the `TileLayer`.
 
 ## [1.3.0]
 
