@@ -2,12 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:latlng/latlng.dart';
+import 'package:map/src/controller.dart';
 import 'package:map/src/layout_builder.dart';
-import 'package:map/src/map.dart';
+import 'package:map/src/map_layout.dart';
 
 /// Raster or Vector data for a specific [z, x, y] coordinate.
 ///
-/// This class must be a child of [MapLayoutBuilder].
+/// This class must be a child of [MapLayout].
 class TileLayer extends StatefulWidget {
   /// Main constructor.
   const TileLayer({
@@ -23,19 +24,22 @@ class TileLayer extends StatefulWidget {
 }
 
 class _TileLayerState extends State<TileLayer> {
-  late double _tileSize;
+  late int _tileSize;
   late MapController _controller;
 
   @override
   void didChangeDependencies() {
-    final map = context.findAncestorWidgetOfExactType<MapLayoutBuilder>();
+    final map = context.findAncestorWidgetOfExactType<MapLayout>();
+    final mapBuilder =
+        // ignore: deprecated_member_use_from_same_package
+        context.findAncestorWidgetOfExactType<MapLayoutBuilder>();
 
-    if (map == null) {
-      throw Exception('TileLayer must be used inside a MapLayoutBuilder.');
+    if (map == null && mapBuilder == null) {
+      throw Exception('TileLayer must be used inside a MapLayout.');
     }
 
-    _tileSize = map.tileSize;
-    _controller = map.controller;
+    _tileSize = map?.tileSize ?? mapBuilder!.tileSize;
+    _controller = map?.controller ?? mapBuilder!.controller;
 
     super.didChangeDependencies();
   }

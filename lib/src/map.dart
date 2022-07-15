@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
+import 'package:map/src/controller.dart';
 
 import 'package:map/src/layout_builder.dart';
 
@@ -64,18 +65,18 @@ class _MapState extends State<Map> {
     final centerX = screenWidth / 2.0;
     final centerY = screenHeight / 2.0;
 
-    final scale = pow(2.0, controller._zoom);
+    final scale = pow(2.0, controller.zoom);
 
-    final norm = projection.toTileIndex(controller._center);
+    final norm = projection.toTileIndex(controller.center);
     final ttl = TileIndex(norm.x * tileSize * scale, norm.y * tileSize * scale);
 
-    final fixedZoom = (controller._zoom + 0.0000001).toInt();
+    final fixedZoom = (controller.zoom + 0.0000001).toInt();
     final fixedPowZoom = pow(2, fixedZoom);
 
     final centerTileIndexX = (norm.x * fixedPowZoom).floor();
     final centerTileIndexY = (norm.y * fixedPowZoom).floor();
 
-    final scaleValue = pow(2.0, (controller._zoom % 1));
+    final scaleValue = pow(2.0, (controller.zoom % 1));
     final tileSizeScaled = tileSize * scaleValue;
     //final numGrids = pow(2.0, controller._zoom).floor();
 
@@ -99,7 +100,7 @@ class _MapState extends State<Map> {
           left: ox.floorToDouble(),
           top: oy.floorToDouble(),
           child: widget.builder
-              .call(context, i, j, (controller._zoom + 0.0000001).floor()),
+              .call(context, i, j, (controller.zoom + 0.0000001).floor()),
         );
 
         children.add(child);
@@ -109,43 +110,5 @@ class _MapState extends State<Map> {
     final stack = Stack(children: children);
 
     return stack;
-  }
-}
-
-/// A controller to modify the [center] and [zoom] of the [MapLayoutBuilder].
-class MapController extends ChangeNotifier {
-  MapController({
-    required LatLng location,
-    double zoom = 14,
-    this.projection = const EPSG4326(),
-  })  : _center = location,
-        _zoom = zoom;
-
-  LatLng _center;
-  double _zoom;
-
-  /// [Projection] helps with converting [LatLng] to [TileIndex] and vice-versa.
-  final Projection projection;
-
-  /// Gets current center of the [MapLayoutBuilder].
-  LatLng get center {
-    return _center;
-  }
-
-  /// Sets current center of the [MapLayoutBuilder].
-  set center(LatLng center) {
-    _center = center;
-    notifyListeners();
-  }
-
-  /// Gets current zoom of the [MapLayoutBuilder].
-  double get zoom {
-    return _zoom;
-  }
-
-  /// Sets current zoom of the [MMapLayoutBuilderap].
-  set zoom(double zoom) {
-    _zoom = zoom;
-    notifyListeners();
   }
 }
