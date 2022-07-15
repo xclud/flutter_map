@@ -1,4 +1,5 @@
 import 'package:example/pages/custom_tile_page.dart';
+import 'package:example/pages/shapes_page.dart';
 import 'package:example/pages/twilight_page.dart';
 import 'package:example/pages/interactive_page.dart';
 import 'package:example/pages/markers_page.dart';
@@ -65,6 +66,12 @@ class _HomePageState extends State<HomePage> {
             subtitle: const Text('Say where on the earth user has clicked.'),
             trailing: const Icon(Icons.chevron_right_sharp),
             onTap: () => _push(const InteractiveMapPage()),
+          ),
+          ListTile(
+            title: const Text('Shapes'),
+            subtitle: const Text('Display Polylines on the map.'),
+            trailing: const Icon(Icons.chevron_right_sharp),
+            onTap: () => _push(const ShapesPage()),
           ),
           ListTile(
             title: const Text('Custom Tiles'),

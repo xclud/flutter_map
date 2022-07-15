@@ -81,7 +81,7 @@ class TwilightPageState extends State<TwilightPage> {
       appBar: AppBar(
         title: const Text('Twilight'),
       ),
-      body: MapLayoutBuilder(
+      body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
           final sunPosition = transformer.toOffset(sun);

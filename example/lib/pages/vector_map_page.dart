@@ -61,7 +61,7 @@ class VectorMapPageState extends State<VectorMapPage> {
       appBar: AppBar(
         title: const Text('Vector Map'),
       ),
-      body: MapLayoutBuilder(
+      body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
           return GestureDetector(

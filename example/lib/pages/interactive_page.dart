@@ -65,7 +65,7 @@ class InteractiveMapPageState extends State<InteractiveMapPage> {
       appBar: AppBar(
         title: const Text('Interactive Map'),
       ),
-      body: MapLayoutBuilder(
+      body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
           return GestureDetector(

@@ -75,7 +75,7 @@ class MetroLinesPageState extends State<MetroLinesPage> {
       appBar: AppBar(
         title: const Text('Tehran Metro'),
       ),
-      body: MapLayoutBuilder(
+      body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
           return GestureDetector(

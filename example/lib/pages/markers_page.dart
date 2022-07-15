@@ -97,7 +97,7 @@ class MarkersPageState extends State<MarkersPage> {
       appBar: AppBar(
         title: const Text('Markers'),
       ),
-      body: MapLayoutBuilder(
+      body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
           final markerPositions = markers.map(transformer.toOffset).toList();

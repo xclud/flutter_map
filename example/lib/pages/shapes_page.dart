@@ -3,32 +3,40 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/utils/utils.dart';
 import 'package:example/utils/tile_servers.dart';
-import 'package:example/utils/viewport_painter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
-class RasterMapPage extends StatefulWidget {
-  const RasterMapPage({Key? key}) : super(key: key);
+class ShapesPage extends StatefulWidget {
+  const ShapesPage({Key? key}) : super(key: key);
 
   @override
-  RasterMapPageState createState() => RasterMapPageState();
+  ShapesPageState createState() => ShapesPageState();
 }
 
-class RasterMapPageState extends State<RasterMapPage> {
+class ShapesPageState extends State<ShapesPage> {
   final controller = MapController(
-    location: const LatLng(35.68, 51.41),
-    zoom: 6,
+    location: const LatLng(0, 0),
+    zoom: 3,
   );
 
-  bool _darkMode = false;
-
-  void _gotoDefault() {
-    controller.center = const LatLng(35.68, 51.41);
-    controller.zoom = 14;
-    setState(() {});
-  }
+  final polylines = <Polyline>[
+    Polyline(
+      data: const [
+        LatLng(40, -60),
+        LatLng(20, -20),
+        LatLng(0, -10),
+        LatLng(10, 0),
+        LatLng(0, 10),
+        LatLng(20, 20),
+        LatLng(0, 60),
+      ],
+      paint: Paint()
+        ..strokeWidth = 4
+        ..color = Colors.red,
+    ),
+  ];
 
   void _onDoubleTap(MapTransformer transformer, Offset position) {
     const delta = 0.5;
@@ -83,18 +91,7 @@ class RasterMapPageState extends State<RasterMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Raster Map'),
-        actions: [
-          IconButton(
-            tooltip: 'Toggle Dark Mode',
-            onPressed: () {
-              setState(() {
-                _darkMode = !_darkMode;
-              });
-            },
-            icon: const Icon(Icons.wb_sunny),
-          ),
-        ],
+        title: const Text('Shapes'),
       ),
       body: MapLayout(
         controller: controller,
@@ -135,27 +132,20 @@ class RasterMapPageState extends State<RasterMapPage> {
                       y %= tilesInZoom;
 
                       return CachedNetworkImage(
-                        imageUrl:
-                            _darkMode ? googleDark(z, x, y) : google(z, x, y),
+                        imageUrl: google(z, x, y),
                         fit: BoxFit.cover,
                       );
                     },
                   ),
-                  CustomPaint(
-                    painter: ViewportPainter(
-                      transformer.getViewport(),
-                    ),
+                  PolylineLayer(
+                    transformer: transformer,
+                    polylines: polylines,
                   ),
                 ],
               ),
             ),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _gotoDefault,
-        tooltip: 'My Location',
-        child: const Icon(Icons.my_location),
       ),
     );
   }

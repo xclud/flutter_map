@@ -61,7 +61,7 @@ class CustomTilePageState extends State<CustomTilePage> {
       appBar: AppBar(
         title: const Text('Custom Tiles'),
       ),
-      body: MapLayoutBuilder(
+      body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
           return GestureDetector(
