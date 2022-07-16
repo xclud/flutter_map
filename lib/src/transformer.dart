@@ -16,6 +16,7 @@ class MapTransformer {
   /// Map controller which is used in [MapLayoutBuilder].
   final MapController controller;
 
+  /// The size of the tiles. This is usually equal to the size of the .png file taken from the server. E.g. 256 for a 256x256 pixels or 512 for a 512x512 pixels.
   final int tileSize;
 
   /// Constraints of the current widget.
@@ -57,10 +58,12 @@ class MapTransformer {
     return Offset(_centerX + dx * s, _centerY + dy * s);
   }
 
+  /// Converts many XY coordinates to [LatLng].
   Iterable<LatLng> toLatLngMany(Iterable<Offset> positions) {
     return positions.map((e) => toLatLng(e));
   }
 
+  /// Converts many [LatLng] coordinates to XY [Offset].
   Iterable<Offset> toOffsetMany(Iterable<LatLng> locations) {
     return locations.map((e) => toOffset(e));
   }
@@ -102,6 +105,7 @@ class MapTransformer {
   }
 }
 
+/// For internal use.
 MapTransformer createMapTransformer({
   required MapController controller,
   required BoxConstraints constraints,

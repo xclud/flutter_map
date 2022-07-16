@@ -86,7 +86,6 @@ void _forEachPair<T>(List<T> list, Function(T a, T b) callback) {
 /// Find the coefficients (a,b) of a line of equation y = a.x + b,
 /// or the constant x for vertical lines
 /// Return null if there's no equation possible
-
 class _LineEquation {
   const _LineEquation({this.x, this.a, this.b});
 

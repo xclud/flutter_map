@@ -44,6 +44,7 @@ class MapLayout extends InheritedWidget {
     MapTransformer transformer,
   ) builder;
 
+  /// Whether the framework should notify widgets that inherit from this widget.
   @override
   bool updateShouldNotify(covariant MapLayout oldWidget) {
     return oldWidget.tileSize != tileSize ||
