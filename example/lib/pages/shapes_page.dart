@@ -164,6 +164,8 @@ class ShapesPageState extends State<ShapesPage> {
                         value: _polylineOffset,
                         min: -32,
                         max: 32,
+                        label: '$_polylineOffset px',
+                        divisions: 64,
                         onChanged: (v) {
                           setState(() {
                             _polylineOffset = v;
