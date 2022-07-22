@@ -1,3 +1,7 @@
+## [1.3.3]
+
+* Polyline offset field implemented.
+
 ## [1.3.2]
 
 * Deprecates `MapLayoutBuilder` widget and introduces the `MapLayout`.
