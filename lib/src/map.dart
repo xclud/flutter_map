@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/src/controller.dart';
 
-import 'package:map/src/layout_builder.dart';
-
+/// Raster or Vector data for a specific [z, x, y] coordinate.
+///
+/// This class must be a child of [MapLayout].
 @Deprecated('Please use [TileLayer] instead')
 class Map extends StatefulWidget {
   /// Main constructor.
@@ -22,6 +23,7 @@ class Map extends StatefulWidget {
   /// Map tile widget builder.
   final Widget Function(BuildContext context, int x, int y, int z) builder;
 
+  /// Size of each tile in pixels. Most tile servers provide tiles of 256 pixels.
   final double tileSize;
 
   @override
@@ -39,13 +41,6 @@ class _MapState extends State<Map> {
         setState(() {});
       }
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    final x = context.findAncestorWidgetOfExactType<MapLayoutBuilder>();
-    print(x);
-    super.didChangeDependencies();
   }
 
   @override
