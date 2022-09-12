@@ -25,6 +25,24 @@ The web demo contains several examples demonstrating different aspects and usage
 
 The source code of the demo app is available in the `./example` project.
 
+## Donation
+
+If you find this project useful, please support me by buying me a pizza 🍕.
+
+Tron Address:
+
+```bash
+TLtrEU4KT2bn5J87VWfs1QDrmB1aFQ1bja
+```
+
+Ethereum Address:
+
+```bash
+0xf8Da77e7BbE39be8c9e527289465Bf7219af58db
+```
+
+I do not accept Bitcoin due to its issues with sustainability and global warming.
+
 ## Contributing
 
 I welcome contributions in all forms. One lightweight way you can contribute is to [tell me that you're using Map](https://github.com/xclud/flutter_map/discussions/41), which will give me warm fuzzy feelings 🤩.
