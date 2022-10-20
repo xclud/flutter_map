@@ -1,3 +1,8 @@
+## [1.3.4]
+
+* Setup Github CI.
+* Adds donation notes to README.md
+
 ## [1.3.3]
 
 * Polyline offset field implemented.
