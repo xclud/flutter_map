@@ -1,0 +1,45 @@
+name: GitHub Pages
+
+concurrency: 
+  group: production
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build Web Demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch all history for all tags and branches
+        run: |
+          git config remote.origin.url https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git fetch --prune --depth=10000
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "master"
+      - run: cd example && flutter pub get
+      - run: cd example && flutter test
+      - name: Build Web App
+        run: cd example && flutter build web --base-href /flutter_map/
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: example/build/web
+  deploy:
+    name: Deploy GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
