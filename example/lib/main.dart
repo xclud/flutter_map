@@ -19,6 +19,8 @@ class MapApp extends StatelessWidget {
       title: 'Map Examples',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        useMaterial3: true,
+        brightness: Brightness.dark,
       ),
       home: const HomePage(),
     );
