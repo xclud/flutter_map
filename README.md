@@ -7,7 +7,7 @@
 [![forks](https://img.shields.io/github/forks/xclud/flutter_map)](https://github.com/xclud/flutter_map/network/members)
 [![sdk version](https://badgen.net/pub/sdk-version/map)](https://pub.dartlang.org/packages/map)
 
-Lightweight and powerful `Map` widget for flutter, supporting different projections including EPSG4326/Mercator/WGS1984.
+Lightweight and powerful geographical `Map` widget for Flutter, supporting different layers and projections including EPSG4326/Mercator/WGS1984.
 
 * Written entirely in Dart. No plugins, No platform code, No native code.
 

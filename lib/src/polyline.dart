@@ -4,6 +4,7 @@ import 'package:latlng/latlng.dart';
 
 /// Defines a polyline to draw on the map.
 class Polyline {
+  /// Creates an instance of [Polyline].
   const Polyline({
     required this.data,
     required this.paint,

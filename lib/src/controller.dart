@@ -3,6 +3,7 @@ import 'package:latlng/latlng.dart';
 
 /// A controller to modify the [center] and [zoom] of the [MapLayout].
 class MapController extends ChangeNotifier {
+  /// Creates an instance of [MapController].
   MapController({
     required LatLng location,
     double zoom = 14,

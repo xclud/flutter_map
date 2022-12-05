@@ -94,8 +94,8 @@ class _LineEquation {
   final double? b;
 }
 
-class OffsetSegment {
-  const OffsetSegment({
+class _OffsetSegment {
+  const _OffsetSegment({
     required this.offsetAngle,
     required this.original,
     required this.offset,
@@ -160,8 +160,8 @@ Offset _translatePoint(Offset pt, double dist, double heading) {
   );
 }
 
-List<OffsetSegment> _offsetPointLine(List<Offset> points, double distance) {
-  var offsetSegments = <OffsetSegment>[];
+List<_OffsetSegment> _offsetPointLine(List<Offset> points, double distance) {
+  var offsetSegments = <_OffsetSegment>[];
 
   _forEachPair<Offset>(points, (a, b) {
     if (a.dx == b.dx && a.dy == b.dy) {
@@ -172,7 +172,7 @@ List<OffsetSegment> _offsetPointLine(List<Offset> points, double distance) {
     var segmentAngle = atan2(a.dy - b.dy, a.dx - b.dx);
     var offsetAngle = segmentAngle - pi / 2;
 
-    offsetSegments.add(OffsetSegment(offsetAngle: offsetAngle, original: [
+    offsetSegments.add(_OffsetSegment(offsetAngle: offsetAngle, original: [
       a,
       b
     ], offset: [
@@ -191,7 +191,7 @@ List<Offset> _offsetPoints(List<Offset> points, double offset) {
 
 /// Join 2 line segments defined by 2 points each with a circular arc
 
-List<Offset> _joinSegments(OffsetSegment s1, OffsetSegment s2, double offset) {
+List<Offset> _joinSegments(_OffsetSegment s1, _OffsetSegment s2, double offset) {
   // TO DO: different join styles
   return _circularArc(s1, s2, offset)
       .where((x) {
@@ -201,7 +201,7 @@ List<Offset> _joinSegments(OffsetSegment s1, OffsetSegment s2, double offset) {
       .toList();
 }
 
-List<Offset> _joinLineSegments(List<OffsetSegment> segments, double offset) {
+List<Offset> _joinLineSegments(List<_OffsetSegment> segments, double offset) {
   var joinedPoints = <Offset>[];
 
   if (segments.isNotEmpty) {
@@ -209,7 +209,7 @@ List<Offset> _joinLineSegments(List<OffsetSegment> segments, double offset) {
     var last = segments.last;
 
     joinedPoints.add(first.offset[0]);
-    _forEachPair<OffsetSegment>(segments, (s1, s2) {
+    _forEachPair<_OffsetSegment>(segments, (s1, s2) {
       joinedPoints = [...joinedPoints, ..._joinSegments(s1, s2, offset)];
     });
     joinedPoints.add(last.offset[1]);
@@ -233,7 +233,7 @@ double _getSignedAngle(List<Offset> s1, List<Offset> s2) {
 
 /// Interpolates points between two offset segments in a circular form
 List<Offset?> _circularArc(
-    OffsetSegment s1, OffsetSegment s2, double distance) {
+    _OffsetSegment s1, _OffsetSegment s2, double distance) {
   // if the segments are the same angle,
   // there should be a single join point
   if (s1.offsetAngle == s2.offsetAngle) {
