@@ -191,7 +191,11 @@ List<Offset> _offsetPoints(List<Offset> points, double offset) {
 
 /// Join 2 line segments defined by 2 points each with a circular arc
 
-List<Offset> _joinSegments(_OffsetSegment s1, _OffsetSegment s2, double offset) {
+List<Offset> _joinSegments(
+  _OffsetSegment s1,
+  _OffsetSegment s2,
+  double offset,
+) {
   // TO DO: different join styles
   return _circularArc(s1, s2, offset)
       .where((x) {
