@@ -1,3 +1,7 @@
+## [1.4.0]
+
+* Support Dart SDK 3.0.0.
+
 ## [1.3.5+1]
 
 * Adds more dartdoc comments.
