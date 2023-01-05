@@ -18,7 +18,7 @@ class MapApp extends StatelessWidget {
     return MaterialApp(
       title: 'Map Examples',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        colorSchemeSeed: Colors.purple,
         useMaterial3: true,
         brightness: Brightness.dark,
       ),
