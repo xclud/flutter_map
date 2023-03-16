@@ -1,6 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:map/src/controller.dart';
-import 'package:map/src/transformer.dart';
+part of map;
 
 /// Builds a widget tree that can depend on the parent widget's size and
 /// providers a map coordinates transfom helper to its children.
@@ -17,7 +15,7 @@ class MapLayout extends InheritedWidget {
             key: key,
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-              final transformer = createMapTransformer(
+              final transformer = MapTransformer._internal(
                 controller: controller,
                 constraints: constraints,
                 tileSize: tileSize,

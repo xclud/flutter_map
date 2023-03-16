@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:flutter/material.dart';
-import 'package:latlng/latlng.dart';
-import 'package:map/src/controller.dart';
+part of map;
 
 /// Raster or Vector data for a specific [z, x, y] coordinate.
 ///

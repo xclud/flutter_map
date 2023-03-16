@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:latlng/latlng.dart';
+part of map;
 
 /// A controller to modify the [center] and [zoom] of the [MapLayout].
 class MapController extends ChangeNotifier {

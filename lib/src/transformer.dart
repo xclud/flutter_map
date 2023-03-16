@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:flutter/widgets.dart';
-import 'package:latlng/latlng.dart';
-import 'package:map/src/controller.dart';
+part of map;
 
 /// Helps with converting map coordinates to XY coordinates and vice-versa.
 class MapTransformer {
@@ -13,7 +9,7 @@ class MapTransformer {
   })  : _centerX = constraints.biggest.width / 2.0,
         _centerY = constraints.biggest.height / 2.0;
 
-  /// Map controller which is used in [MapLayoutBuilder].
+  /// Map controller which is used in [MapLayout].
   final MapController controller;
 
   /// The size of the tiles. This is usually equal to the size of the .png file taken from the server. E.g. 256 for a 256x256 pixels or 512 for a 512x512 pixels.
@@ -103,17 +99,17 @@ class MapTransformer {
 
     return Rect.fromCenter(center: centerPixels, width: size, height: size);
   }
-}
 
-/// For internal use.
-MapTransformer createMapTransformer({
-  required MapController controller,
-  required BoxConstraints constraints,
-  required int tileSize,
-}) {
-  return MapTransformer._internal(
-    controller: controller,
-    constraints: constraints,
-    tileSize: tileSize,
-  );
+  /// Gets the current visible boundary.
+  Boundary getBoundary() {
+    final biggest = Offset(
+      constraints.biggest.width,
+      constraints.biggest.height,
+    );
+
+    final topLeft = toLatLng(Offset.zero);
+    final bottomRight = toLatLng(biggest);
+
+    return Boundary(topLeft: topLeft, bottomRight: bottomRight);
+  }
 }

@@ -1,9 +1,4 @@
-import 'dart:math';
-
-import 'package:flutter/widgets.dart';
-import 'package:map/src/polyline.dart';
-import 'package:map/src/transformer.dart';
-import 'package:map/src/map_layout.dart';
+part of map;
 
 /// Draws a layer of polylines on the [MapLayout].
 class PolylineLayer extends StatelessWidget {

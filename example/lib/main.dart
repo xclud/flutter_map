@@ -7,6 +7,7 @@ import 'package:example/pages/metro_lines_page.dart';
 import 'package:example/pages/raster_map_page.dart';
 import 'package:example/pages/vector_map_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(const MapApp());
 
@@ -17,6 +18,11 @@ class MapApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Map Examples',
+      supportedLocales: const [Locale('en')],
+      localizationsDelegates: const [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      ],
       theme: ThemeData(
         colorSchemeSeed: Colors.purple,
         useMaterial3: true,

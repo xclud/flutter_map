@@ -1,3 +1,7 @@
+## [1.4.1]
+
+* Utility to get the visible boundary.
+
 ## [1.4.0]
 
 * Support Dart SDK 3.0.0.

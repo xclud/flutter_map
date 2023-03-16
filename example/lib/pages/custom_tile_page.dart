@@ -64,6 +64,10 @@ class CustomTilePageState extends State<CustomTilePage> {
       body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
+          final boundary = transformer.getBoundary();
+          final boundaryText =
+              'TopLeft: (${boundary.topLeft.latitude}, ${boundary.topLeft.longitude})\nBottomRight: (${boundary.bottomRight.latitude}, ${boundary.bottomRight.longitude})';
+
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onDoubleTapDown: (details) => _onDoubleTap(
@@ -100,6 +104,7 @@ class CustomTilePageState extends State<CustomTilePage> {
                       );
                     },
                   ),
+                  Positioned(bottom: 16, right: 16, child: Text(boundaryText)),
                 ],
               ),
             ),

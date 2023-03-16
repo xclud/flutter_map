@@ -18,11 +18,16 @@
 /// * This package supports **caching** out of the box through [cached_network_image](https://pub.dev/packages/cached_network_image) and [flutter_cache_manager](https://pub.dev/packages/flutter_cache_manager) packages.
 library map;
 
-export 'src/map.dart';
-export 'src/layout_builder.dart';
-export 'src/map_layout.dart';
-export 'src/transformer.dart' show MapTransformer;
-export 'src/controller.dart';
-export 'src/polyline.dart';
-export 'src/layers/tile_layer.dart';
-export 'src/layers/polyline_layer.dart';
+import 'dart:math';
+
+import 'package:latlng/latlng.dart';
+import 'package:flutter/widgets.dart';
+
+part 'src/map.dart';
+part 'src/layout_builder.dart';
+part 'src/map_layout.dart';
+part 'src/transformer.dart';
+part 'src/controller.dart';
+part 'src/polyline.dart';
+part 'src/layers/tile_layer.dart';
+part 'src/layers/polyline_layer.dart';

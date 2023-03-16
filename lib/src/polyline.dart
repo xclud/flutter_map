@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:latlng/latlng.dart';
+part of map;
 
 /// Defines a polyline to draw on the map.
 class Polyline {
