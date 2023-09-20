@@ -19,13 +19,6 @@ analyzer:
     dead_code: error
     duplicate_import: error
     file_names: error
-    implicit_dynamic_function: ignore
-    implicit_dynamic_parameter: error
-    implicit_dynamic_list_literal: ignore
-    implicit_dynamic_map_literal: ignore
-    implicit_dynamic_method: ignore
-    implicit_dynamic_type: ignore
-    implicit_dynamic_variable: ignore
     invalid_assignment: error
     missing_return: error
     prefer_const_constructors: error

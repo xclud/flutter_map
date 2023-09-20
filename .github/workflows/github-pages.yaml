@@ -1,12 +1,12 @@
 name: GitHub Pages
 
-concurrency: 
+concurrency:
   group: production
   cancel-in-progress: true
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:

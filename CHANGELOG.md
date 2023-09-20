@@ -1,3 +1,7 @@
+## [1.4.2]
+
+* Dart 3.0 ready.
+
 ## [1.4.1]
 
 * Utility to get the visible boundary.

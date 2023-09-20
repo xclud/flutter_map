@@ -1,15 +1,18 @@
 name: Publish to Pub.dev
 
-on: push
+on:
+  push:
+    branches: [main]
 
 jobs:
   publishing:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v2 # required!
-        
-      - name: 'map'
+
+      - name: "map"
         uses: k-paxian/dart-package-publisher@master
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+          format: true
