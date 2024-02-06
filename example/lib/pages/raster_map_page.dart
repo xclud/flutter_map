@@ -18,14 +18,14 @@ class RasterMapPage extends StatefulWidget {
 
 class RasterMapPageState extends State<RasterMapPage> {
   final controller = MapController(
-    location: const LatLng(35.68, 51.41),
+    location: const LatLng(Angle.degree(35.68), Angle.degree(51.41)),
     zoom: 6,
   );
 
   bool _darkMode = false;
 
   void _gotoDefault() {
-    controller.center = const LatLng(35.68, 51.41);
+    controller.center = const LatLng(Angle.degree(35.68), Angle.degree(51.41));
     controller.zoom = 14;
     setState(() {});
   }

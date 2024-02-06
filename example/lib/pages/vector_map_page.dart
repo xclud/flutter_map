@@ -13,11 +13,17 @@ class VectorMapPage extends StatefulWidget {
 
 class VectorMapPageState extends State<VectorMapPage> {
   final controller = MapController(
-    location: const LatLng(35.68, 51.41),
+    location: const LatLng(
+      Angle.degree(35.68),
+      Angle.degree(51.41),
+    ),
   );
 
   void _gotoDefault() {
-    controller.center = const LatLng(35.68, 51.41);
+    controller.center = const LatLng(
+      Angle.degree(35.68),
+      Angle.degree(51.41),
+    );
     setState(() {});
   }
 

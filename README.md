@@ -74,7 +74,7 @@ import 'package:map/map.dart';
 
 ```dart
 final controller = MapController(
-  location: const LatLng(0, 0),
+  location: const LatLng(Angle.degree(Angle.degree(0)), Angle.degree(Angle.degree(0))),
   zoom: 2,
 );
 ```

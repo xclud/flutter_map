@@ -1,4 +1,4 @@
-part of map;
+part of '../map.dart';
 
 /// Builds a widget tree that can depend on the parent widget's size and
 /// providers a map coordinates transfom helper to its children.

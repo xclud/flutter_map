@@ -1,4 +1,4 @@
-part of map;
+part of '../map.dart';
 
 /// Defines a polyline to draw on the map.
 class Polyline {

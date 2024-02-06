@@ -1,4 +1,4 @@
-part of map;
+part of '../map.dart';
 
 /// A controller to modify the [center] and [zoom] of the [MapLayout].
 class MapController extends ChangeNotifier {

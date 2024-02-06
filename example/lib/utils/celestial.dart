@@ -539,7 +539,7 @@ LatLng toLatLng(double gst, double x, double y, double z) {
     }
   }
 
-  latitude = 180.0 / pi * latitude;
+  latitude = latitude;
 
-  return LatLng(latitude, longitude);
+  return LatLng(Angle.radian(latitude), Angle.degree(longitude));
 }

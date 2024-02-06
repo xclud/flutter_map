@@ -43,8 +43,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: theme.colorScheme.inversePrimary,
         title: const Text('Map Examples'),
       ),
       body: ListView(

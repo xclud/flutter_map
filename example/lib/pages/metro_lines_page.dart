@@ -17,7 +17,7 @@ class MetroLinesPage extends StatefulWidget {
 
 class MetroLinesPageState extends State<MetroLinesPage> {
   final controller = MapController(
-    location: const LatLng(35.68, 51.41),
+    location: const LatLng(Angle.degree(35.68), Angle.degree(51.41)),
     zoom: 11,
   );
 
@@ -31,7 +31,10 @@ class MetroLinesPageState extends State<MetroLinesPage> {
   }
 
   void _gotoDefault() {
-    controller.center = const LatLng(35.68, 51.41);
+    controller.center = const LatLng(
+      Angle.degree(35.68),
+      Angle.degree(51.41),
+    );
     setState(() {});
   }
 
@@ -225,177 +228,213 @@ class PolylinePainter extends CustomPainter {
 
 final _aryashahr = MetroStation(
   name: 'Arya Shahr',
-  position: const LatLng(35.71757937340565, 51.330969328113085),
+  position: const LatLng(
+      Angle.degree(35.71757937340565), Angle.degree(51.330969328113085)),
 );
 
 final _tarasht = MetroStation(
   name: 'Tarasht',
-  position: const LatLng(35.71622385160099, 51.34340074353702),
+  position: const LatLng(
+      Angle.degree(35.71622385160099), Angle.degree(51.34340074353702)),
 );
 
 final _sharifUniversity = MetroStation(
   name: 'Sharif University',
-  position: const LatLng(35.705823580454656, 51.353618416990045),
+  position: const LatLng(
+      Angle.degree(35.705823580454656), Angle.degree(51.353618416990045)),
 );
 
 final _shademan = MetroStation(
   name: 'Shademan Street',
-  position: const LatLng(35.70062850581121, 51.36367669313273),
+  position: const LatLng(
+      Angle.degree(35.70062850581121), Angle.degree(51.36367669313273)),
 );
 
 final _navab = MetroStation(
   name: 'Navab',
-  position: const LatLng(35.694488236784835, 51.37924806014357),
+  position: const LatLng(
+      Angle.degree(35.694488236784835), Angle.degree(51.37924806014357)),
 );
 
 final _hor = MetroStation(
   name: 'Hor',
-  position: const LatLng(35.69100301426342, 51.38843201173324),
+  position: const LatLng(
+      Angle.degree(35.69100301426342), Angle.degree(51.38843201173324)),
 );
 
 final _emamAli = MetroStation(
   name: 'Emam Ali University',
-  position: const LatLng(35.68724055807456, 51.399367325687905),
+  position: const LatLng(
+      Angle.degree(35.68724055807456), Angle.degree(51.399367325687905)),
 );
 
 final _hasanAbad = MetroStation(
   name: 'Hasan Abad',
-  position: const LatLng(35.68655399193537, 51.41001912596496),
+  position: const LatLng(
+      Angle.degree(35.68655399193537), Angle.degree(51.41001912596496)),
 );
 
 final _toopkhaneh = MetroStation(
   name: 'Toopkhaneh',
-  position: const LatLng(35.68551852849885, 51.41997232631562),
+  position: const LatLng(
+      Angle.degree(35.68551852849885), Angle.degree(51.41997232631562)),
 );
 
 final _mellat = MetroStation(
   name: 'Mellat',
-  position: const LatLng(35.68864898375998, 51.426800270768936),
+  position: const LatLng(
+      Angle.degree(35.68864898375998), Angle.degree(51.426800270768936)),
 );
 
 final _baharestan = MetroStation(
   name: 'Baharestan',
-  position: const LatLng(35.69192672557228, 51.43280904141429),
+  position: const LatLng(
+      Angle.degree(35.69192672557228), Angle.degree(51.43280904141429)),
 );
 final _shemiran = MetroStation(
   name: 'Shemiran',
-  position: const LatLng(35.69909850226239, 51.43772481540947),
+  position: const LatLng(
+      Angle.degree(35.69909850226239), Angle.degree(51.43772481540947)),
 );
 
 final _emamHossein = MetroStation(
   name: 'Emam Hossein',
-  position: const LatLng(35.70217888885868, 51.44564502671469),
+  position: const LatLng(
+      Angle.degree(35.70217888885868), Angle.degree(51.44564502671469)),
 );
 
 final _madani = MetroStation(
   name: 'Madani',
-  position: const LatLng(35.709210342581805, 51.45336520872064),
+  position: const LatLng(
+      Angle.degree(35.709210342581805), Angle.degree(51.45336520872064)),
 );
 
 final _sabalan = MetroStation(
   name: 'Sabalan',
-  position: const LatLng(35.71820650723393, 51.46465956495724),
+  position: const LatLng(
+      Angle.degree(35.71820650723393), Angle.degree(51.46465956495724)),
 );
 
 final _fadak = MetroStation(
   name: 'Fadak',
-  position: const LatLng(35.72649785014192, 51.47591927983872),
+  position: const LatLng(
+      Angle.degree(35.72649785014192), Angle.degree(51.47591927983872)),
 );
 
 final _golbarg = MetroStation(
   name: 'Golbarg',
-  position: const LatLng(35.73349925482848, 51.48457964845982),
+  position: const LatLng(
+      Angle.degree(35.73349925482848), Angle.degree(51.48457964845982)),
 );
 
 final _sarsabz = MetroStation(
   name: 'Sarsabz',
-  position: const LatLng(35.73537402841984, 51.49490066392291),
+  position: const LatLng(
+      Angle.degree(35.73537402841984), Angle.degree(51.49490066392291)),
 );
 
 final _scienceIndustryUniversity = MetroStation(
   name: 'Science & Industry University',
-  position: const LatLng(35.73470025614792, 51.504932905858375),
+  position: const LatLng(
+      Angle.degree(35.73470025614792), Angle.degree(51.504932905858375)),
 );
 
 final _bagheri = MetroStation(
   name: 'Bagheri',
-  position: const LatLng(35.733206036178046, 51.516336540855036),
+  position: const LatLng(
+      Angle.degree(35.733206036178046), Angle.degree(51.516336540855036)),
 );
 
 final _tehranPars = MetroStation(
   name: 'Tehran Pars',
-  position: const LatLng(35.73103838268802, 51.53163754759502),
+  position: const LatLng(
+      Angle.degree(35.73103838268802), Angle.degree(51.53163754759502)),
 );
 
 final _farhangsara = MetroStation(
   name: 'Farhang Sara',
-  position: const LatLng(35.72971980408225, 51.54679410705018),
+  position: const LatLng(
+      Angle.degree(35.72971980408225), Angle.degree(51.54679410705018)),
 );
 final _eastTerminal = MetroStation(
   name: 'East Terminal',
-  position: const LatLng(35.722140812136395, 51.59488314170198),
+  position: const LatLng(
+      Angle.degree(35.722140812136395), Angle.degree(51.59488314170198)),
 );
 
 final _pardis8 = MetroStation(
   name: 'Pardis 8',
-  position: const LatLng(35.71944722507747, 51.76299576172402),
+  position: const LatLng(
+      Angle.degree(35.71944722507747), Angle.degree(51.76299576172402)),
   underConstruction: true,
 );
 
 final _pardis3 = MetroStation(
   name: 'Pardis 3',
-  position: const LatLng(35.743169432210856, 51.83866319852903),
+  position: const LatLng(
+      Angle.degree(35.743169432210856), Angle.degree(51.83866319852903)),
   underConstruction: true,
 );
 
 final _tajrish = MetroStation(
   name: 'Tajrish',
-  position: const LatLng(35.80474825918548, 51.43340567819161),
+  position: const LatLng(
+      Angle.degree(35.80474825918548), Angle.degree(51.43340567819161)),
 );
 
 final _mirdamad = MetroStation(
   name: 'Mirdamad',
-  position: const LatLng(35.760127715849805, 51.43368520770052),
+  position: const LatLng(
+      Angle.degree(35.760127715849805), Angle.degree(51.43368520770052)),
 );
 
 final _ghodousi = MetroStation(
   name: 'Ghodousi',
-  position: const LatLng(35.73168390837565, 51.44444505496505),
+  position: const LatLng(
+      Angle.degree(35.73168390837565), Angle.degree(51.44444505496505)),
 );
 final _sohrevardi = MetroStation(
   name: 'Sohrevardi',
-  position: const LatLng(35.7311540404063, 51.436853575198434),
+  position: const LatLng(
+      Angle.degree(35.7311540404063), Angle.degree(51.436853575198434)),
 );
 
 final _sayadShirazi = MetroStation(
   name: 'Sayad Shirazi',
-  position: const LatLng(35.73537356380443, 51.45854599108719),
+  position: const LatLng(
+      Angle.degree(35.73537356380443), Angle.degree(51.45854599108719)),
 );
 final _beheshti = MetroStation(
   name: 'Beheshti',
-  position: const LatLng(35.731010038875134, 51.42708577388299),
+  position: const LatLng(
+      Angle.degree(35.731010038875134), Angle.degree(51.42708577388299)),
 );
 final _mirzaShirazi = MetroStation(
   name: 'Mirza Shirazi',
-  position: const LatLng(35.7281496587392, 51.41725741970027),
+  position: const LatLng(
+      Angle.degree(35.7281496587392), Angle.degree(51.41725741970027)),
 );
 final _jahad = MetroStation(
   name: 'Jahad',
-  position: const LatLng(35.720576180728536, 51.40823450435068),
+  position: const LatLng(
+      Angle.degree(35.720576180728536), Angle.degree(51.40823450435068)),
 );
 final _valiasr = MetroStation(
   name: 'Valiasr Sq.',
-  position: const LatLng(35.712031856801616, 51.407856246768034),
+  position: const LatLng(
+      Angle.degree(35.712031856801616), Angle.degree(51.407856246768034)),
 );
 
 final _kahrizak = MetroStation(
   name: 'Kahrizak',
-  position: const LatLng(35.5216056666344, 51.369240674773046),
+  position: const LatLng(
+      Angle.degree(35.5216056666344), Angle.degree(51.369240674773046)),
 );
 
 final _ika = MetroStation(
   name: 'IK Airport',
-  position: const LatLng(35.40689907803021, 51.154232813746496),
+  position: const LatLng(
+      Angle.degree(35.40689907803021), Angle.degree(51.154232813746496)),
 );
 
 final _line1 = MetroLine(name: 'Line 1', color: Colors.red, stations: [
@@ -440,54 +479,64 @@ final _line2 = MetroLine(name: 'Line 2', color: Colors.indigo, stations: [
 
 final _eramSabz = MetroStation(
   name: 'Eram Sabz',
-  position: const LatLng(35.71782508745886, 51.301667772837206),
+  position: const LatLng(
+      Angle.degree(35.71782508745886), Angle.degree(51.301667772837206)),
 );
 
 final _chitgar = MetroStation(
   name: 'Chigtar',
-  position: const LatLng(35.717188213170736, 51.243402358378106),
+  position: const LatLng(
+      Angle.degree(35.717188213170736), Angle.degree(51.243402358378106)),
 );
 
 final _golshahr = MetroStation(
   name: 'Golshahr',
-  position: const LatLng(35.824928112047054, 50.932998060499195),
+  position: const LatLng(
+      Angle.degree(35.824928112047054), Angle.degree(50.932998060499195)),
 );
 
 final _hashtgerd = MetroStation(
   name: 'Hashtgerd',
-  position: const LatLng(35.961747, 50.684678),
+  position: const LatLng(Angle.degree(35.961747), Angle.degree(50.684678)),
   underConstruction: true,
 );
 
 final _ghaem = MetroStation(
   name: 'Ghaem',
-  position: const LatLng(35.79879019586637, 51.52094117060687),
+  position: const LatLng(
+      Angle.degree(35.79879019586637), Angle.degree(51.52094117060687)),
 );
 final _mahalati = MetroStation(
   name: 'Mahalati',
-  position: const LatLng(35.797967290661774, 51.50817332062084),
+  position: const LatLng(
+      Angle.degree(35.797967290661774), Angle.degree(51.50817332062084)),
 );
 final _nobonyad = MetroStation(
   name: 'No Bonyad',
-  position: const LatLng(35.790718958697056, 51.47865338565981),
+  position: const LatLng(
+      Angle.degree(35.790718958697056), Angle.degree(51.47865338565981)),
 );
 final _hosseinAbad = MetroStation(
   name: 'Hossein Abad',
-  position: const LatLng(35.77894788853776, 51.478721520954345),
+  position: const LatLng(
+      Angle.degree(35.77894788853776), Angle.degree(51.478721520954345)),
 );
 final _heravi = MetroStation(
   name: 'Heravi',
-  position: const LatLng(35.772038351385085, 51.47313752766146),
+  position: const LatLng(
+      Angle.degree(35.772038351385085), Angle.degree(51.47313752766146)),
 );
 
 final _zeiodin = MetroStation(
   name: 'Zeinodin',
-  position: const LatLng(35.76065187124504, 51.46536889194252),
+  position: const LatLng(
+      Angle.degree(35.76065187124504), Angle.degree(51.46536889194252)),
 );
 
 final _azadegan = MetroStation(
   name: 'Azadegan',
-  position: const LatLng(35.627295270680015, 51.335528759926504),
+  position: const LatLng(
+      Angle.degree(35.627295270680015), Angle.degree(51.335528759926504)),
 );
 
 final _line3 = MetroLine(name: 'Line 3', color: Colors.blue, stations: [
@@ -511,31 +560,37 @@ final _line3 = MetroLine(name: 'Line 3', color: Colors.blue, stations: [
 
 final _enghelab = MetroStation(
   name: 'Enghelab',
-  position: const LatLng(35.70122975656138, 51.389943847765274),
+  position: const LatLng(
+      Angle.degree(35.70122975656138), Angle.degree(51.389943847765274)),
 );
 final _theatre = MetroStation(
   name: 'Theatre',
-  position: const LatLng(35.700975031749934, 51.40537467899397),
+  position: const LatLng(
+      Angle.degree(35.700975031749934), Angle.degree(51.40537467899397)),
 );
 
 final _darvazehDowlat = MetroStation(
   name: 'Darvazeh Dowlat',
-  position: const LatLng(35.70170631117268, 51.42565980252712),
+  position: const LatLng(
+      Angle.degree(35.70170631117268), Angle.degree(51.42565980252712)),
 );
 
 final _kolahdooz = MetroStation(
   name: 'Kolahdooz',
-  position: const LatLng(35.69873171497634, 51.50028547590922),
+  position: const LatLng(
+      Angle.degree(35.69873171497634), Angle.degree(51.50028547590922)),
 );
 
 final _ekbatan = MetroStation(
   name: 'Ekbatan',
-  position: const LatLng(35.70560465501403, 51.30772942274484),
+  position: const LatLng(
+      Angle.degree(35.70560465501403), Angle.degree(51.30772942274484)),
 );
 
 final _bimeh = MetroStation(
   name: 'Bimeh',
-  position: const LatLng(35.69967513438331, 51.320199419396154),
+  position: const LatLng(
+      Angle.degree(35.69967513438331), Angle.degree(51.320199419396154)),
 );
 
 final _line4 =
@@ -564,98 +619,116 @@ final _line5 =
 ]);
 final _suleqan = MetroStation(
   name: 'Suleqan',
-  position: const LatLng(35.780236, 51.264058),
+  position: const LatLng(Angle.degree(35.780236), Angle.degree(51.264058)),
   underConstruction: true,
 );
 final _abshenasan = MetroStation(
   name: 'Ab Shenasan',
-  position: const LatLng(35.76258472722211, 51.28957651612672),
+  position: const LatLng(
+      Angle.degree(35.76258472722211), Angle.degree(51.28957651612672)),
   underConstruction: true,
 );
 
 final _shahran = MetroStation(
   name: 'Shahran',
-  position: const LatLng(35.752417, 51.288610),
+  position: const LatLng(Angle.degree(35.752417), Angle.degree(51.288610)),
 );
 final _shahrZiba = MetroStation(
   name: 'Shahr Ziba',
-  position: const LatLng(35.74570658113588, 51.29470367520848),
+  position: const LatLng(
+      Angle.degree(35.74570658113588), Angle.degree(51.29470367520848)),
 );
 final _kashani = MetroStation(
   name: 'Kashani',
-  position: const LatLng(35.74105432499717, 51.30252291344615),
+  position: const LatLng(
+      Angle.degree(35.74105432499717), Angle.degree(51.30252291344615)),
 );
 final _sattari = MetroStation(
   name: 'Sattari',
-  position: const LatLng(35.73689729029617, 51.319949826510474),
+  position: const LatLng(
+      Angle.degree(35.73689729029617), Angle.degree(51.319949826510474)),
 );
 
 final _ashrafi = MetroStation(
   name: 'Ashrafi',
-  position: const LatLng(35.73646907308664, 51.33018449519758),
+  position: const LatLng(
+      Angle.degree(35.73646907308664), Angle.degree(51.33018449519758)),
 );
 final _yadegar = MetroStation(
   name: 'Yadegar',
-  position: const LatLng(35.735010085689325, 51.346161782586876),
+  position: const LatLng(
+      Angle.degree(35.735010085689325), Angle.degree(51.346161782586876)),
 );
 final _marzdaran = MetroStation(
   name: 'Marzdaran',
-  position: const LatLng(35.73458463070642, 51.35946179268246),
+  position: const LatLng(
+      Angle.degree(35.73458463070642), Angle.degree(51.35946179268246)),
 );
 final _azmayesh = MetroStation(
   name: 'Azmayesh',
-  position: const LatLng(35.73157074370065, 51.37143732702147),
+  position: const LatLng(
+      Angle.degree(35.73157074370065), Angle.degree(51.37143732702147)),
 );
 
 final _tarbiatModaresUniversity = MetroStation(
   name: 'Tarbiat Modares University',
-  position: const LatLng(35.72424349366254, 51.38126984903476),
+  position: const LatLng(
+      Angle.degree(35.72424349366254), Angle.degree(51.38126984903476)),
 );
 
 final _kargar = MetroStation(
   name: 'Kargar',
-  position: const LatLng(35.71471307905838, 51.38952461610402),
+  position: const LatLng(
+      Angle.degree(35.71471307905838), Angle.degree(51.38952461610402)),
 );
 
 final _lalehPark = MetroStation(
   name: 'Laleh Park',
-  position: const LatLng(35.71333682376672, 51.395465331203326),
+  position: const LatLng(
+      Angle.degree(35.71333682376672), Angle.degree(51.395465331203326)),
   underConstruction: true,
 );
 final _nejatollahi = MetroStation(
   name: 'Nejatollahi',
-  position: const LatLng(35.715388315039576, 51.41461470239434),
+  position: const LatLng(
+      Angle.degree(35.715388315039576), Angle.degree(51.41461470239434)),
 );
 
 final _haftTir = MetroStation(
   name: 'Haft Tir',
-  position: const LatLng(35.71524379966379, 51.426299231471965),
+  position: const LatLng(
+      Angle.degree(35.71524379966379), Angle.degree(51.426299231471965)),
 );
 
 final _baharShiraz = MetroStation(
   name: 'Bahar Shiraz',
-  position: const LatLng(35.71530115570266, 51.43897237567691),
+  position: const LatLng(
+      Angle.degree(35.71530115570266), Angle.degree(51.43897237567691)),
 );
 
 final _sarbaz = MetroStation(
   name: 'Sarbaz',
-  position: const LatLng(35.71081625291094, 51.44421054165743),
+  position: const LatLng(
+      Angle.degree(35.71081625291094), Angle.degree(51.44421054165743)),
   underConstruction: true,
 );
 
 final _shohada = MetroStation(
   name: 'Shohada',
-  position: const LatLng(35.6904366612891, 51.44759134684435),
+  position: const LatLng(
+      Angle.degree(35.6904366612891), Angle.degree(51.44759134684435)),
 );
 
 final _besat = MetroStation(
   name: 'Besat',
-  position: const LatLng(35.644725311376625, 51.444266434717186),
+  position: const LatLng(
+      Angle.degree(35.644725311376625), Angle.degree(51.444266434717186)),
 );
 
 final _dowlatAbad = MetroStation(
   name: 'Dowlat Abad',
-  position: const LatLng(35.61897971493006, 51.464688221944336),
+  position: const LatLng(
+      Angle.degree(35.61897971493006), Angle.degree(51.464688221944336)),
 );
 
 final _line6 =
@@ -685,42 +758,50 @@ final _line6 =
 ]);
 final _mohamadieh = MetroStation(
   name: 'Mohamadieh',
-  position: const LatLng(35.66814530509415, 51.41598286133743),
+  position: const LatLng(
+      Angle.degree(35.66814530509415), Angle.degree(51.41598286133743)),
 );
 
 final _mahdieh = MetroStation(
   name: 'Mahdieh',
-  position: const LatLng(35.66684138182278, 51.39955168977791),
+  position: const LatLng(
+      Angle.degree(35.66684138182278), Angle.degree(51.39955168977791)),
 );
 
 final _helalAhmar = MetroStation(
   name: 'Helal Ahmar',
-  position: const LatLng(35.66792345748616, 51.38744705070702),
+  position: const LatLng(
+      Angle.degree(35.66792345748616), Angle.degree(51.38744705070702)),
 );
 
 final _beryanak = MetroStation(
   name: 'Beryanak',
-  position: const LatLng(35.673168433742745, 51.38083683673324),
+  position: const LatLng(
+      Angle.degree(35.673168433742745), Angle.degree(51.38083683673324)),
 );
 
 final _komeyl = MetroStation(
   name: 'Komeyl',
-  position: const LatLng(35.68052015353838, 51.37986931629428),
+  position: const LatLng(
+      Angle.degree(35.68052015353838), Angle.degree(51.37986931629428)),
 );
 
 final _roodaki = MetroStation(
   name: 'Roodaki',
-  position: const LatLng(35.68764013618165, 51.37909161479496),
+  position: const LatLng(
+      Angle.degree(35.68764013618165), Angle.degree(51.37909161479496)),
 );
 
 final _tohid = MetroStation(
   name: 'Tohid',
-  position: const LatLng(35.70086534232278, 51.378560581238574),
+  position: const LatLng(
+      Angle.degree(35.70086534232278), Angle.degree(51.378560581238574)),
 );
 
 final _sanat = MetroStation(
   name: 'Sanat Sq.',
-  position: const LatLng(35.754566356068814, 51.367483715989),
+  position: const LatLng(
+      Angle.degree(35.754566356068814), Angle.degree(51.367483715989)),
 );
 
 final _line7 = MetroLine(name: 'Line 7', color: Colors.deepPurple, stations: [

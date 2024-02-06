@@ -62,11 +62,11 @@ double _hourAngle(double lng, _AlphaDelta sunPos, double gst) {
   return lst * 15 - sunPos.alpha;
 }
 
-double _latitude(double ha, _AlphaDelta sunPos) {
+Angle _latitude(double ha, _AlphaDelta sunPos) {
   /* For a given hour angle and sun position, compute the
 		 * latitude of the terminator in degrees. */
-  var lat = atan(-cos(ha * d2r) / tan(sunPos.delta * d2r)) * _r2d;
-  return lat;
+  var lat = atan(-cos(ha * d2r) / tan(sunPos.delta * d2r));
+  return Angle.radian(lat);
 }
 
 double _julian(int date) {
@@ -110,7 +110,7 @@ class Twilight {
     for (var i = 0; i <= 360 * resolution; i++) {
       var lng = -180 + i / resolution;
       var ha = _hourAngle(lng, sunEqPos, gst);
-      latLng.add(LatLng(_latitude(ha, sunEqPos), lng));
+      latLng.add(LatLng(_latitude(ha, sunEqPos), Angle.degree(lng)));
     }
 
     return Twilight._(latLng, sunEqPos.delta);

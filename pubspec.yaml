@@ -1,6 +1,6 @@
 name: map
 description: Geographical Map widget for flutter supporting different projections including EPSG4326/Mercator/WGS1984.
-version: 1.4.2
+version: 2.0.0
 homepage: https://pwa.ir
 repository: https://github.com/xclud/flutter_map
 
@@ -10,9 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  latlng: ^1.0.0
+  latlng: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.0

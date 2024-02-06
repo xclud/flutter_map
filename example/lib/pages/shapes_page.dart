@@ -17,18 +17,21 @@ class ShapesPage extends StatefulWidget {
 
 class ShapesPageState extends State<ShapesPage> {
   final controller = MapController(
-    location: const LatLng(0, 0),
+    location: const LatLng(
+      Angle.degree(0),
+      Angle.degree(0),
+    ),
     zoom: 3,
   );
 
   static const polyCoords = [
-    LatLng(40, -60),
-    LatLng(20, -20),
-    LatLng(0, -10),
-    LatLng(10, 0),
-    LatLng(0, 10),
-    LatLng(20, 20),
-    LatLng(0, 60),
+    LatLng(Angle.degree(40), Angle.degree(-60)),
+    LatLng(Angle.degree(20), Angle.degree(-20)),
+    LatLng(Angle.degree(0), Angle.degree(-10)),
+    LatLng(Angle.degree(10), Angle.degree(0)),
+    LatLng(Angle.degree(0), Angle.degree(10)),
+    LatLng(Angle.degree(20), Angle.degree(20)),
+    LatLng(Angle.degree(0), Angle.degree(60)),
   ];
 
   double _polylineOffset = 5;

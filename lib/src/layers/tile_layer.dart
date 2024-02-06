@@ -1,4 +1,4 @@
-part of map;
+part of '../../map.dart';
 
 /// Raster or Vector data for a specific [z, x, y] coordinate.
 ///

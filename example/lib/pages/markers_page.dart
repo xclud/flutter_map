@@ -17,18 +17,18 @@ class MarkersPage extends StatefulWidget {
 
 class MarkersPageState extends State<MarkersPage> {
   final controller = MapController(
-    location: const LatLng(35.68, 51.41),
+    location: const LatLng(Angle.degree(35.68), Angle.degree(51.41)),
   );
 
   final markers = [
-    const LatLng(35.674, 51.41),
-    const LatLng(35.678, 51.41),
-    const LatLng(35.682, 51.41),
-    const LatLng(35.686, 51.41),
+    const LatLng(Angle.degree(35.674), Angle.degree(51.41)),
+    const LatLng(Angle.degree(35.678), Angle.degree(51.41)),
+    const LatLng(Angle.degree(35.682), Angle.degree(51.41)),
+    const LatLng(Angle.degree(35.686), Angle.degree(51.41)),
   ];
 
   void _gotoDefault() {
-    controller.center = const LatLng(35.68, 51.41);
+    controller.center = const LatLng(Angle.degree(35.68), Angle.degree(51.41));
     setState(() {});
   }
 
@@ -106,7 +106,8 @@ class MarkersPageState extends State<MarkersPage> {
             (pos) => _buildMarkerWidget(pos, Colors.red),
           );
 
-          final homeLocation = transformer.toOffset(const LatLng(35.68, 51.42));
+          final homeLocation = transformer
+              .toOffset(const LatLng(Angle.degree(35.68), Angle.degree(51.42)));
 
           final homeMarkerWidget =
               _buildMarkerWidget(homeLocation, Colors.black, Icons.home);

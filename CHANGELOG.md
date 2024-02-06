@@ -1,3 +1,7 @@
+## [2.0.0]
+
+* Dependencies updated.
+
 ## [1.4.2]
 
 * Dart 3.0 ready.

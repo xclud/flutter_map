@@ -21,7 +21,10 @@ class TwilightPage extends StatefulWidget {
 
 class TwilightPageState extends State<TwilightPage> {
   final controller = MapController(
-    location: const LatLng(0, 0),
+    location: const LatLng(
+      Angle.degree(0),
+      Angle.degree(0),
+    ),
     zoom: 2,
   );
 

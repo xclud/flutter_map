@@ -1,4 +1,4 @@
-part of map;
+part of '../../map.dart';
 
 /// Draws a layer of polylines on the [MapLayout].
 class PolylineLayer extends StatelessWidget {
