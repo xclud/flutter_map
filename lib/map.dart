@@ -23,8 +23,6 @@ import 'dart:math';
 import 'package:latlng/latlng.dart';
 import 'package:flutter/widgets.dart';
 
-part 'src/map.dart';
-part 'src/layout_builder.dart';
 part 'src/map_layout.dart';
 part 'src/transformer.dart';
 part 'src/controller.dart';

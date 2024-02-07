@@ -24,16 +24,13 @@ class _TileLayerState extends State<TileLayer> {
   @override
   void didChangeDependencies() {
     final map = context.findAncestorWidgetOfExactType<MapLayout>();
-    final mapBuilder =
-        // ignore: deprecated_member_use_from_same_package
-        context.findAncestorWidgetOfExactType<MapLayoutBuilder>();
 
-    if (map == null && mapBuilder == null) {
+    if (map == null) {
       throw Exception('TileLayer must be used inside a MapLayout.');
     }
 
-    _tileSize = map?.tileSize ?? mapBuilder!.tileSize;
-    _controller = map?.controller ?? mapBuilder!.controller;
+    _tileSize = map.tileSize;
+    _controller = map.controller;
 
     super.didChangeDependencies();
   }
