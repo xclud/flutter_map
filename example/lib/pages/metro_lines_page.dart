@@ -124,12 +124,9 @@ class MetroLinesPageState extends State<MetroLinesPage> {
                   CustomPaint(
                     painter: PolylinePainter(transformer),
                   ),
-                  ...stations
-                      .map(
-                        (e) =>
-                            _buildStationMarker(e, Colors.black, transformer),
-                      )
-                      .toList(),
+                  ...stations.map(
+                    (e) => _buildStationMarker(e, Colors.black, transformer),
+                  ),
                 ],
               ),
             ),

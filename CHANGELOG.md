@@ -1,3 +1,7 @@
+## [2.0.1]
+
+* Customizable shapes layer.
+
 ## [2.0.0+1]
 
 * Dependencies updated.

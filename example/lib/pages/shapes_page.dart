@@ -8,6 +8,42 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
+final paint = Paint()
+  ..style = PaintingStyle.fill
+  ..strokeWidth = 2;
+
+void _painter(Canvas canvas, Path shape, Object? metadata) {
+  const basecolor = Colors.pink;
+
+  paint.color = basecolor.withOpacity(0.4);
+  paint.style = PaintingStyle.fill;
+  canvas.drawPath(shape, paint);
+
+  paint.color = basecolor;
+  paint.style = PaintingStyle.stroke;
+  canvas.drawPath(shape, paint);
+}
+
+final shape1 = Shape(
+  points: wgs84.getGroundTrack(
+    const LatLngAlt(
+      Angle.degree(40),
+      Angle.degree(90),
+      900, // 900 km.
+    ),
+  ),
+  painter: _painter,
+);
+
+const shape2 = Shape(
+  points: [
+    LatLng(Angle.degree(10), Angle.degree(10)),
+    LatLng(Angle.degree(20), Angle.degree(10)),
+    LatLng(Angle.degree(15), Angle.degree(15)),
+  ],
+  painter: _painter,
+);
+
 class ShapesPage extends StatefulWidget {
   const ShapesPage({Key? key}) : super(key: key);
 
@@ -154,6 +190,10 @@ class ShapesPageState extends State<ShapesPage> {
                   PolylineLayer(
                     transformer: transformer,
                     polylines: polylines,
+                  ),
+                  ShapeLayer(
+                    transformer: transformer,
+                    shapes: [shape1, shape2],
                   ),
                   PositionedDirectional(
                     top: 24,

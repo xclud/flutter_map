@@ -1,5 +1,7 @@
 part of '../../map.dart';
 
+@Deprecated('Please use [ShapeLayer]')
+
 /// Draws a layer of polylines on the [MapLayout].
 class PolylineLayer extends StatelessWidget {
   /// Default constructor,
@@ -26,6 +28,7 @@ class PolylineLayer extends StatelessWidget {
   }
 }
 
+@Deprecated('Please use [ShapeLayer]')
 class _PolylinesCustomPainter extends CustomPainter {
   const _PolylinesCustomPainter({
     required this.transformer,

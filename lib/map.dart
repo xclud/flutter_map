@@ -29,3 +29,4 @@ part 'src/controller.dart';
 part 'src/polyline.dart';
 part 'src/layers/tile_layer.dart';
 part 'src/layers/polyline_layer.dart';
+part 'src/layers/shape_layer.dart';
