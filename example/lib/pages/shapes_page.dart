@@ -8,14 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
+const satellitePosition = LatLngAlt(
+  Angle.degree(40),
+  Angle.degree(90),
+  900, // 900 km.
+);
+
+const satelliteColor = Colors.pink;
+
 final paint = Paint()
   ..style = PaintingStyle.fill
   ..strokeWidth = 2;
 
 void _painter(Canvas canvas, Path shape, Object? metadata) {
-  const basecolor = Colors.pink;
+  const basecolor = satelliteColor;
 
-  paint.color = basecolor.withOpacity(0.4);
+  paint.color = basecolor.withOpacity(0.25);
   paint.style = PaintingStyle.fill;
   canvas.drawPath(shape, paint);
 
@@ -25,13 +33,7 @@ void _painter(Canvas canvas, Path shape, Object? metadata) {
 }
 
 final shape1 = Shape(
-  points: wgs84.getGroundTrack(
-    const LatLngAlt(
-      Angle.degree(40),
-      Angle.degree(90),
-      900, // 900 km.
-    ),
-  ),
+  points: wgs84.getGroundTrack(satellitePosition),
   painter: _painter,
 );
 
@@ -146,6 +148,9 @@ class ShapesPageState extends State<ShapesPage> {
       body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
+          final satelliteCoords =
+              transformer.toOffset(satellitePosition.toLatLng());
+
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onDoubleTapDown: (details) => _onDoubleTap(
@@ -194,6 +199,14 @@ class ShapesPageState extends State<ShapesPage> {
                   ShapeLayer(
                     transformer: transformer,
                     shapes: [shape1, shape2],
+                  ),
+                  Positioned(
+                    left: satelliteCoords.dx,
+                    top: satelliteCoords.dy,
+                    child: const Icon(
+                      Icons.satellite_alt,
+                      color: satelliteColor,
+                    ),
                   ),
                   PositionedDirectional(
                     top: 24,
