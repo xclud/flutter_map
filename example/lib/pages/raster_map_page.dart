@@ -83,7 +83,7 @@ class RasterMapPageState extends State<RasterMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Raster Map'),
+        title: const Text('Basic Map'),
         actions: [
           IconButton(
             tooltip: 'Toggle Dark Mode',

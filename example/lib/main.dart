@@ -1,13 +1,6 @@
-import 'package:example/pages/custom_tile_page.dart';
-import 'package:example/pages/shapes_page.dart';
-import 'package:example/pages/twilight_page.dart';
-import 'package:example/pages/interactive_page.dart';
-import 'package:example/pages/markers_page.dart';
-import 'package:example/pages/metro_lines_page.dart';
-import 'package:example/pages/raster_map_page.dart';
-import 'package:example/pages/vector_map_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'routes.dart';
 
 void main() => runApp(const MapApp());
 
@@ -16,19 +9,14 @@ class MapApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Map Examples',
-      supportedLocales: const [Locale('en')],
-      localizationsDelegates: const [
-        GlobalWidgetsLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
       theme: ThemeData(
         colorSchemeSeed: Colors.purple,
         useMaterial3: true,
         brightness: Brightness.dark,
       ),
-      home: const HomePage(),
     );
   }
 }
@@ -53,16 +41,16 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Raster Map'),
+            title: const Text('Basic Map'),
             subtitle: const Text('Raster tiles from Google, OSM and etc.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const RasterMapPage()),
+            onTap: () => _go('basic'),
           ),
           ListTile(
             title: const Text('Vector Map'),
             subtitle: const Text('OSM light-themed vector maps.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const VectorMapPage()),
+            onTap: () => _showNotImplemented,
             enabled: false,
           ),
           ListTile(
@@ -70,31 +58,31 @@ class _HomePageState extends State<HomePage> {
             subtitle: const Text(
                 'Drop multiple fixed and centered markers on the map.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const MarkersPage()),
+            onTap: () => _go('markers'),
           ),
           ListTile(
             title: const Text('Interactive'),
             subtitle: const Text('Say where on the earth user has clicked.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const InteractiveMapPage()),
+            onTap: () => _go('interactive'),
           ),
           ListTile(
             title: const Text('Shapes'),
             subtitle: const Text('Display Polylines on the map.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const ShapesPage()),
+            onTap: () => _go('shapes'),
           ),
           ListTile(
             title: const Text('Custom Tiles'),
             subtitle: const Text('Use any Widget as map tiles.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const CustomTilePage()),
+            onTap: () => _go('custom-tiles'),
           ),
           ListTile(
             title: const Text('Metro Lines (Work in Progress)'),
             subtitle: const Text('Draw polyline overlays (Tehran Metro).'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const MetroLinesPage()),
+            onTap: () => _go('tehran-metro'),
           ),
           ListTile(
             title: const Text('Custom Projection'),
@@ -108,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             title: const Text('Twilight'),
             subtitle: const Text('Day and night map, sun and moon position.'),
             trailing: const Icon(Icons.chevron_right_sharp),
-            onTap: () => _push(const TwilightPage()),
+            onTap: () => _go('twilight'),
           ),
         ],
       ),
@@ -121,11 +109,7 @@ class _HomePageState extends State<HomePage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void _push(Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => page,
-      ),
-    );
+  void _go(String name) {
+    GoRouter.of(context).goNamed(name);
   }
 }
