@@ -1,3 +1,7 @@
+## [2.0.2]
+
+* Shape layers are more customizable now.
+
 ## [2.0.1]
 
 * Customizable shapes layer.

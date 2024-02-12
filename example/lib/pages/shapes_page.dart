@@ -20,8 +20,10 @@ final paint = Paint()
   ..style = PaintingStyle.fill
   ..strokeWidth = 2;
 
-void _painter(Canvas canvas, Path shape, Object? metadata) {
+void _painter(Canvas canvas, List<Offset> points, Object? metadata) {
   const basecolor = satelliteColor;
+
+  final shape = Path()..addPolygon(points, true);
 
   paint.color = basecolor.withOpacity(0.25);
   paint.style = PaintingStyle.fill;

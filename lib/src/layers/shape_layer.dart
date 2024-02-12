@@ -37,7 +37,8 @@ class Shape {
   final Object? metadata;
 
   /// Painter.
-  final void Function(Canvas canvas, Path shape, Object? metadata) painter;
+  final void Function(Canvas canvas, List<Offset> points, Object? metadata)
+      painter;
 }
 
 class _ShapeLayerState extends State<ShapeLayer> {
@@ -77,10 +78,7 @@ class _ShapePainter extends CustomPainter {
     for (var shape in shapes) {
       final points = transformer.toOffsetMany(shape.points).toList();
 
-      Path f = Path();
-      f.addPolygon(points, true);
-
-      shape.painter(canvas, f, shape.metadata);
+      shape.painter(canvas, points, shape.metadata);
     }
   }
 
